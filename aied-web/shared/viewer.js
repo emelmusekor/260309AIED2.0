@@ -213,6 +213,18 @@
     title: page.title || `${title} - ${page.label || `PDF ${page.pageNumber || ''}`.trim()}`,
   });
 
+  const worksheetStore = new Map();
+  let worksheetSeed = 0;
+
+  const registerWorksheet = (worksheet = {}) => {
+    if (!worksheet.pages || !worksheet.pages.length) {
+      return '';
+    }
+    const key = `worksheet-${worksheetSeed++}`;
+    worksheetStore.set(key, worksheet);
+    return key;
+  };
+
   const workbookInputSummary = (page = {}) =>
     (page.fields || []).length
       ? data.ui.worksheetFieldsPattern.replace('{count}', String(page.fields.length))
@@ -231,15 +243,9 @@
       }
 
       const items = (section.items || []).flatMap((item) => {
-        const worksheetPages = item.worksheet?.pages || [];
+        const worksheetPages = (item.worksheet?.pages || []).filter((page) => (page.fields || []).length);
         if (!worksheetPages.length) {
-          return [
-            {
-              ...item,
-              isWorkbookItem: true,
-              tags: enrichTags(item, section),
-            },
-          ];
+          return [];
         }
 
         return worksheetPages.map((page) => ({
@@ -255,11 +261,11 @@
             { label: data.ui.worksheetInputFactLabel, value: workbookInputSummary(page) },
           ],
           pages: [pageRef(page, item.title)],
-          worksheet: {
+          worksheetKey: registerWorksheet({
             title: `${item.title} - ${page.label || `PDF ${page.pageNumber}`}`,
             sharedFields: item.worksheet?.sharedFields || [],
             pages: [page],
-          },
+          }),
         }));
       });
 
@@ -319,87 +325,96 @@
   };
 
   const renderWorksheetEditor = (worksheet = {}, ui) => {
-    if (!worksheet.pages || !worksheet.pages.length) {
+    if (!worksheet || !worksheet.pages || !worksheet.pages.length) {
       return '';
     }
     const openIndex = Math.max(0, worksheet.pages.findIndex((page) => (page.fields || []).length));
     return `
-      <details class="worksheet-details">
-        <summary>${esc(ui.worksheetOpenLabel)}</summary>
-        <div class="worksheet-editor" data-worksheet-title="${esc(worksheet.title || ui.worksheetLabel)}">
-          <div class="worksheet-toolbar">
-            <div class="worksheet-copy">
-              <strong>${esc(ui.worksheetLabel)}</strong>
-              <p>${esc(ui.worksheetNotice)}</p>
-              <p class="worksheet-hint">${esc(ui.worksheetMailHint)}</p>
-            </div>
-            <div class="worksheet-toolbar-actions">
-              <button class="worksheet-reset" type="button">${esc(ui.worksheetResetLabel)}</button>
-              <button class="worksheet-mail" type="button">${esc(ui.worksheetMailButtonLabel)}</button>
-              <button class="worksheet-download" type="button">${esc(ui.worksheetDownloadLabel)}</button>
-            </div>
+      <div class="worksheet-editor" data-worksheet-title="${esc(worksheet.title || ui.worksheetLabel)}">
+        <div class="worksheet-toolbar">
+          <div class="worksheet-copy">
+            <strong>${esc(ui.worksheetLabel)}</strong>
+            <p>${esc(ui.worksheetNotice)}</p>
+            <p class="worksheet-hint">${esc(ui.worksheetMailHint)}</p>
           </div>
-          <section class="worksheet-shared-panel">
-            <div class="worksheet-panel-title">${esc(ui.worksheetSharedLabel)}</div>
-            <div class="worksheet-shared-grid">
-              ${(worksheet.sharedFields || [])
-                .map(
-                  (field) => `
-                    <label class="worksheet-shared-field">
-                      <span>${esc(field.label)}</span>
-                      <input type="text" data-shared-key="${esc(field.key)}" data-shared-label="${esc(field.label)}" />
-                    </label>
-                  `
-                )
-                .join('')}
-              <label class="worksheet-shared-field is-email">
-                <span>${esc(ui.worksheetTeacherLabel)}</span>
-                <input type="email" data-teacher-email placeholder="${esc(ui.worksheetTeacherPlaceholder || '')}" />
-              </label>
-            </div>
-          </section>
-          <section class="worksheet-pages-panel">
-            <div class="worksheet-panel-head">
-              <div class="worksheet-panel-title">${esc(ui.worksheetPagesLabel)}</div>
-              <div class="worksheet-page-nav">
-                ${(worksheet.pages || [])
-                  .map(
-                    (page) => `
-                      <button class="worksheet-page-jump" type="button" data-page-jump="${esc(page.pageNumber)}">${esc(page.label || `PDF ${page.pageNumber}`)}</button>
-                    `
-                  )
-                  .join('')}
-              </div>
-            </div>
-            <div class="worksheet-page-grid">
+          <div class="worksheet-toolbar-actions">
+            <button class="worksheet-reset" type="button">${esc(ui.worksheetResetLabel)}</button>
+            <button class="worksheet-mail" type="button">${esc(ui.worksheetMailButtonLabel)}</button>
+            <button class="worksheet-download" type="button">${esc(ui.worksheetDownloadLabel)}</button>
+          </div>
+        </div>
+        <section class="worksheet-shared-panel">
+          <div class="worksheet-panel-title">${esc(ui.worksheetSharedLabel)}</div>
+          <div class="worksheet-shared-grid">
+            ${(worksheet.sharedFields || [])
+              .map(
+                (field) => `
+                  <label class="worksheet-shared-field">
+                    <span>${esc(field.label)}</span>
+                    <input type="text" data-shared-key="${esc(field.key)}" data-shared-label="${esc(field.label)}" />
+                  </label>
+                `
+              )
+              .join('')}
+            <label class="worksheet-shared-field is-email">
+              <span>${esc(ui.worksheetTeacherLabel)}</span>
+              <input type="email" data-teacher-email placeholder="${esc(ui.worksheetTeacherPlaceholder || '')}" />
+            </label>
+          </div>
+        </section>
+        <section class="worksheet-pages-panel">
+          <div class="worksheet-panel-head">
+            <div class="worksheet-panel-title">${esc(ui.worksheetPagesLabel)}</div>
+            <div class="worksheet-page-nav">
               ${(worksheet.pages || [])
                 .map(
-                  (page, pageIndex) => `
-                    <details class="worksheet-page-sheet" data-page-number="${esc(page.pageNumber)}"${pageIndex === openIndex ? ' open' : ''}>
-                      <summary class="worksheet-page-summary">
-                        <strong>${esc(page.label || `PDF ${page.pageNumber}`)}</strong>
-                        <span>${page.fields?.length ? esc(ui.worksheetFieldsPattern.replace('{count}', page.fields.length)) : esc(ui.worksheetEmptyLabel)}</span>
-                      </summary>
-                      <article class="worksheet-page" data-page-number="${esc(page.pageNumber)}" data-page-width="${esc(page.width)}" data-page-height="${esc(page.height)}" data-page-src="${esc(page.src)}" data-page-label="${esc(page.label || `PDF ${page.pageNumber}`)}">
-                        <div class="worksheet-page-tools">
-                          <div class="worksheet-page-actions">
-                            <button class="worksheet-field-add" type="button" data-field-kind="text">${esc(ui.worksheetAddTextLabel)}</button>
-                            <button class="worksheet-field-add" type="button" data-field-kind="textarea">${esc(ui.worksheetAddNoteLabel)}</button>
-                          </div>
-                          <p class="worksheet-page-hint">${esc(ui.worksheetDrawHint)}</p>
-                        </div>
-                        <div class="worksheet-canvas" style="--page-ratio:${esc(page.width)} / ${esc(page.height)};">
-                          <img src="${esc(page.src)}" alt="${esc(page.label || `PDF ${page.pageNumber}`)}" loading="lazy" />
-                          ${(page.fields || []).map((field, fieldIndex) => renderWorksheetField(field, page, pageIndex, fieldIndex)).join('')}
-                        </div>
-                      </article>
-                    </details>
+                  (page) => `
+                    <button class="worksheet-page-jump" type="button" data-page-jump="${esc(page.pageNumber)}">${esc(page.label || `PDF ${page.pageNumber}`)}</button>
                   `
                 )
                 .join('')}
             </div>
-          </section>
-        </div>
+          </div>
+          <div class="worksheet-page-grid">
+            ${(worksheet.pages || [])
+              .map(
+                (page, pageIndex) => `
+                  <details class="worksheet-page-sheet" data-page-number="${esc(page.pageNumber)}"${pageIndex === openIndex ? ' open' : ''}>
+                    <summary class="worksheet-page-summary">
+                      <strong>${esc(page.label || `PDF ${page.pageNumber}`)}</strong>
+                      <span>${page.fields?.length ? esc(ui.worksheetFieldsPattern.replace('{count}', page.fields.length)) : esc(ui.worksheetEmptyLabel)}</span>
+                    </summary>
+                    <article class="worksheet-page" data-page-number="${esc(page.pageNumber)}" data-page-width="${esc(page.width)}" data-page-height="${esc(page.height)}" data-page-src="${esc(page.src)}" data-page-label="${esc(page.label || `PDF ${page.pageNumber}`)}">
+                      <div class="worksheet-page-tools">
+                        <div class="worksheet-page-actions">
+                          <button class="worksheet-field-add" type="button" data-field-kind="text">${esc(ui.worksheetAddTextLabel)}</button>
+                          <button class="worksheet-field-add" type="button" data-field-kind="textarea">${esc(ui.worksheetAddNoteLabel)}</button>
+                        </div>
+                        <p class="worksheet-page-hint">${esc(ui.worksheetDrawHint)}</p>
+                      </div>
+                      <div class="worksheet-canvas" style="--page-ratio:${esc(page.width)} / ${esc(page.height)};">
+                        <img src="${esc(page.src)}" alt="${esc(page.label || `PDF ${page.pageNumber}`)}" loading="lazy" />
+                        ${(page.fields || []).map((field, fieldIndex) => renderWorksheetField(field, page, pageIndex, fieldIndex)).join('')}
+                      </div>
+                    </article>
+                  </details>
+                `
+              )
+              .join('')}
+          </div>
+        </section>
+      </div>
+    `;
+  };
+
+  const renderWorksheetShell = (worksheetKey = '', ui) => {
+    if (!worksheetKey) {
+      return '';
+    }
+    return `
+      <details class="worksheet-details">
+        <summary>${esc(ui.worksheetOpenLabel)}</summary>
+        <div class="worksheet-editor-shell" data-worksheet-key="${esc(worksheetKey)}"></div>
       </details>
     `;
   };
@@ -425,7 +440,7 @@
           ${(item.facts || []).map((fact) => `<article><span>${esc(fact.label)}</span><strong>${esc(fact.value)}</strong></article>`).join('')}
         </div>
       </div>
-      ${renderWorksheetEditor(item.worksheet || {}, ui)}
+      ${renderWorksheetShell(item.worksheetKey || '', ui)}
       <details class="page-details" style="--rgb:${rgb}"${item.openPages ? ' open' : ''}>
         <summary>${esc(ui.pagesLabel)}</summary>
         <div class="thumb-grid">
@@ -1156,7 +1171,7 @@
     };
   };
 
-  document.querySelectorAll('.worksheet-editor').forEach((editor) => {
+  const initializeWorksheetEditor = (editor) => {
     refreshWorksheetTypography(editor);
 
     editor.addEventListener('input', (event) => {
@@ -1274,6 +1289,32 @@
         window.addEventListener('pointermove', handleMove);
         window.addEventListener('pointerup', handleUp, { once: true });
       });
+    });
+  };
+
+  document.querySelectorAll('.worksheet-details').forEach((details) => {
+    details.addEventListener('toggle', () => {
+      if (!details.open) {
+        return;
+      }
+      const shell = details.querySelector('.worksheet-editor-shell');
+      const worksheetKey = shell?.dataset.worksheetKey || '';
+      if (!shell || !worksheetKey) {
+        return;
+      }
+      if (!shell.dataset.rendered) {
+        const worksheet = worksheetStore.get(worksheetKey);
+        if (!worksheet) {
+          return;
+        }
+        shell.innerHTML = renderWorksheetEditor(worksheet, data.ui);
+        shell.dataset.rendered = 'true';
+        const editor = shell.querySelector('.worksheet-editor');
+        if (editor) {
+          initializeWorksheetEditor(editor);
+        }
+      }
+      requestAnimationFrame(() => refreshWorksheetTypography(details));
     });
   });
 

@@ -459,6 +459,8 @@ img {
   position: relative;
   overflow: hidden;
   scroll-margin-top: 150px;
+  content-visibility: auto;
+  contain-intrinsic-size: 960px;
 }
 
 .section-block::before {
@@ -536,6 +538,8 @@ img {
   border-radius: var(--radius-lg);
   border: 1px solid rgba(var(--rgb, 197, 106, 77), 0.16);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 250, 244, 0.68));
+  content-visibility: auto;
+  contain-intrinsic-size: 560px;
 }
 
 .is-workbook-card .card-body {
@@ -780,6 +784,7 @@ button.graph-node:hover {
   border: 1px solid rgba(72, 54, 40, 0.08);
   overflow: hidden;
   background: rgba(255, 255, 255, 0.76);
+  contain: layout paint;
 }
 
 .page-details summary {
@@ -1501,4 +1506,6 @@ mark.search-hit {
     width: 100%;
   }
 }
+
+
 
