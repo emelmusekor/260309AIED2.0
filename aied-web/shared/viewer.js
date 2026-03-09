@@ -291,6 +291,8 @@
       });
 
   data.sections = normalizeSections(data.sections || []);
+  const sectionIds = new Set((data.sections || []).map((section) => section.id));
+  data.nav = (data.nav || []).filter((entry) => sectionIds.has(entry.target));
 
   const itemSearchBlob = (item) =>
     [
@@ -1339,6 +1341,11 @@
     });
   }
 })();
+
+
+
+
+
 
 
 
