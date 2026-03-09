@@ -4,3 +4,4 @@
 
 - 2026-03-10: Filtered the navigation menu to match the normalized sections so empty workbook anchors disappear.
 - 2026-03-10: Documented assumption about the absence of npm/test commands within the current ied-web directory.
+- 2026-03-10: Added ria-expanded toggling to the menu button for clearer keyboard/assistive feedback.
