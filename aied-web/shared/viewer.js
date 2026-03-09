@@ -47,29 +47,82 @@
       )
       .join('');
 
+  const renderSwitchItems = (items = []) =>
+    items
+      .map((item) => {
+        const className = ['switch-chip', item.active ? 'active' : '', item.disabled ? 'disabled' : '']
+          .filter(Boolean)
+          .join(' ');
+        if (item.disabled) {
+          return `<span class="${className}" aria-disabled="true">${esc(item.label)}</span>`;
+        }
+        return `<a href="${esc(item.href)}" class="${className}">${esc(item.label)}</a>`;
+      })
+      .join('');
+
   const renderGraph = (graph = {}, ui) => {
     if (!graph.center) {
       return '';
     }
-
-    const branches = graph.branches || [];
+    const rawNodes = (graph.nodes || []).slice(0, 5);
+    if (!rawNodes.length) {
+      return '';
+    }
+    const radiusX = rawNodes.length > 4 ? 38 : 34;
+    const radiusY = rawNodes.length > 4 ? 32 : 28;
+    const nodes = rawNodes.map((node, index) => {
+      const angle = ((Math.PI * 2) / rawNodes.length) * index - Math.PI / 2;
+      return {
+        ...node,
+        x: 50 + Math.cos(angle) * radiusX,
+        y: 50 + Math.sin(angle) * radiusY,
+      };
+    });
     return `
       <div class="mini-graph" aria-label="${esc(ui.graphLabel)}">
-        <div class="graph-core">
-          <span class="graph-core-label">${esc(ui.graphLabel)}</span>
-          <strong class="search-text">${esc(graph.center)}</strong>
-        </div>
-        <div class="graph-branches">
-          ${branches
-            .map(
-              (branch) => `
-                <article class="graph-branch">
-                  <span class="graph-relation search-text">${esc(branch.relation)}</span>
-                  <strong class="graph-value search-text">${esc(branch.label)}</strong>
-                </article>
-              `
-            )
-            .join('')}
+        <div class="graph-frame">
+          <svg class="graph-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            ${nodes
+              .map(
+                (node) => `
+                  <line x1="50" y1="50" x2="${node.x.toFixed(1)}" y2="${node.y.toFixed(1)}"></line>
+                `
+              )
+              .join('')}
+            ${nodes.length > 2
+              ? nodes
+                  .map((node, index) => {
+                    const next = nodes[(index + 1) % nodes.length];
+                    return `
+                      <line class="graph-loop" x1="${node.x.toFixed(1)}" y1="${node.y.toFixed(1)}" x2="${next.x.toFixed(1)}" y2="${next.y.toFixed(1)}"></line>
+                    `;
+                  })
+                  .join('')
+              : ''}
+          </svg>
+          <div class="graph-core">
+            <span class="graph-core-label">${esc(ui.graphLabel)}</span>
+            <strong class="search-text">${esc(graph.center)}</strong>
+          </div>
+          <div class="graph-nodes">
+            ${nodes
+              .map((node) => {
+                const style = `--x:${node.x.toFixed(1)}%; --y:${node.y.toFixed(1)}%;`;
+                if (node.id) {
+                  return `
+                    <button class="graph-node keyword-trigger search-text" type="button" data-key="${esc(node.id)}" style="${style}">
+                      ${esc(node.label)}
+                    </button>
+                  `;
+                }
+                return `
+                  <span class="graph-node search-text" style="${style}">
+                    ${esc(node.label)}
+                  </span>
+                `;
+              })
+              .join('')}
+          </div>
         </div>
       </div>
     `;
@@ -81,7 +134,7 @@
       ...(item.lead || []),
       ...(item.tags || []).map((tag) => tag.label),
       item.graph?.center || '',
-      ...((item.graph?.branches || []).flatMap((branch) => [branch.relation, branch.label])),
+      ...((item.graph?.nodes || []).map((node) => node.label || '')),
     ].join(' ');
 
   const sectionSearchBlob = (section) =>
@@ -190,11 +243,9 @@
           <button class="menu-button" type="button">${esc(data.ui.menuLabel)}</button>
           <div class="header-tools">
             <div class="switch-row report-switch-row" id="report-switch">
-              ${(data.reportSwitches || [])
-                .map((item) => `<a href="${esc(item.href)}" class="${item.active ? 'active' : ''}">${esc(item.label)}</a>`)
-                .join('')}
+              ${renderSwitchItems(data.reportSwitches || [])}
             </div>
-            ${(data.languageSwitches || []).length ? `<div class="switch-row lang-switch-row">${data.languageSwitches.map((item) => `<a href="${esc(item.href)}" class="${item.active ? 'active' : ''}">${esc(item.label)}</a>`).join('')}</div>` : ''}
+            ${(data.languageSwitches || []).length ? `<div class="switch-row lang-switch-row">${renderSwitchItems(data.languageSwitches || [])}</div>` : ''}
             ${data.infoLink ? `<a class="info-button" href="${esc(data.infoLink.href)}">${esc(data.infoLink.label)}</a>` : ''}
             <a class="pdf-button" href="${esc(data.sourcePdf.href)}" target="_blank" rel="noreferrer">${esc(data.sourcePdf.label)}</a>
           </div>
