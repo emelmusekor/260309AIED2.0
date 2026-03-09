@@ -12,7 +12,7 @@ def mgraph(center: str, *nodes: object) -> dict[str, object]:
     labels = []
     for node in nodes:
         if isinstance(node, tuple):
-            labels.append({'label': str(node[-1])})
+            labels.append({'role': str(node[0]), 'label': str(node[-1])})
         else:
             labels.append({'label': str(node)})
     return {'center': center, 'nodes': labels}
@@ -35,10 +35,11 @@ ELEMENTARY_WORKBOOK_PDF = PDF_DIR / '인쇄용 - 초등편 워크북 최종_경�
 
 PALETTE = ['197,106,77','48,111,125','123,108,36','92,82,132','126,88,115','72,93,152']
 UI = {
-    'ko': {'menuLabel':'메뉴','previewLabel':'핵심 요약','pagesLabel':'페이지 원본 보기','pageModalTitle':'페이지 원본','keywordModalTitle':'키워드','closeLabel':'닫기','keywordExcerptLabel':'원문 근거','keywordUsedLabel':'원문 사용 위치','pagesFactLabel':'원본 범위','coverageFactLabel':'분량','browseLabel':'목차부터 보기','jumpLabel':'본문 바로 보기','infoLabel':'보고서 정보','graphLabel':'키워드 네트워크','searchPlaceholder':'검색어로 장, 카드, 해시태그 찾기','searchClearLabel':'초기화','searchDefaultLabel':'전체 내용을 보고 있습니다.','searchEmptyLabel':'일치하는 결과가 없습니다.','searchResultsPattern':'{count}개 결과','fallback':'이 구간은 원문 페이지에서 바로 확인할 수 있습니다.'},
-    'en': {'menuLabel':'Menu','previewLabel':'Core Summary','pagesLabel':'Open Source Pages','pageModalTitle':'Source Page','keywordModalTitle':'Keyword','closeLabel':'Close','keywordExcerptLabel':'Source Evidence','keywordUsedLabel':'Used in source','pagesFactLabel':'Source pages','coverageFactLabel':'Coverage','browseLabel':'Browse sections','jumpLabel':'Jump to content','infoLabel':'Report info','graphLabel':'Keyword network','searchPlaceholder':'Search sections, cards, and hashtags','searchClearLabel':'Clear','searchDefaultLabel':'Showing the full report.','searchEmptyLabel':'No matching results.','searchResultsPattern':'{count} results','fallback':'Open the source pages for the original wording and layout.'},
+    'ko': {'menuLabel':'메뉴','previewLabel':'핵심 요약','pagesLabel':'페이지 원본 보기','pageModalTitle':'페이지 원본','keywordModalTitle':'키워드','closeLabel':'닫기','keywordExcerptLabel':'원문 근거','keywordUsedLabel':'원문 사용 위치','pagesFactLabel':'원본 범위','coverageFactLabel':'분량','browseLabel':'목차부터 보기','jumpLabel':'본문 바로 보기','infoLabel':'정보','graphLabel':'키워드 네트워크','searchPlaceholder':'검색어로 장, 카드, 해시태그 찾기','searchClearLabel':'초기화','searchDefaultLabel':'전체 내용을 보고 있습니다.','searchEmptyLabel':'일치하는 결과가 없습니다.','searchResultsPattern':'{count}개 결과','fallback':'이 구간은 원문 페이지에서 바로 확인할 수 있습니다.','worksheetLabel':'학생 입력 워크북','worksheetOpenLabel':'학생 입력 열기','worksheetSharedLabel':'공통 정보','worksheetPagesLabel':'페이지별 입력','worksheetDownloadLabel':'입력한 내용으로 PDF 내려받기','worksheetResetLabel':'입력 지우기','worksheetEmptyLabel':'이 페이지는 입력칸이 없습니다.','worksheetFieldsPattern':'입력칸 {count}개','worksheetNotice':'입력 데이터는 브라우저 안에서만 처리되고, PDF로 바로 저장됩니다.','worksheetMailHint':'추후에는 이 구조를 그대로 사용해 선생님 메일 발송 기능을 붙일 수 있습니다.','worksheetDownloadBusyLabel':'PDF 만드는 중...'},
+    'en': {'menuLabel':'Menu','previewLabel':'Core Summary','pagesLabel':'Source Pages','pageModalTitle':'Source Page','keywordModalTitle':'Keyword','closeLabel':'Close','keywordExcerptLabel':'Source Evidence','keywordUsedLabel':'Used in source','pagesFactLabel':'Source pages','coverageFactLabel':'Coverage','browseLabel':'Browse sections','jumpLabel':'Jump to content','infoLabel':'Info','graphLabel':'Keyword network','searchPlaceholder':'Search sections, cards, and hashtags','searchClearLabel':'Clear','searchDefaultLabel':'Showing the full report.','searchEmptyLabel':'No matching results.','searchResultsPattern':'{count} results','fallback':'Open the source pages for the original wording and layout.','worksheetLabel':'Student workbook','worksheetOpenLabel':'Open workbook input','worksheetSharedLabel':'Shared info','worksheetPagesLabel':'Page inputs','worksheetDownloadLabel':'Download filled PDF','worksheetResetLabel':'Clear inputs','worksheetEmptyLabel':'This page has no editable area.','worksheetFieldsPattern':'{count} fields','worksheetNotice':'Inputs stay in the browser and are exported directly into a PDF.','worksheetMailHint':'This data shape can later be reused for teacher email delivery.','worksheetDownloadBusyLabel':'Building PDF...'},
 }
-SWITCH = {'ko': {'main':'AI교육 2.0','secondary-main':'중등편 본문','secondary-workbook':'중등편 워크북','elementary-main':'초등편 본문','elementary-workbook':'초등편 워크북'}, 'en': {'main':'AI Education 2.0','secondary-main':'Secondary Main','secondary-workbook':'Secondary Workbook','elementary-main':'Elementary Main','elementary-workbook':'Elementary Workbook'}}
+SWITCH = {'ko': {'main':'AI교육 2.0','secondary-main':'중등편 본문','secondary-workbook':'중등편 워크북','elementary-main':'초등편 본문','elementary-workbook':'초등편 워크북'}, 'en': {'main':'AI Ed 2.0','secondary-main':'Sec Guide','secondary-workbook':'Sec Workbook','elementary-main':'Elem Guide','elementary-workbook':'Elem Workbook'}}
+WORKBOOK_GROUPS = {'secondary-workbook', 'elementary-workbook'}
 LEGACY_SITE_ITEMS = ['public','src','.gitignore','eslint.config.js','extract_pdf.cjs','extract_pdf.js','package.json','README.md','vite.config.js']
 LEGACY_ROOT_ITEMS = ['node_modules','package.json','package-lock.json']
 NOISE_KO = {'한국AI교육학회 2025정책연구보고서','AI교육 2.0 미래를 설계하다','AI교육 2.0','AI기본사회, 교육의 대전환','미래교육의 새로운 패러다임 생성AI, 교실 속 협력 파트너','AI교육 2.0 실전 - 중등편','AI교육 2.0 실전 - 초등편','W o r k b o o k','C O N T E N T S','P R E F A C E'}
@@ -435,28 +436,32 @@ def normalize_graph_spec(graph: dict[str, object] | None, title: str, tags: list
     for raw in raw_nodes:
         if isinstance(raw, dict):
             label = raw.get('label') or raw.get('term') or raw.get('name') or raw.get('value') or ''
+            role = str(raw.get('role') or '').strip()
         elif isinstance(raw, (tuple, list)):
             label = raw[-1]
+            role = str(raw[0]).strip() if len(raw) > 1 else ''
         else:
             label = raw
+            role = ''
         label = polish_tag_label(str(label), lang)
         key = term_key(label)
         if not label or not key or key in seen:
             continue
         seen.add(key)
-        nodes.append({'label': label})
+        nodes.append({'label': label, 'key': key, 'role': role})
     for tag in tags:
         label = polish_tag_label(tag, lang)
         key = term_key(label)
         if not label or not key or key in seen:
             continue
         seen.add(key)
-        nodes.append({'label': label})
-        if len(nodes) >= 5:
+        nodes.append({'label': label, 'key': key, 'role': ''})
+        if len(nodes) >= 6:
             break
     if not nodes:
-        nodes = [{'label': '핵심 키워드' if lang == 'ko' else 'Key term'}]
-    return {'center': center, 'nodes': nodes[:5]}
+        label = '핵심 키워드' if lang == 'ko' else 'Key term'
+        nodes = [{'label': label, 'key': term_key(label), 'role': ''}]
+    return {'center': center, 'centerKey': term_key(center), 'nodes': nodes[:6], 'edges': list(base.get('edges', []))}
 
 def attach_graph_keywords(graph: dict[str, object], tag_refs: list[dict[str, str]], lang: str) -> dict[str, object]:
     tag_map = {term_key(tag['label']): tag['id'] for tag in tag_refs}
@@ -468,7 +473,12 @@ def attach_graph_keywords(graph: dict[str, object], tag_refs: list[dict[str, str
         if not label or not key or key in seen:
             continue
         seen.add(key)
-        node = {'label': label}
+        node = {'label': label, 'key': key}
+        if isinstance(raw, dict):
+            if raw.get('role'):
+                node['role'] = str(raw['role'])
+            if raw.get('weight'):
+                node['weight'] = raw['weight']
         if key in tag_map:
             node['id'] = tag_map[key]
         nodes.append(node)
@@ -477,10 +487,26 @@ def attach_graph_keywords(graph: dict[str, object], tag_refs: list[dict[str, str
         if key in seen:
             continue
         seen.add(key)
-        nodes.append({'label': tag['label'], 'id': tag['id']})
-        if len(nodes) >= 5:
+        nodes.append({'label': tag['label'], 'id': tag['id'], 'key': key})
+        if len(nodes) >= 6:
             break
-    return {'center': graph.get('center', ''), 'nodes': nodes[:5]}
+    valid_keys = {node['key'] for node in nodes}
+    edges = []
+    for edge in graph.get('edges', []):
+        source = term_key(str(edge.get('source', '')))
+        target = term_key(str(edge.get('target', '')))
+        if not target:
+            continue
+        if source and source != 'center' and source not in valid_keys:
+            continue
+        if target not in valid_keys:
+            continue
+        edges.append({
+            'source': 'center' if source in {'', 'center', term_key(str(graph.get("center", "")))} else source,
+            'target': target,
+            'strength': str(edge.get('strength') or 'secondary'),
+        })
+    return {'center': graph.get('center', ''), 'centerKey': term_key(str(graph.get('center', ''))), 'nodes': nodes[:6], 'edges': edges}
 
 def resolve_manual_entry(report_key: str, title: str) -> dict[str, object]:
     exact = dict(MANUAL_OVERRIDES.get(report_key, {}).get(title, {}))
@@ -654,6 +680,88 @@ def extract_tags(title: str, texts: list[str], lang: str, limit: int = 4) -> lis
             break
     return [tag for tag in ranked if tag][:limit]
 
+def graph_query_terms(label: str, lang: str) -> list[str]:
+    tokens = tokenize(label, lang)
+    keys = [term_key(token) for token in tokens if term_key(token)]
+    direct = term_key(label)
+    if direct and direct not in keys:
+        keys.append(direct)
+    return keys
+
+def graph_units(texts: list[str], lang: str) -> list[set[str]]:
+    units = []
+    for unit in collect_units(texts, lang):
+        token_set = {term_key(token) for token in tokenize(unit, lang) if term_key(token)}
+        if token_set:
+            units.append(token_set)
+    return units
+
+def graph_frequency(queries: list[str], units: list[set[str]]) -> int:
+    if not queries:
+        return 0
+    return sum(1 for token_set in units if any(query in token_set or any(query in token for token in token_set) for query in queries))
+
+def graph_cooccurrence(left: list[str], right: list[str], units: list[set[str]]) -> int:
+    if not left or not right:
+        return 0
+    score = 0
+    for token_set in units:
+        left_hit = any(query in token_set or any(query in token for token in token_set) for query in left)
+        right_hit = any(query in token_set or any(query in token for token in token_set) for query in right)
+        if left_hit and right_hit:
+            score += 1
+    return score
+
+def build_graph_network(graph_seed: dict[str, object], texts: list[str], tags: list[str], lang: str) -> dict[str, object]:
+    units = graph_units(texts, lang)
+    center = str(graph_seed.get('center') or '')
+    center_queries = graph_query_terms(center, lang)
+    candidates: list[dict[str, object]] = []
+    seen = set()
+    for raw in graph_seed.get('nodes', []):
+        label = polish_tag_label(str(raw.get('label') if isinstance(raw, dict) else raw), lang)
+        key = term_key(label)
+        if not label or not key or key in seen:
+            continue
+        seen.add(key)
+        role = str(raw.get('role') if isinstance(raw, dict) else '').strip()
+        queries = graph_query_terms(label, lang)
+        freq = graph_frequency(queries, units)
+        weight = max(1, min(5, 1 + freq))
+        candidates.append({'label': label, 'key': key, 'role': role, 'queries': queries, 'weight': weight})
+    for tag in tags:
+        label = polish_tag_label(tag, lang)
+        key = term_key(label)
+        if not label or not key or key in seen:
+            continue
+        seen.add(key)
+        queries = graph_query_terms(label, lang)
+        freq = graph_frequency(queries, units)
+        candidates.append({'label': label, 'key': key, 'role': '', 'queries': queries, 'weight': max(1, min(5, 1 + freq))})
+        if len(candidates) >= 6:
+            break
+    if not candidates:
+        return graph_seed
+    candidates.sort(key=lambda item: (-int(item['weight']), item['label']))
+    nodes = candidates[:6]
+    edges = [{'source': 'center', 'target': str(node['key']), 'strength': 'primary'} for node in nodes]
+    pair_scores: list[tuple[int, int, int]] = []
+    for idx, left in enumerate(nodes):
+        for jdx in range(idx + 1, len(nodes)):
+            right = nodes[jdx]
+            score = graph_cooccurrence(left['queries'], right['queries'], units)
+            if score <= 0 and center_queries:
+                score = min(
+                    graph_cooccurrence(center_queries, left['queries'], units),
+                    graph_cooccurrence(center_queries, right['queries'], units),
+                ) // 2
+            if score > 0:
+                pair_scores.append((score, idx, jdx))
+    pair_scores.sort(key=lambda item: (-item[0], item[1], item[2]))
+    for _, idx, jdx in pair_scores[:max(2, min(4, len(nodes) - 1))]:
+        edges.append({'source': str(nodes[idx]['key']), 'target': str(nodes[jdx]['key']), 'strength': 'secondary'})
+    return {'center': center, 'centerKey': term_key(center), 'nodes': nodes, 'edges': edges}
+
 def graph_terms(title: str, tags: list[str], lang: str) -> dict[str, object]:
     center = title if len(title) <= 30 else title[:29].rstrip() + '...'
     labels = [tag for tag in tags if term_key(tag) != term_key(title)]
@@ -688,10 +796,204 @@ def render_pages(pdf_path: Path, out_dir: Path, count: int) -> None:
         if target.exists(): continue
         page = doc[i]; bmp = page.render(scale=1.8); img = bmp.to_pil().convert('RGB'); img.save(target, format='WEBP', quality=78, method=6); img.close()
 
+WORKBOOK_SHARED_LABELS = {
+    '학년/반': ('student_class', '학년/반'),
+    '반': ('student_class', '반'),
+    '번호': ('student_number', '번호'),
+    '이름': ('student_name', '이름'),
+}
+
+def dedupe_numbers(values: list[float], gap: float = 1.2) -> list[float]:
+    numbers = sorted(values)
+    out: list[float] = []
+    for value in numbers:
+        if not out or abs(out[-1] - value) > gap:
+            out.append(value)
+    return out
+
+def bbox_words(words: list[dict[str, object]], bbox: tuple[float, float, float, float], pad: float = 0.0) -> list[dict[str, object]]:
+    x0, top, x1, bottom = bbox
+    hits = []
+    for word in words:
+        cx = (float(word['x0']) + float(word['x1'])) / 2
+        cy = (float(word['top']) + float(word['bottom'])) / 2
+        if x0 - pad <= cx <= x1 + pad and top - pad <= cy <= bottom + pad:
+            hits.append(word)
+    hits.sort(key=lambda word: (round(float(word['top']), 1), float(word['x0'])))
+    return hits
+
+def bbox_text(words: list[dict[str, object]], bbox: tuple[float, float, float, float], pad: float = 0.0) -> str:
+    return ' '.join(str(word['text']) for word in bbox_words(words, bbox, pad)).strip()
+
+def field_kind(width: float, height: float) -> str:
+    return 'textarea' if height >= 30 or width >= 120 else 'text'
+
+def detect_table_fields(
+    page,
+    words: list[dict[str, object]],
+    page_number: int,
+) -> list[dict[str, object]]:
+    fields: list[dict[str, object]] = []
+    for table in page.find_tables():
+        x0, top, x1, bottom = table.bbox
+        if (x1 - x0) > page.width * 0.92 and (bottom - top) > page.height * 0.88:
+            continue
+        cells = [cell for cell in table.cells if cell]
+        if not cells:
+            continue
+        xs = dedupe_numbers([float(cell[0]) for cell in cells] + [float(cell[2]) for cell in cells])
+        ys = dedupe_numbers([float(cell[1]) for cell in cells] + [float(cell[3]) for cell in cells])
+        if len(xs) < 2 or len(ys) < 2:
+            continue
+        extracted = table.extract() or []
+        for row_idx, row in enumerate(extracted):
+            row = row or []
+            for col_idx, cell in enumerate(row):
+                text = clean_line(str(cell or '').replace('\n', ' '))
+                if text in WORKBOOK_SHARED_LABELS and col_idx + 2 <= len(xs) - 1:
+                    key, label = WORKBOOK_SHARED_LABELS[text]
+                    bbox = (xs[col_idx + 1] + 4, ys[row_idx] + 4, xs[col_idx + 2] - 4, ys[row_idx + 1] - 4)
+                    fields.append({'page': page_number, 'bbox': bbox, 'kind': 'text', 'label': label, 'key': key})
+            merged_idx = next((idx for idx, cell in enumerate(row) if '반:' in str(cell or '') and '이름:' in str(cell or '')), None)
+            if merged_idx is not None and merged_idx + 1 <= len(xs) - 1:
+                cell_bbox = (xs[merged_idx], ys[row_idx], xs[merged_idx + 1], ys[row_idx + 1])
+                label_words = [word for word in bbox_words(words, cell_bbox, 1.0) if clean_line(str(word['text'])).rstrip(':') in WORKBOOK_SHARED_LABELS]
+                for idx, word in enumerate(label_words):
+                    label_text = clean_line(str(word['text'])).rstrip(':')
+                    key, label = WORKBOOK_SHARED_LABELS[label_text]
+                    start = float(word['x1']) + 3
+                    end = float(label_words[idx + 1]['x0']) - 3 if idx + 1 < len(label_words) else cell_bbox[2] - 4
+                    if end - start >= 12:
+                        fields.append({'page': page_number, 'bbox': (start, cell_bbox[1] + 4, end, cell_bbox[3] - 4), 'kind': 'text', 'label': label, 'key': key})
+        cell_count = (len(xs) - 1) * (len(ys) - 1)
+        if cell_count > 64:
+            continue
+        for yi in range(len(ys) - 1):
+            for xi in range(len(xs) - 1):
+                bbox = (xs[xi], ys[yi], xs[xi + 1], ys[yi + 1])
+                width = bbox[2] - bbox[0]
+                height = bbox[3] - bbox[1]
+                if width < 36 or height < 16:
+                    continue
+                text = bbox_text(words, bbox, 1.0)
+                if text:
+                    continue
+                inset = 4
+                fields.append({
+                    'page': page_number,
+                    'bbox': (bbox[0] + inset, bbox[1] + inset, bbox[2] - inset, bbox[3] - inset),
+                    'kind': field_kind(width, height),
+                    'label': '',
+                    'key': '',
+                })
+    return fields
+
+def detect_prompt_line_fields(
+    page,
+    words: list[dict[str, object]],
+    page_number: int,
+) -> list[dict[str, object]]:
+    fields: list[dict[str, object]] = []
+    horizontal = [
+        line for line in page.lines
+        if abs(float(line.get('top', 0)) - float(line.get('bottom', 0))) < 1.0 and (float(line.get('x1', 0)) - float(line.get('x0', 0))) > 120
+    ]
+    small_rects = [
+        rect for rect in page.rects
+        if 48 <= float(rect.get('width', 0)) <= 180 and 18 <= float(rect.get('height', 0)) <= 42
+    ]
+    for rect in small_rects:
+        rect_bbox = (float(rect['x0']), float(rect['top']), float(rect['x1']), float(rect['bottom']))
+        label = bbox_text(words, rect_bbox, 1.0)
+        if not label:
+            continue
+        top_lines = [line for line in horizontal if abs(float(line['top']) - rect_bbox[1]) < 1.6 and float(line['x1']) > rect_bbox[2] + 60]
+        bottom_lines = [line for line in horizontal if abs(float(line['top']) - rect_bbox[3]) < 1.6 and float(line['x1']) > rect_bbox[2] + 60]
+        if not top_lines or not bottom_lines:
+            continue
+        bbox = (
+            rect_bbox[2] + 6,
+            rect_bbox[1] + 4,
+            max(max(float(line['x1']) for line in top_lines), max(float(line['x1']) for line in bottom_lines)) - 6,
+            rect_bbox[3] - 4,
+        )
+        if bbox_text(words, bbox, 1.0):
+            continue
+        fields.append({'page': page_number, 'bbox': bbox, 'kind': 'text', 'label': label, 'key': ''})
+    return fields
+
+def dedupe_detected_fields(fields: list[dict[str, object]]) -> list[dict[str, object]]:
+    out: list[dict[str, object]] = []
+    for field in fields:
+        x0, top, x1, bottom = field['bbox']
+        duplicate = False
+        for existing in out:
+            ex0, etop, ex1, ebottom = existing['bbox']
+            if abs(x0 - ex0) < 4 and abs(top - etop) < 4 and abs(x1 - ex1) < 4 and abs(bottom - ebottom) < 4:
+                if existing.get('key') or field.get('key'):
+                    existing.update({k: v for k, v in field.items() if v and k != 'bbox'})
+                duplicate = True
+                break
+        if not duplicate:
+            out.append(field)
+    return out
+
+def worksheet_page_data(pdf_doc, page_number: int, prefix: str) -> dict[str, object]:
+    page = pdf_doc.pages[page_number - 1]
+    words = page.extract_words(x_tolerance=2, y_tolerance=2)
+    detected = dedupe_detected_fields(
+        detect_table_fields(page, words, page_number) + detect_prompt_line_fields(page, words, page_number)
+    )
+    width = float(page.width)
+    height = float(page.height)
+    fields = []
+    for idx, field in enumerate(detected):
+        x0, top, x1, bottom = field['bbox']
+        fields.append({
+            'id': f'p{page_number}-f{idx}',
+            'kind': field['kind'],
+            'label': str(field.get('label') or ''),
+            'key': str(field.get('key') or ''),
+            'x': round(x0 / width, 5),
+            'y': round(top / height, 5),
+            'w': round((x1 - x0) / width, 5),
+            'h': round((bottom - top) / height, 5),
+        })
+    shared = []
+    seen = set()
+    for field in fields:
+        if not field['key'] or field['key'] in seen:
+            continue
+        seen.add(field['key'])
+        shared.append({'key': field['key'], 'label': field['label'], 'kind': 'text'})
+    return {
+        'pageNumber': page_number,
+        'label': fmt_range(page_number, page_number),
+        'src': f'{prefix}/pages/{page_name(page_number)}',
+        'width': round(width, 3),
+        'height': round(height, 3),
+        'fields': fields,
+        'sharedFields': shared,
+    }
+
+def worksheet_item_data(pdf_doc, title: str, start: int, end: int, prefix: str) -> dict[str, object] | None:
+    pages = [worksheet_page_data(pdf_doc, page_number, prefix) for page_number in range(start, end + 1)]
+    shared_fields: list[dict[str, object]] = []
+    shared_seen = set()
+    for page in pages:
+        for field in page['sharedFields']:
+            if field['key'] in shared_seen:
+                continue
+            shared_seen.add(field['key'])
+            shared_fields.append(field)
+    if not any(page['fields'] for page in pages):
+        return None
+    return {'title': title, 'sharedFields': shared_fields, 'pages': pages}
+
 def page_refs(prefix: str, title: str, start: int, end: int) -> list[dict[str, str]]:
     return [{'label':fmt_range(p,p),'src':f'{prefix}/pages/{page_name(p)}','title':f'{title} - PDF {p}'} for p in range(start,end+1)]
 
-def section_data(spec: dict, sec: dict, texts: dict[int,str], prefix: str, lang: str, rgb: str, keyword_index: list[dict]) -> dict:
+def section_data(spec: dict, sec: dict, texts: dict[int,str], prefix: str, lang: str, rgb: str, keyword_index: list[dict], worksheet_pdf=None) -> dict:
     items = []
     for title, start, end in sec['items']:
         manual = resolve_manual_entry(spec['key'], title)
@@ -727,8 +1029,24 @@ def section_data(spec: dict, sec: dict, texts: dict[int,str], prefix: str, lang:
                 'occurrences': [{'page': hit['page'], 'text': hit['text']} for hit in hits],
             })
             tag_refs.append({'id': tag_id, 'label': tag['label']})
-        graph = attach_graph_keywords(graph_seed, tag_refs, lang)
-        items.append({'title':title,'range':fmt_range(start,end),'lead':lead,'facts':[{'label':UI[lang]['pagesFactLabel'],'value':fmt_range(start,end)},{'label':UI[lang]['coverageFactLabel'],'value':fmt_count(lang,start,end)}],'tags':tag_refs,'graph':graph,'pages':page_refs(prefix,title,start,end)})
+        graph = attach_graph_keywords(build_graph_network(graph_seed, source_texts, tags, lang), tag_refs, lang)
+        item = {
+            'title': title,
+            'range': fmt_range(start, end),
+            'lead': lead,
+            'facts': [
+                {'label': UI[lang]['pagesFactLabel'], 'value': fmt_range(start, end)},
+                {'label': UI[lang]['coverageFactLabel'], 'value': fmt_count(lang, start, end)},
+            ],
+            'tags': tag_refs,
+            'graph': graph,
+            'pages': page_refs(prefix, title, start, end),
+        }
+        if worksheet_pdf is not None:
+            worksheet = worksheet_item_data(worksheet_pdf, title, start, end, prefix)
+            if worksheet:
+                item['worksheet'] = worksheet
+        items.append(item)
     starts = [i[1] for i in sec['items']]; ends = [i[2] for i in sec['items']]
     meta = [f"{len(sec['items'])}개 항목" if lang == 'ko' else f"{len(sec['items'])} items", fmt_range(min(starts), max(ends))]
     return {'id':sec['id'],'navLabel':sec['nav'],'title':sec['nav'],'description':'','rgb':rgb,'meta':meta,'items':items}
@@ -762,7 +1080,10 @@ def switch_markup(items: list[dict[str, object]]) -> str:
     return ''.join(out)
 
 def html_shell(title: str, lang: str, out_dir: Path) -> str:
-    return f'''<!doctype html><html lang="{lang}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>{title}</title><link rel="stylesheet" href="{rel(out_dir, SHARED_DIR / 'viewer.css')}" /></head><body><div id="app"></div><script src="report.js"></script><script src="{rel(out_dir, SHARED_DIR / 'viewer.js')}"></script></body></html>'''
+    css_href = rel(out_dir, SHARED_DIR / 'viewer.css')
+    pdf_lib_href = rel(out_dir, SHARED_DIR / 'pdf-lib.min.js')
+    viewer_href = rel(out_dir, SHARED_DIR / 'viewer.js')
+    return f'''<!doctype html><html lang="{lang}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>{title}</title><link rel="stylesheet" href="{css_href}" /></head><body><div id="app"></div><script src="{pdf_lib_href}"></script><script src="report.js"></script><script src="{viewer_href}"></script></body></html>'''
 
 def info_html(spec: dict, count: int, info_dir: Path) -> str:
     info = INFO[spec['key']]
@@ -791,10 +1112,17 @@ def build(spec: dict) -> None:
     render_pages(spec['pdf'], pages_dir, count); shutil.copy2(spec['pdf'], asset_dir / 'source.pdf')
     texts = load_texts(spec['pdf'], set(range(1, count + 1)), spec['lang']); prefix = rel(out_dir, asset_dir)
     sections, idx, keyword_index = [], 0, []
-    for sec in spec['sections']:
-        rgb = PALETTE[idx % len(PALETTE)]; idx += 1
-        if sec.get('kind') == 'credits': sections.append({'id':sec['id'],'navLabel':sec['nav'],'title':sec['nav'],'description':'','rgb':rgb,'kind':'credits','people':sec['people']})
-        else: sections.append(section_data(spec, sec, texts, prefix, spec['lang'], rgb, keyword_index))
+    worksheet_pdf = pdfplumber.open(spec['pdf']) if spec['group'] in WORKBOOK_GROUPS else None
+    try:
+        for sec in spec['sections']:
+            rgb = PALETTE[idx % len(PALETTE)]; idx += 1
+            if sec.get('kind') == 'credits':
+                sections.append({'id':sec['id'],'navLabel':sec['nav'],'title':sec['nav'],'description':'','rgb':rgb,'kind':'credits','people':sec['people']})
+            else:
+                sections.append(section_data(spec, sec, texts, prefix, spec['lang'], rgb, keyword_index, worksheet_pdf))
+    finally:
+        if worksheet_pdf is not None:
+            worksheet_pdf.close()
     hero_keywords = []
     for kid, term, desc, pages in spec['keys']:
         hits = keyword_hits(term, texts, min(pages), max(pages), spec['lang'], 3)
@@ -802,7 +1130,7 @@ def build(spec: dict) -> None:
         detail = {'id':kid,'term':term,'description':desc,'excerpt':hits[0]['text'] if hits else fallback[0],'pages':[{'label':fmt_range(p,p),'src':f'{prefix}/pages/{page_name(p)}','title':f'{term} - PDF {p}'} for p in pages],'occurrences':[{'page':hit['page'],'text':hit['text']} for hit in hits]}
         hero_keywords.append({'id':kid,'term':term})
         keyword_index.append(detail)
-    data = {'themeRgb':PALETTE[0],'brand':{'mark':spec['mark'],'title':spec['brand'],'subtitle':spec['subbrand']},'ui':UI[spec['lang']],'reportSwitches':report_switches(spec),'languageSwitches':lang_switches(spec),'sourcePdf':{'href':f'{prefix}/source.pdf','label':spec['pdf_label']},'infoLink':{'href':'info/index.html','label':UI[spec['lang']]['infoLabel']},'nav':[{'label':s['navLabel'],'target':s['id']} for s in sections],'hero':{'eyebrow':spec['eyebrow'],'title':spec['title'],'subtitle':spec['subtitle'],'strapline':spec['strap'],'description':spec['desc'],'stats':[],'actions':[{'href':f"#{sections[0]['id']}",'label':UI[spec['lang']]['browseLabel']},{'href':f"#{sections[1]['id']}" if len(sections) > 1 else f"#{sections[0]['id']}",'label':UI[spec['lang']]['jumpLabel']}],'coverLabel':'Cover' if spec['lang'] == 'en' else '표지','coverPageLabel':fmt_range(1,1),'cover':{'src':f'{prefix}/pages/{page_name(1)}','title':f"{spec['brand']} - PDF 1"}},'sections':sections,'keywords':hero_keywords,'keywordIndex':keyword_index,'footer':''}
+    data = {'themeRgb':PALETTE[0],'brand':{'mark':spec['mark'],'title':spec['brand'],'subtitle':spec['subbrand']},'ui':UI[spec['lang']],'reportSwitches':report_switches(spec),'languageSwitches':lang_switches(spec),'sourcePdf':{'href':f'{prefix}/source.pdf','label':spec['pdf_label']},'infoLink':{'href':'info/index.html','label':UI[spec['lang']]['infoLabel']},'nav':[{'label':s['navLabel'],'target':s['id']} for s in sections],'hero':{'eyebrow':spec['eyebrow'],'title':spec['title'],'subtitle':spec['subtitle'],'strapline':spec['strap'],'description':spec['desc'],'stats':[],'actions':[{'href':f"#{sections[0]['id']}",'label':UI[spec['lang']]['browseLabel']},{'href':f"#{sections[1]['id']}" if len(sections) > 1 else f"#{sections[0]['id']}",'label':UI[spec['lang']]['jumpLabel']}],'coverLabel':'Cover' if spec['lang'] == 'en' else '표지','coverPageLabel':fmt_range(1,1),'cover':{'src':f'{prefix}/pages/{page_name(1)}','title':f"{spec['brand']} - PDF 1"}},'sections':sections,'keywords':hero_keywords,'keywordIndex':keyword_index,'footer':spec.get('footer', '')}
     (out_dir / 'index.html').write_text(html_shell(spec['brand'], spec['html_lang'], out_dir), encoding='utf-8')
     (out_dir / 'report.js').write_text('window.REPORT_DATA = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n', encoding='utf-8')
     info_dir = out_dir / 'info'; info_dir.mkdir(parents=True, exist_ok=True)
