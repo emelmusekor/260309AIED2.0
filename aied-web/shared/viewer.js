@@ -1,10 +1,117 @@
-﻿(function () {
+(function () {
   const data = window.REPORT_DATA;
   const mount = document.getElementById('app');
 
   if (!data || !mount) {
     return;
   }
+
+  const pageLang = String(document.documentElement.lang || '').toLowerCase();
+  const lang = pageLang.startsWith('ko') ? 'ko' : 'en';
+  const isWorkbookReport = /workbook/i.test(String(data.sourcePdf?.href || ''));
+
+  const UI_DEFAULTS = {
+    ko: {
+      menuLabel: '메뉴',
+      previewLabel: '핵심 요약',
+      pagesLabel: '페이지 원본 보기',
+      pageModalTitle: '페이지 원본',
+      keywordModalTitle: '키워드',
+      closeLabel: '닫기',
+      keywordExcerptLabel: '원문 근거',
+      keywordUsedLabel: '원문 사용 위치',
+      pagesFactLabel: '원본 범위',
+      coverageFactLabel: '분량',
+      browseLabel: '목차부터 보기',
+      jumpLabel: '본문 바로 보기',
+      infoLabel: '정보',
+      searchPlaceholder: '검색어로 장, 카드, 해시태그 찾기',
+      searchClearLabel: '초기화',
+      searchDefaultLabel: '전체 내용을 보고 있습니다.',
+      searchEmptyLabel: '일치하는 결과가 없습니다.',
+      searchResultsPattern: '{count}개 결과',
+      fallback: '이 구간은 원문 페이지에서 바로 확인할 수 있습니다.',
+      worksheetLabel: '학생 입력 워크북',
+      worksheetOpenLabel: '직접 입력써보기',
+      worksheetSharedLabel: '공통 정보',
+      worksheetPagesLabel: '페이지별 직접 입력',
+      worksheetTeacherLabel: '선생님 메일',
+      worksheetTeacherPlaceholder: 'teacher@example.com',
+      worksheetMailButtonLabel: '메일 보내기',
+      worksheetDownloadLabel: '입력한 내용으로 PDF 내려받기',
+      worksheetResetLabel: '입력 지우기',
+      worksheetEmptyLabel: '이 페이지는 입력칸이 없습니다.',
+      worksheetFieldsPattern: '입력칸 {count}개',
+      worksheetNotice: '워크북은 페이지별로 따로 열어 입력하고, 입력 내용은 브라우저 안에서만 처리됩니다.',
+      worksheetMailHint: '메일 보내기는 지원 브라우저에서는 PDF 첨부 공유를 시도하고, 그렇지 않으면 PDF를 내려받은 뒤 메일 초안을 엽니다.',
+      worksheetDownloadBusyLabel: 'PDF 만드는 중...',
+      worksheetMailBusyLabel: '메일 준비 중...',
+      worksheetMailFallbackLabel: '이 브라우저에서는 메일 첨부 공유를 바로 지원하지 않아 PDF를 먼저 내려받고 메일 초안을 엽니다.',
+      worksheetAddTextLabel: '한 줄 칸 추가',
+      worksheetAddNoteLabel: '메모 칸 추가',
+      worksheetDrawHint: '빈칸이 안 잡히면 버튼을 누른 뒤 페이지 위를 드래그해서 직접 입력칸을 만드세요.',
+      worksheetRemoveFieldLabel: '직접 만든 입력칸 삭제',
+      worksheetActivityFactLabel: '활동',
+      worksheetInputFactLabel: '입력 상태',
+      worksheetPageTitlePattern: '{page} 입력',
+    },
+    en: {
+      menuLabel: 'Menu',
+      previewLabel: 'Core Summary',
+      pagesLabel: 'Source Pages',
+      pageModalTitle: 'Source Page',
+      keywordModalTitle: 'Keyword',
+      closeLabel: 'Close',
+      keywordExcerptLabel: 'Source Evidence',
+      keywordUsedLabel: 'Used in source',
+      pagesFactLabel: 'Source pages',
+      coverageFactLabel: 'Coverage',
+      browseLabel: 'Browse sections',
+      jumpLabel: 'Jump to content',
+      infoLabel: 'Info',
+      searchPlaceholder: 'Search sections, cards, and hashtags',
+      searchClearLabel: 'Clear',
+      searchDefaultLabel: 'Showing the full report.',
+      searchEmptyLabel: 'No matching results.',
+      searchResultsPattern: '{count} results',
+      fallback: 'Open the source pages for the original wording and layout.',
+      worksheetLabel: 'Student workbook',
+      worksheetOpenLabel: 'Try typing directly',
+      worksheetSharedLabel: 'Shared info',
+      worksheetPagesLabel: 'Page-by-page input',
+      worksheetTeacherLabel: 'Teacher email',
+      worksheetTeacherPlaceholder: 'teacher@example.com',
+      worksheetMailButtonLabel: 'Send by email',
+      worksheetDownloadLabel: 'Download filled PDF',
+      worksheetResetLabel: 'Clear inputs',
+      worksheetEmptyLabel: 'This page has no editable area.',
+      worksheetFieldsPattern: '{count} fields',
+      worksheetNotice: 'Open each workbook page separately and keep input work inside the browser until export.',
+      worksheetMailHint: 'When supported, email sharing will try to attach the PDF directly. Otherwise it downloads the PDF first and opens a mail draft.',
+      worksheetDownloadBusyLabel: 'Building PDF...',
+      worksheetMailBusyLabel: 'Preparing email...',
+      worksheetMailFallbackLabel: 'Direct mail sharing is not available in this browser, so the PDF will download first and a mail draft will open.',
+      worksheetAddTextLabel: 'Add text box',
+      worksheetAddNoteLabel: 'Add note box',
+      worksheetDrawHint: 'If a blank area was missed, choose a button and drag on the page to place your own input box.',
+      worksheetRemoveFieldLabel: 'Remove custom input box',
+      worksheetActivityFactLabel: 'Activity',
+      worksheetInputFactLabel: 'Input status',
+      worksheetPageTitlePattern: '{page} input',
+    },
+  };
+
+  const normalizeUi = (ui = {}) => {
+    const defaults = UI_DEFAULTS[lang];
+    const merged = { ...defaults, ...(ui || {}) };
+    const legacyOpenLabels = new Set(['학생 입력 열기', 'Open workbook input']);
+    if (!merged.worksheetOpenLabel || legacyOpenLabels.has(merged.worksheetOpenLabel)) {
+      merged.worksheetOpenLabel = defaults.worksheetOpenLabel;
+    }
+    return merged;
+  };
+
+  data.ui = normalizeUi(data.ui);
 
   const esc = (value = '') =>
     String(value)
@@ -20,6 +127,7 @@
       .trim();
 
   const escapeRegExp = (value = '') => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
   const matchesAll = (haystack = '', terms = []) => {
     const normalized = normalizeSearch(haystack);
@@ -41,9 +149,14 @@
   const renderTagButtons = (tags = []) =>
     tags
       .map(
-        (tag) => `
-          <button class="card-tag keyword-trigger search-text" type="button" data-key="${esc(tag.id)}">#${esc(tag.label)}</button>
-        `
+        (tag) =>
+          tag.id
+            ? `
+              <button class="card-tag keyword-trigger search-text" type="button" data-key="${esc(tag.id)}">#${esc(tag.label)}</button>
+            `
+            : `
+              <span class="card-tag is-static search-text">#${esc(tag.label)}</span>
+            `
       )
       .join('');
 
@@ -66,105 +179,110 @@
       .replace(/[^a-z0-9가-힣]+/g, '-')
       .replace(/^-+|-+$/g, '');
 
-  const graphNodeKey = (node = {}, index = 0) => slugify(node.key || node.id || node.label || `node-${index}`) || `node-${index}`;
+  const dedupeTags = (tags = []) => {
+    const seen = new Set();
+    return tags.filter((tag) => {
+      const label = String(tag?.label || '').trim();
+      if (!label) {
+        return false;
+      }
+      const key = normalizeSearch(label);
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
+  };
 
-  const renderGraph = (graph = {}, ui) => {
-    if (!graph.center) {
-      return '';
-    }
-    const rawNodes = (graph.nodes || []).slice(0, 6);
-    if (!rawNodes.length) {
-      return '';
-    }
-    const radiusX = rawNodes.length > 4 ? 37 : 34;
-    const radiusY = rawNodes.length > 4 ? 33 : 30;
-    const nodes = rawNodes.map((node, index) => {
-      const angle = ((Math.PI * 2) / rawNodes.length) * index - Math.PI / 2;
+  const enrichTags = (item, section) => {
+    const tags = dedupeTags(item.tags || []);
+    const candidates = [item.pageLabel, item.title, item.activityTitle, section.navLabel || section.title];
+    candidates.forEach((label) => {
+      if (!label || tags.length >= 8) {
+        return;
+      }
+      tags.push({ label: String(label).trim() });
+    });
+    return dedupeTags(tags).slice(0, 8);
+  };
+
+  const pageRef = (page = {}, title = '') => ({
+    label: page.label || `PDF ${page.pageNumber || ''}`.trim(),
+    src: page.src,
+    title: page.title || `${title} - ${page.label || `PDF ${page.pageNumber || ''}`.trim()}`,
+  });
+
+  const workbookInputSummary = (page = {}) =>
+    (page.fields || []).length
+      ? data.ui.worksheetFieldsPattern.replace('{count}', String(page.fields.length))
+      : data.ui.worksheetEmptyLabel;
+
+  const normalizeSections = (sections = []) =>
+    sections.map((section) => {
+      if (!isWorkbookReport) {
+        return {
+          ...section,
+          items: (section.items || []).map((item) => ({
+            ...item,
+            tags: enrichTags(item, section),
+          })),
+        };
+      }
+
+      const items = (section.items || []).flatMap((item) => {
+        const worksheetPages = item.worksheet?.pages || [];
+        if (!worksheetPages.length) {
+          return [
+            {
+              ...item,
+              isWorkbookItem: true,
+              tags: enrichTags(item, section),
+            },
+          ];
+        }
+
+        return worksheetPages.map((page) => ({
+          ...item,
+          title: item.title,
+          pageLabel: page.label || `PDF ${page.pageNumber}`,
+          range: page.label || `PDF ${page.pageNumber}`,
+          isWorkbookItem: true,
+          tags: enrichTags({ ...item, pageLabel: page.label || `PDF ${page.pageNumber}` }, section),
+          facts: [
+            { label: data.ui.worksheetActivityFactLabel, value: item.title },
+            { label: data.ui.pagesFactLabel, value: page.label || `PDF ${page.pageNumber}` },
+            { label: data.ui.worksheetInputFactLabel, value: workbookInputSummary(page) },
+          ],
+          pages: [pageRef(page, item.title)],
+          worksheet: {
+            title: `${item.title} - ${page.label || `PDF ${page.pageNumber}`}`,
+            sharedFields: item.worksheet?.sharedFields || [],
+            pages: [page],
+          },
+        }));
+      });
+
       return {
-        ...node,
-        graphKey: graphNodeKey(node, index),
-        x: 50 + Math.cos(angle) * radiusX,
-        y: 50 + Math.sin(angle) * radiusY,
+        ...section,
+        isWorkbookSection: true,
+        meta: [
+          lang === 'ko' ? `${items.length}개 페이지` : `${items.length} pages`,
+          ...(section.meta || []).slice(1, 2),
+        ].filter(Boolean),
+        items,
       };
     });
-    const nodeMap = Object.fromEntries(nodes.map((node) => [node.graphKey, node]));
-    const graphEdges = (graph.edges || [])
-      .map((edge) => {
-        const sourceKey = edge.source === 'center' ? 'center' : slugify(edge.source);
-        const targetKey = slugify(edge.target);
-        const source = sourceKey === 'center' ? { x: 50, y: 50 } : nodeMap[sourceKey];
-        const target = nodeMap[targetKey];
-        if (!source || !target) {
-          return null;
-        }
-        return { ...edge, source, target };
-      })
-      .filter(Boolean);
-    const fallbackEdges = nodes.map((node) => ({
-      source: { x: 50, y: 50 },
-      target: node,
-      strength: 'primary',
-    }));
-    const ringEdges =
-      nodes.length > 2
-        ? nodes.map((node, index) => ({
-            source: node,
-            target: nodes[(index + 1) % nodes.length],
-            strength: 'secondary',
-            loop: true,
-          }))
-        : [];
-    const allEdges = graphEdges.length ? [...graphEdges, ...ringEdges] : [...fallbackEdges, ...ringEdges];
-    return `
-      <div class="mini-graph" aria-label="${esc(ui.graphLabel)}">
-        <div class="graph-frame">
-          <svg class="graph-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <circle class="graph-orbit" cx="50" cy="50" r="${Math.min(radiusX, radiusY) + 2}"></circle>
-            ${allEdges
-              .map(
-                (edge) => `
-                  <line class="${edge.loop ? 'graph-loop' : edge.strength === 'primary' ? 'graph-edge-primary' : 'graph-edge-secondary'}" x1="${edge.source.x.toFixed(1)}" y1="${edge.source.y.toFixed(1)}" x2="${edge.target.x.toFixed(1)}" y2="${edge.target.y.toFixed(1)}"></line>
-                `
-              )
-              .join('')}
-          </svg>
-          <div class="graph-core">
-            <span class="graph-core-label">${esc(ui.graphLabel)}</span>
-            <strong class="search-text">${esc(graph.center)}</strong>
-          </div>
-          <div class="graph-nodes">
-            ${nodes
-              .map((node) => {
-                const style = `--x:${node.x.toFixed(1)}%; --y:${node.y.toFixed(1)}%;`;
-                if (node.id) {
-                  return `
-                    <button class="graph-node keyword-trigger search-text" type="button" data-key="${esc(node.id)}" style="${style}" title="${esc(node.role || node.label)}">
-                      ${node.role ? `<span class="graph-node-role">${esc(node.role)}</span>` : ''}
-                      <span>${esc(node.label)}</span>
-                    </button>
-                  `;
-                }
-                return `
-                  <span class="graph-node search-text" style="${style}" title="${esc(node.role || node.label)}">
-                    ${node.role ? `<span class="graph-node-role">${esc(node.role)}</span>` : ''}
-                    <span>${esc(node.label)}</span>
-                  </span>
-                `;
-              })
-              .join('')}
-          </div>
-        </div>
-      </div>
-    `;
-  };
+
+  data.sections = normalizeSections(data.sections || []);
 
   const itemSearchBlob = (item) =>
     [
       item.title,
+      item.pageLabel || '',
+      item.activityTitle || '',
       ...(item.lead || []),
       ...(item.tags || []).map((tag) => tag.label),
-      item.graph?.center || '',
-      ...((item.graph?.nodes || []).map((node) => node.label || '')),
       ...((item.worksheet?.sharedFields || []).map((field) => field.label || '')),
     ].join(' ');
 
@@ -204,6 +322,7 @@
     if (!worksheet.pages || !worksheet.pages.length) {
       return '';
     }
+    const openIndex = Math.max(0, worksheet.pages.findIndex((page) => (page.fields || []).length));
     return `
       <details class="worksheet-details">
         <summary>${esc(ui.worksheetOpenLabel)}</summary>
@@ -216,44 +335,65 @@
             </div>
             <div class="worksheet-toolbar-actions">
               <button class="worksheet-reset" type="button">${esc(ui.worksheetResetLabel)}</button>
+              <button class="worksheet-mail" type="button">${esc(ui.worksheetMailButtonLabel)}</button>
               <button class="worksheet-download" type="button">${esc(ui.worksheetDownloadLabel)}</button>
             </div>
           </div>
-          ${(worksheet.sharedFields || []).length
-            ? `
-              <section class="worksheet-shared-panel">
-                <div class="worksheet-panel-title">${esc(ui.worksheetSharedLabel)}</div>
-                <div class="worksheet-shared-grid">
-                  ${(worksheet.sharedFields || [])
-                    .map(
-                      (field) => `
-                        <label class="worksheet-shared-field">
-                          <span>${esc(field.label)}</span>
-                          <input type="text" data-shared-key="${esc(field.key)}" data-shared-label="${esc(field.label)}" />
-                        </label>
-                      `
-                    )
-                    .join('')}
-                </div>
-              </section>
-            `
-            : ''}
+          <section class="worksheet-shared-panel">
+            <div class="worksheet-panel-title">${esc(ui.worksheetSharedLabel)}</div>
+            <div class="worksheet-shared-grid">
+              ${(worksheet.sharedFields || [])
+                .map(
+                  (field) => `
+                    <label class="worksheet-shared-field">
+                      <span>${esc(field.label)}</span>
+                      <input type="text" data-shared-key="${esc(field.key)}" data-shared-label="${esc(field.label)}" />
+                    </label>
+                  `
+                )
+                .join('')}
+              <label class="worksheet-shared-field is-email">
+                <span>${esc(ui.worksheetTeacherLabel)}</span>
+                <input type="email" data-teacher-email placeholder="${esc(ui.worksheetTeacherPlaceholder || '')}" />
+              </label>
+            </div>
+          </section>
           <section class="worksheet-pages-panel">
-            <div class="worksheet-panel-title">${esc(ui.worksheetPagesLabel)}</div>
+            <div class="worksheet-panel-head">
+              <div class="worksheet-panel-title">${esc(ui.worksheetPagesLabel)}</div>
+              <div class="worksheet-page-nav">
+                ${(worksheet.pages || [])
+                  .map(
+                    (page) => `
+                      <button class="worksheet-page-jump" type="button" data-page-jump="${esc(page.pageNumber)}">${esc(page.label || `PDF ${page.pageNumber}`)}</button>
+                    `
+                  )
+                  .join('')}
+              </div>
+            </div>
             <div class="worksheet-page-grid">
               ${(worksheet.pages || [])
                 .map(
                   (page, pageIndex) => `
-                    <article class="worksheet-page" data-page-number="${esc(page.pageNumber)}" data-page-width="${esc(page.width)}" data-page-height="${esc(page.height)}" data-page-src="${esc(page.src)}" data-page-label="${esc(page.label || `PDF ${page.pageNumber}`)}">
-                      <div class="worksheet-page-top">
+                    <details class="worksheet-page-sheet" data-page-number="${esc(page.pageNumber)}"${pageIndex === openIndex ? ' open' : ''}>
+                      <summary class="worksheet-page-summary">
                         <strong>${esc(page.label || `PDF ${page.pageNumber}`)}</strong>
                         <span>${page.fields?.length ? esc(ui.worksheetFieldsPattern.replace('{count}', page.fields.length)) : esc(ui.worksheetEmptyLabel)}</span>
-                      </div>
-                      <div class="worksheet-canvas" style="--page-ratio:${esc(page.width)} / ${esc(page.height)};">
-                        <img src="${esc(page.src)}" alt="${esc(page.label || `PDF ${page.pageNumber}`)}" loading="lazy" />
-                        ${(page.fields || []).map((field, fieldIndex) => renderWorksheetField(field, page, pageIndex, fieldIndex)).join('')}
-                      </div>
-                    </article>
+                      </summary>
+                      <article class="worksheet-page" data-page-number="${esc(page.pageNumber)}" data-page-width="${esc(page.width)}" data-page-height="${esc(page.height)}" data-page-src="${esc(page.src)}" data-page-label="${esc(page.label || `PDF ${page.pageNumber}`)}">
+                        <div class="worksheet-page-tools">
+                          <div class="worksheet-page-actions">
+                            <button class="worksheet-field-add" type="button" data-field-kind="text">${esc(ui.worksheetAddTextLabel)}</button>
+                            <button class="worksheet-field-add" type="button" data-field-kind="textarea">${esc(ui.worksheetAddNoteLabel)}</button>
+                          </div>
+                          <p class="worksheet-page-hint">${esc(ui.worksheetDrawHint)}</p>
+                        </div>
+                        <div class="worksheet-canvas" style="--page-ratio:${esc(page.width)} / ${esc(page.height)};">
+                          <img src="${esc(page.src)}" alt="${esc(page.label || `PDF ${page.pageNumber}`)}" loading="lazy" />
+                          ${(page.fields || []).map((field, fieldIndex) => renderWorksheetField(field, page, pageIndex, fieldIndex)).join('')}
+                        </div>
+                      </article>
+                    </details>
                   `
                 )
                 .join('')}
@@ -265,9 +405,10 @@
   };
 
   const renderItem = (item, ui, rgb) => `
-    <article class="content-card search-card" style="--rgb:${rgb}" data-search="${esc(itemSearchBlob(item))}">
+    <article class="content-card search-card${item.isWorkbookItem ? ' is-workbook-card' : ''}" style="--rgb:${rgb}" data-search="${esc(itemSearchBlob(item))}">
       <div class="card-head">
         <div>
+          ${item.pageLabel ? `<p class="card-eyebrow search-text">${esc(item.pageLabel)}</p>` : ''}
           <h3 class="search-text">${esc(item.title)}</h3>
         </div>
         <div class="range-pill">${esc(item.range)}</div>
@@ -278,25 +419,24 @@
           <ul class="summary-list">
             ${(item.lead || []).map((para) => `<li class="search-text">${esc(para)}</li>`).join('')}
           </ul>
-          ${renderGraph(item.graph || {}, ui)}
           ${(item.tags || []).length ? `<div class="card-tags">${renderTagButtons(item.tags)}</div>` : ''}
         </div>
         <div class="fact-panel">
           ${(item.facts || []).map((fact) => `<article><span>${esc(fact.label)}</span><strong>${esc(fact.value)}</strong></article>`).join('')}
         </div>
       </div>
+      ${renderWorksheetEditor(item.worksheet || {}, ui)}
       <details class="page-details" style="--rgb:${rgb}"${item.openPages ? ' open' : ''}>
         <summary>${esc(ui.pagesLabel)}</summary>
         <div class="thumb-grid">
           ${renderThumbs(item.pages)}
         </div>
       </details>
-      ${renderWorksheetEditor(item.worksheet || {}, ui)}
     </article>
   `;
 
   const renderContentSection = (section, ui) => `
-    <section class="section-block section search-section" id="${esc(section.id)}" style="--rgb:${section.rgb || data.themeRgb}" data-search="${esc(sectionSearchBlob(section))}">
+    <section class="section-block section search-section${section.isWorkbookSection ? ' is-workbook-section' : ''}" id="${esc(section.id)}" style="--rgb:${section.rgb || data.themeRgb}" data-search="${esc(sectionSearchBlob(section))}">
       <div class="section-intro">
         <p class="kicker search-text">${esc(section.navLabel || section.title)}</p>
         <h2 class="search-text">${esc(section.title)}</h2>
@@ -349,7 +489,7 @@
     .join('');
 
   mount.innerHTML = `
-    <div class="page-shell">
+    <div class="page-shell${isWorkbookReport ? ' is-workbook-report' : ''}">
       <header class="site-header">
         <div class="header-top">
           <a class="brand" href="#top">
@@ -646,6 +786,10 @@
       }, 'image/png');
     });
 
+  const textMeasureCanvas = document.createElement('canvas');
+  const textMeasureCtx = textMeasureCanvas.getContext('2d');
+  const worksheetFontFamily = "'Noto Sans KR', sans-serif";
+
   const wrapCanvasText = (ctx, text, maxWidth) => {
     const paragraphs = String(text || '').split(/\r?\n/);
     const lines = [];
@@ -670,11 +814,18 @@
     return lines;
   };
 
-  const fitCanvasText = (ctx, value, width, height, multiline) => {
-    const family = "'Noto Sans KR', sans-serif";
-    let size = Math.max(12, Math.min(multiline ? height * 0.2 : height * 0.58, 30));
+  const getBaseFontSize = (width, height, multiline) => {
+    const byHeight = multiline ? height * 0.16 : height * 0.52;
+    const byWidth = multiline ? width * 0.09 : width * 0.11;
+    return Math.max(10, Math.min(multiline ? 22 : 20, Math.min(byHeight, byWidth)));
+  };
+
+  const fitCanvasText = (ctx, value, width, height, multiline, baseSize = getBaseFontSize(width, height, multiline)) => {
+    const family = worksheetFontFamily;
+    let size = Math.max(10, Math.round(baseSize));
+    const minSize = Math.max(10, Math.floor(baseSize * 0.74));
     let lines = [];
-    while (size >= 10) {
+    while (size >= minSize) {
       ctx.font = `${multiline ? 500 : 600} ${size}px ${family}`;
       lines = multiline ? wrapCanvasText(ctx, value, width) : [String(value || '')];
       const tooWide = lines.some((line) => ctx.measureText(line).width > width);
@@ -684,8 +835,26 @@
       }
       size -= 1;
     }
-    ctx.font = `${multiline ? 500 : 600} 10px ${family}`;
-    return { size: 10, lines: multiline ? wrapCanvasText(ctx, value, width) : [String(value || '')], family };
+    ctx.font = `${multiline ? 500 : 600} ${minSize}px ${family}`;
+    return { size: minSize, lines: multiline ? wrapCanvasText(ctx, value, width) : [String(value || '')], family };
+  };
+
+  const applyWorksheetTypography = (fieldEl) => {
+    const multiline = fieldEl.dataset.fieldKind === 'textarea';
+    const width = Math.max(24, fieldEl.clientWidth - 16);
+    const height = Math.max(16, fieldEl.clientHeight - 12);
+    const size = getBaseFontSize(width, height, multiline);
+    fieldEl.dataset.fontScale = String(size / Math.max(height, 1));
+    fieldEl.style.fontSize = `${size}px`;
+    fieldEl.style.lineHeight = multiline ? '1.35' : '1.2';
+  };
+
+  const refreshWorksheetTypography = (scope = document) => {
+    scope.querySelectorAll('.worksheet-input').forEach((fieldEl) => {
+      if (fieldEl.clientWidth && fieldEl.clientHeight) {
+        applyWorksheetTypography(fieldEl);
+      }
+    });
   };
 
   const drawFieldToCanvas = (ctx, value, fieldEl, canvasWidth, canvasHeight) => {
@@ -703,7 +872,9 @@
     const inset = multiline ? 8 : 6;
     const boxWidth = Math.max(24, width - inset * 2);
     const boxHeight = Math.max(16, height - inset * 2);
-    const { size, lines, family } = fitCanvasText(ctx, value, boxWidth, boxHeight, multiline);
+    const fontScale = Number(fieldEl.dataset.fontScale || 0);
+    const baseSize = fontScale ? boxHeight * fontScale : getBaseFontSize(boxWidth, boxHeight, multiline);
+    const { size, lines, family } = fitCanvasText(ctx, value, boxWidth, boxHeight, multiline, baseSize);
     ctx.save();
     ctx.font = `${multiline ? 500 : 600} ${size}px ${family}`;
     ctx.fillStyle = '#1f1b17';
@@ -753,6 +924,7 @@
     shared: Object.fromEntries(
       [...editor.querySelectorAll('[data-shared-key]')].map((input) => [input.dataset.sharedKey, input.value || ''])
     ),
+    teacherEmail: editor.querySelector('[data-teacher-email]')?.value.trim() || '',
     pages: [...editor.querySelectorAll('.worksheet-page')].map((pageEl) => ({
       pageNumber: Number(pageEl.dataset.pageNumber || 0),
       fields: [...pageEl.querySelectorAll('.worksheet-input')]
@@ -766,13 +938,56 @@
     })),
   });
 
-  const downloadWorksheetPdf = async (editor, button) => {
+  const buildWorksheetFilename = (payload) => {
+    const studentBits = [payload.shared.student_class, payload.shared.student_number, payload.shared.student_name]
+      .map((value) => slugify(value || ''))
+      .filter(Boolean)
+      .join('-');
+    return `${slugify(payload.title || 'worksheet')}${studentBits ? `-${studentBits}` : ''}.pdf`;
+  };
+
+  const downloadBlobFile = (blob, fileName) => {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  };
+
+  const buildWorksheetMailBody = (payload, fileName) => {
+    const studentInfo = [payload.shared.student_class, payload.shared.student_number, payload.shared.student_name]
+      .filter(Boolean)
+      .join(' / ');
+    const filledPages = payload.pages.filter((page) => page.fields.length).length;
+    return [
+      payload.title || data.ui.worksheetLabel,
+      studentInfo ? `학생 정보: ${studentInfo}` : '',
+      `입력한 페이지 수: ${filledPages}`,
+      '',
+      `${fileName} 파일을 첨부해서 확인해 주세요.`,
+    ]
+      .filter(Boolean)
+      .join('\n');
+  };
+
+  const buildWorksheetMailto = (payload, fileName) => {
+    const subject = [payload.title || data.ui.worksheetLabel, payload.shared.student_name || '']
+      .filter(Boolean)
+      .join(' - ');
+    const query = new URLSearchParams({
+      subject,
+      body: buildWorksheetMailBody(payload, fileName),
+    });
+    return `mailto:${encodeURIComponent(payload.teacherEmail || '')}?${query.toString()}`;
+  };
+
+  const buildWorksheetPdf = async (editor, button, busyLabel) => {
     if (!window.PDFLib) {
       throw new Error('PDF library is unavailable.');
     }
     button.disabled = true;
     const originalLabel = button.textContent;
-    button.textContent = data.ui.worksheetDownloadBusyLabel;
+    button.textContent = busyLabel;
     try {
       const pdfDoc = await window.PDFLib.PDFDocument.create();
       const pageElements = [...editor.querySelectorAll('.worksheet-page')];
@@ -785,20 +1000,165 @@
       }
       const payload = collectWorksheetPayload(editor);
       const bytes = await pdfDoc.save();
-      const blob = new Blob([bytes], { type: 'application/pdf' });
-      const link = document.createElement('a');
-      const studentName = payload.shared.student_name ? `-${payload.shared.student_name}` : '';
-      link.href = URL.createObjectURL(blob);
-      link.download = `${slugify(payload.title || 'worksheet')}${studentName}.pdf`;
-      link.click();
-      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      return {
+        blob: new Blob([bytes], { type: 'application/pdf' }),
+        payload,
+        fileName: buildWorksheetFilename(payload),
+      };
     } finally {
       button.disabled = false;
       button.textContent = originalLabel;
     }
   };
 
+  const downloadWorksheetPdf = async (editor, button) => {
+    const { blob, fileName } = await buildWorksheetPdf(editor, button, data.ui.worksheetDownloadBusyLabel);
+    downloadBlobFile(blob, fileName);
+  };
+
+  const shareWorksheetByEmail = async (editor, button) => {
+    const { blob, payload, fileName } = await buildWorksheetPdf(editor, button, data.ui.worksheetMailBusyLabel);
+    const mailBody = buildWorksheetMailBody(payload, fileName);
+    try {
+      const file = new File([blob], fileName, { type: 'application/pdf' });
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: payload.title || data.ui.worksheetLabel,
+          text: mailBody,
+        });
+        return;
+      }
+    } catch (error) {
+      if (error?.name === 'AbortError') {
+        return;
+      }
+      console.error(error);
+    }
+    window.alert(data.ui.worksheetMailFallbackLabel);
+    downloadBlobFile(blob, fileName);
+    window.location.href = buildWorksheetMailto(payload, fileName);
+  };
+
+  const openWorksheetPage = (editor, pageNumber) => {
+    const target = String(pageNumber || '');
+    if (!target) {
+      return;
+    }
+    editor.querySelectorAll('.worksheet-page-sheet').forEach((sheet) => {
+      sheet.open = sheet.dataset.pageNumber === target;
+    });
+    const active = editor.querySelector(`.worksheet-page-sheet[data-page-number="${target}"]`);
+    active?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    requestAnimationFrame(() => refreshWorksheetTypography(active || editor));
+  };
+
+  let customFieldCounter = 0;
+
+  const createWorksheetInput = (field = {}, pageNumber = 0, fieldIndex = 0) => {
+    const input = document.createElement(field.kind === 'textarea' ? 'textarea' : 'input');
+    if (field.kind !== 'textarea') {
+      input.type = 'text';
+    }
+    input.className = `worksheet-input ${field.kind === 'textarea' ? 'is-textarea' : 'is-text'}`;
+    input.style.setProperty('--x', `${(field.x || 0) * 100}%`);
+    input.style.setProperty('--y', `${(field.y || 0) * 100}%`);
+    input.style.setProperty('--w', `${(field.w || 0) * 100}%`);
+    input.style.setProperty('--h', `${(field.h || 0) * 100}%`);
+    input.dataset.fieldId = field.id || `custom-p${pageNumber}-${fieldIndex}`;
+    input.dataset.fieldLabel = field.label || '';
+    input.dataset.fieldKey = field.key || '';
+    input.dataset.fieldKind = field.kind || 'text';
+    input.dataset.x = String(field.x || 0);
+    input.dataset.y = String(field.y || 0);
+    input.dataset.w = String(field.w || 0);
+    input.dataset.h = String(field.h || 0);
+    input.dataset.pageNumber = String(pageNumber || '');
+    input.placeholder = field.label || '';
+    input.setAttribute('aria-label', field.label || `${lang === 'ko' ? '직접 만든 입력칸' : 'Custom input'} ${fieldIndex + 1}`);
+    return input;
+  };
+
+  const setDrawMode = (pageEl, kind = '') => {
+    pageEl.dataset.drawKind = kind;
+    const canvas = pageEl.querySelector('.worksheet-canvas');
+    canvas?.classList.toggle('is-drawing', Boolean(kind));
+    pageEl.querySelectorAll('.worksheet-field-add').forEach((button) => {
+      const active = button.dataset.fieldKind === kind;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  };
+
+  const appendCustomField = (pageEl, field) => {
+    const canvas = pageEl.querySelector('.worksheet-canvas');
+    if (!canvas) {
+      return;
+    }
+    const pageNumber = Number(pageEl.dataset.pageNumber || 0);
+    const input = createWorksheetInput(
+      {
+        ...field,
+        id: field.id || `custom-p${pageNumber}-${customFieldCounter}`,
+      },
+      pageNumber,
+      customFieldCounter
+    );
+    customFieldCounter += 1;
+    const shell = document.createElement('div');
+    shell.className = 'worksheet-custom-field';
+    shell.style.setProperty('--x', `${(field.x || 0) * 100}%`);
+    shell.style.setProperty('--y', `${(field.y || 0) * 100}%`);
+    shell.style.setProperty('--w', `${(field.w || 0) * 100}%`);
+    shell.style.setProperty('--h', `${(field.h || 0) * 100}%`);
+    const removeButton = document.createElement('button');
+    removeButton.type = 'button';
+    removeButton.className = 'worksheet-custom-remove';
+    removeButton.setAttribute('aria-label', data.ui.worksheetRemoveFieldLabel);
+    removeButton.textContent = '×';
+    shell.append(removeButton, input);
+    canvas.append(shell);
+    requestAnimationFrame(() => {
+      applyWorksheetTypography(input);
+      input.focus();
+    });
+  };
+
+  const canvasPoint = (canvas, event) => {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: clamp((event.clientX - rect.left) / Math.max(rect.width, 1)),
+      y: clamp((event.clientY - rect.top) / Math.max(rect.height, 1)),
+    };
+  };
+
+  const updateDraftRect = (draft, rect) => {
+    draft.style.setProperty('--x', `${rect.x * 100}%`);
+    draft.style.setProperty('--y', `${rect.y * 100}%`);
+    draft.style.setProperty('--w', `${rect.w * 100}%`);
+    draft.style.setProperty('--h', `${rect.h * 100}%`);
+  };
+
+  const normalizedRect = (start, end, kind) => {
+    const minWidth = kind === 'textarea' ? 0.18 : 0.12;
+    const minHeight = kind === 'textarea' ? 0.06 : 0.028;
+    const rawX = Math.min(start.x, end.x);
+    const rawY = Math.min(start.y, end.y);
+    const rawW = Math.max(Math.abs(end.x - start.x), minWidth);
+    const rawH = Math.max(Math.abs(end.y - start.y), minHeight);
+    const x = clamp(rawX, 0, 1 - minWidth);
+    const y = clamp(rawY, 0, 1 - minHeight);
+    return {
+      x,
+      y,
+      w: clamp(rawW, minWidth, 1 - x),
+      h: clamp(rawH, minHeight, 1 - y),
+    };
+  };
+
   document.querySelectorAll('.worksheet-editor').forEach((editor) => {
+    refreshWorksheetTypography(editor);
+
     editor.addEventListener('input', (event) => {
       const target = event.target;
       if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) {
@@ -810,13 +1170,42 @@
       }
     });
 
+    editor.addEventListener('click', (event) => {
+      const addButton = event.target.closest('.worksheet-field-add');
+      if (addButton) {
+        const pageEl = addButton.closest('.worksheet-page');
+        if (!pageEl) {
+          return;
+        }
+        const nextKind = pageEl.dataset.drawKind === addButton.dataset.fieldKind ? '' : addButton.dataset.fieldKind || '';
+        setDrawMode(pageEl, nextKind);
+        return;
+      }
+
+      const removeButton = event.target.closest('.worksheet-custom-remove');
+      if (removeButton) {
+        removeButton.closest('.worksheet-custom-field')?.remove();
+      }
+    });
+
     const resetButton = editor.querySelector('.worksheet-reset');
+    const mailButton = editor.querySelector('.worksheet-mail');
     const downloadButton = editor.querySelector('.worksheet-download');
 
     resetButton?.addEventListener('click', () => {
       editor.querySelectorAll('input, textarea').forEach((input) => {
         input.value = '';
       });
+      refreshWorksheetTypography(editor);
+    });
+
+    mailButton?.addEventListener('click', async () => {
+      try {
+        await shareWorksheetByEmail(editor, mailButton);
+      } catch (error) {
+        console.error(error);
+        window.alert(error?.message || 'Mail sharing failed.');
+      }
     });
 
     downloadButton?.addEventListener('click', async () => {
@@ -827,7 +1216,68 @@
         window.alert(error?.message || 'PDF export failed.');
       }
     });
+
+    editor.querySelectorAll('.worksheet-page-jump').forEach((jumpButton) => {
+      jumpButton.addEventListener('click', () => openWorksheetPage(editor, jumpButton.dataset.pageJump));
+    });
+
+    editor.querySelectorAll('.worksheet-page-sheet').forEach((sheet) => {
+      sheet.addEventListener('toggle', () => {
+        if (!sheet.open) {
+          return;
+        }
+        editor.querySelectorAll('.worksheet-page-sheet').forEach((other) => {
+          if (other !== sheet) {
+            other.open = false;
+          }
+        });
+        requestAnimationFrame(() => refreshWorksheetTypography(sheet));
+      });
+    });
+
+    editor.querySelectorAll('.worksheet-page').forEach((pageEl) => {
+      const canvas = pageEl.querySelector('.worksheet-canvas');
+      if (!canvas) {
+        return;
+      }
+
+      canvas.addEventListener('pointerdown', (event) => {
+        const kind = pageEl.dataset.drawKind;
+        if (!kind || event.button !== 0) {
+          return;
+        }
+        if (event.target.closest('.worksheet-input, .worksheet-custom-remove')) {
+          return;
+        }
+
+        event.preventDefault();
+        const start = canvasPoint(canvas, event);
+        const draft = document.createElement('div');
+        draft.className = 'worksheet-draw-preview';
+        canvas.append(draft);
+        updateDraftRect(draft, { x: start.x, y: start.y, w: 0, h: 0 });
+
+        const handleMove = (moveEvent) => {
+          updateDraftRect(draft, normalizedRect(start, canvasPoint(canvas, moveEvent), kind));
+        };
+
+        const handleUp = (upEvent) => {
+          window.removeEventListener('pointermove', handleMove);
+          draft.remove();
+          appendCustomField(pageEl, {
+            ...normalizedRect(start, canvasPoint(canvas, upEvent), kind),
+            kind,
+          });
+          setDrawMode(pageEl, '');
+        };
+
+        window.addEventListener('pointermove', handleMove);
+        window.addEventListener('pointerup', handleUp, { once: true });
+      });
+    });
   });
+
+  window.addEventListener('resize', () => refreshWorksheetTypography());
 
   if (searchInput && searchClear) {
     searchInput.addEventListener('input', () => runSearch(searchInput.value));

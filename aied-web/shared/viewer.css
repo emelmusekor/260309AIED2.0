@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Serif+KR:wght@500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Serif+KR:wght@500;700;900&display=swap');
 
 :root {
   --bg: #f5efe3;
@@ -524,7 +524,11 @@ img {
   z-index: 1;
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(540px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.is-workbook-report .card-grid {
+  grid-template-columns: 1fr;
 }
 
 .content-card {
@@ -532,6 +536,10 @@ img {
   border-radius: var(--radius-lg);
   border: 1px solid rgba(var(--rgb, 197, 106, 77), 0.16);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 250, 244, 0.68));
+}
+
+.is-workbook-card .card-body {
+  grid-template-columns: minmax(0, 1.08fr) minmax(260px, 0.92fr);
 }
 
 .card-head {
@@ -546,6 +554,15 @@ img {
   margin: 0;
   font-size: clamp(1.28rem, 2vw, 1.95rem);
   line-height: 1.35;
+}
+
+.card-eyebrow {
+  margin: 0 0 8px;
+  color: rgba(var(--rgb, 197, 106, 77), 1);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .range-pill {
@@ -731,6 +748,10 @@ button.graph-node:hover {
   cursor: pointer;
 }
 
+.card-tag.is-static {
+  cursor: default;
+}
+
 .fact-panel {
   display: grid;
   gap: 10px;
@@ -902,12 +923,17 @@ button.graph-node:hover {
   color: rgb(var(--rgb, 197, 106, 77));
 }
 
+.worksheet-mail {
+  background: rgba(var(--rgb, 197, 106, 77), 0.16);
+  color: rgb(var(--rgb, 197, 106, 77));
+}
+
 .worksheet-download {
   background: rgba(29, 26, 23, 0.92);
   color: white;
 }
 
-.worksheet-download:disabled {
+.worksheet-toolbar-actions button:disabled {
   opacity: 0.72;
   cursor: progress;
 }
@@ -944,13 +970,47 @@ button.graph-node:hover {
 
 .worksheet-page-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr;
   gap: 18px;
 }
 
 .worksheet-page {
   display: grid;
   gap: 10px;
+}
+
+.worksheet-page-tools {
+  display: grid;
+  gap: 10px;
+}
+
+.worksheet-page-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.worksheet-field-add {
+  border: 1px solid rgba(var(--rgb, 197, 106, 77), 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #473830;
+  font-weight: 800;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+.worksheet-field-add.active {
+  background: rgba(var(--rgb, 197, 106, 77), 0.16);
+  color: rgb(var(--rgb, 197, 106, 77));
+  border-color: rgba(var(--rgb, 197, 106, 77), 0.32);
+}
+
+.worksheet-page-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .worksheet-page-top {
@@ -984,6 +1044,51 @@ button.graph-node:hover {
   object-fit: cover;
 }
 
+.worksheet-canvas.is-drawing {
+  cursor: crosshair;
+}
+
+.worksheet-draw-preview,
+.worksheet-custom-field {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+}
+
+.worksheet-draw-preview {
+  border: 2px dashed rgba(var(--rgb, 197, 106, 77), 0.75);
+  border-radius: 12px;
+  background: rgba(var(--rgb, 197, 106, 77), 0.12);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.worksheet-custom-field {
+  z-index: 3;
+}
+
+.worksheet-custom-field .worksheet-input {
+  position: absolute;
+  inset: 0;
+}
+
+.worksheet-custom-remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(29, 26, 23, 0.84);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  z-index: 5;
+}
+
 .worksheet-input {
   position: absolute;
   left: var(--x);
@@ -997,6 +1102,8 @@ button.graph-node:hover {
   padding: 6px 8px;
   box-shadow: 0 8px 20px rgba(72, 54, 40, 0.08);
   resize: none;
+  font-family: 'Noto Sans KR', sans-serif;
+  overflow: hidden;
 }
 
 .worksheet-input.is-text {
