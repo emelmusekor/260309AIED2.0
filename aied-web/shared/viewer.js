@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const data = window.REPORT_DATA;
   const mount = document.getElementById('app');
 
@@ -231,16 +231,17 @@
       : data.ui.worksheetEmptyLabel;
 
   const normalizeSections = (sections = []) =>
-    sections.map((section) => {
-      if (!isWorkbookReport) {
-        return {
-          ...section,
-          items: (section.items || []).map((item) => ({
-            ...item,
-            tags: enrichTags(item, section),
-          })),
-        };
-      }
+    sections
+      .map((section) => {
+        if (!isWorkbookReport) {
+          return {
+            ...section,
+            items: (section.items || []).map((item) => ({
+              ...item,
+              tags: enrichTags(item, section),
+            })),
+          };
+        }
 
       const items = (section.items || []).flatMap((item) => {
         const worksheetPages = (item.worksheet?.pages || []).filter((page) => (page.fields || []).length);
@@ -278,7 +279,16 @@
         ].filter(Boolean),
         items,
       };
-    });
+    })
+      .filter((section) => {
+        if (!section) {
+          return false;
+        }
+        if (!section.isWorkbookSection) {
+          return true;
+        }
+        return (section.items || []).length > 0;
+      });
 
   data.sections = normalizeSections(data.sections || []);
 
@@ -1329,3 +1339,7 @@
     });
   }
 })();
+
+
+
+
