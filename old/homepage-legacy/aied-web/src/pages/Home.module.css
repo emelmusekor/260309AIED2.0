@@ -1,0 +1,153 @@
+.hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 2rem;
+    position: relative;
+}
+
+.title {
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 650px;
+    line-height: 1.6;
+}
+
+.section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0;
+}
+
+.sectionContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+.sectionReverse {
+    direction: rtl;
+}
+
+.sectionReverse>* {
+    direction: ltr;
+}
+
+.textBlock h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.textBlock h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.textBlock p {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.visualBlock {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 32px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(16px);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.chaptersSection {
+    padding: 10rem 0;
+    text-align: center;
+}
+
+.chaptersGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-top: 5rem;
+    text-align: left;
+}
+
+.chapterCard {
+    padding: 3rem 2.5rem;
+    border-radius: 24px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chapterCard:hover {
+    transform: translateY(-10px);
+    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.cardIcon {
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    border-radius: 16px;
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cardTitle {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.cardDesc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+@media (max-width: 992px) {
+    .sectionContent {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .sectionReverse {
+        direction: ltr;
+    }
+
+    .title {
+        font-size: 3.5rem;
+    }
+}

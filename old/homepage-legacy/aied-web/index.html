@@ -1,0 +1,2274 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI교육 2.0 미래를 설계하다 | 탐색형 보고서</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Serif+KR:wght@500;700;900&display=swap');
+    :root{--bg:#f5efe3;--surface:rgba(255,251,244,.82);--ink:#1d1a17;--muted:#675f56;--line:rgba(72,54,40,.16);--shadow:0 28px 70px rgba(72,54,40,.12);--radius:28px;--max:1280px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:'Noto Sans KR',sans-serif;color:var(--ink);background:radial-gradient(circle at top left,rgba(193,101,72,.12),transparent 26%),radial-gradient(circle at 90% 12%,rgba(36,116,128,.14),transparent 23%),repeating-linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.18) 28px,rgba(245,235,218,.45) 28px,rgba(245,235,218,.45) 29px),linear-gradient(180deg,#f9f5ed 0,#f2e9da 100%);min-height:100vh;overflow-x:hidden}
+    body.menu-open,body.modal-open{overflow:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{font:inherit}
+    .layout{max-width:var(--max);margin:0 auto;padding:24px 28px 110px}
+    .bar,.panel,.section,.card,.footer-note{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+    .bar{position:sticky;top:18px;z-index:30;display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 18px;margin-bottom:28px}
+    .brand{display:flex;gap:14px;align-items:center;min-width:0}.brand-mark{width:54px;height:54px;border-radius:18px;background:linear-gradient(140deg,rgba(193,101,72,.9),rgba(207,116,43,.92));color:#fff;display:grid;place-items:center;font-weight:800;box-shadow:0 16px 36px rgba(193,101,72,.28)}.brand-copy strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand-copy span{color:var(--muted);font-size:.86rem}
+    .nav{display:flex;gap:10px;flex:1;justify-content:center;overflow-x:auto;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{padding:10px 16px;border-radius:999px;color:var(--muted);font-weight:700;white-space:nowrap}.nav a:hover,.nav a.active{background:rgba(255,255,255,.56);color:var(--ink)}
+    .menu{display:none;border:none;background:rgba(255,255,255,.74);border-radius:999px;padding:12px 16px;font-weight:700;cursor:pointer}.pdf-link,.hero-actions a{border-radius:999px;padding:13px 18px;font-weight:700}.pdf-link{background:rgba(29,26,23,.9);color:#fff}.hero-actions a:first-child{background:linear-gradient(140deg,rgba(193,101,72,.95),rgba(207,116,43,.95));color:#fff}.hero-actions a:last-child{background:rgba(255,255,255,.72)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(320px,.82fr);gap:26px;margin-bottom:34px}.panel{padding:40px}.eyebrow{display:inline-flex;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.6);color:var(--muted);font-weight:700;font-size:.88rem;margin-bottom:18px}.hero h1{margin:0;font-family:'Noto Serif KR',serif;font-size:clamp(2.8rem,5vw,5rem);line-height:1.06;letter-spacing:-.04em}.hero h1 span{display:block;color:#c16548}.hero .sub{margin:18px 0 10px;font-size:1.35rem;font-weight:800;color:#443931}.hero p.desc{margin:0;max-width:54ch;color:var(--muted);line-height:1.8}
+    .meta,.read-grid,.toc-grid,.lead{display:grid;gap:14px}.meta{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:24px}.meta article{padding:18px;border-radius:18px;background:rgba(255,255,255,.62);border:1px solid rgba(72,54,40,.08)}.meta span{display:block;color:var(--muted);font-size:.84rem;margin-bottom:6px}.tags,.hero-actions,.section-nav,.section-links{display:flex;flex-wrap:wrap;gap:10px}.tags{margin-top:22px}.tags span,.section-nav a,.sub-range,.stats span{padding:9px 14px;border-radius:999px;font-weight:700}.tags span{background:rgba(193,101,72,.1);color:#7d3b27}.hero-actions{margin-top:26px}
+    .cover-box{padding:22px;display:flex;flex-direction:column;gap:14px}.cover-top{display:flex;justify-content:space-between;color:var(--muted);font-weight:700;font-size:.9rem}.cover-button{border:none;padding:0;background:none;cursor:pointer;border-radius:22px;overflow:hidden;box-shadow:0 24px 54px rgba(72,54,40,.16)}
+    .read-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:34px}.card{padding:24px}.card span{display:inline-block;color:var(--muted);font-size:.84rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}.card h3{margin:0 0 12px;font-family:'Noto Serif KR',serif;font-size:1.4rem}.card p{margin:0;color:var(--muted);line-height:1.74}
+    .toc{padding:28px;margin-bottom:40px}.toc h2,.section h2{margin:0;font-family:'Noto Serif KR',serif;letter-spacing:-.04em}.toc-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}.toc-head h2{font-size:clamp(2rem,3vw,3rem)}.toc-head p{margin:0;max-width:58ch;color:var(--muted);line-height:1.7}.toc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.toc-item{padding:22px;border-radius:24px;border:1px solid rgba(var(--rgb),.18);background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,250,244,.58))}.toc-item-head{display:flex;gap:12px;align-items:center;margin-bottom:10px}.toc-item-head span{display:grid;place-items:center;min-width:56px;padding:9px 12px;border-radius:999px;background:rgba(var(--rgb),.12);color:rgb(var(--rgb));font-weight:800}.toc-item p{margin:0 0 14px;color:var(--muted);line-height:1.65}.toc-item ul{margin:0;padding-left:18px;display:grid;gap:7px}
+    .section{padding:30px;margin-bottom:32px;position:relative;overflow:hidden}.section::before{content:'';position:absolute;inset:-80px auto auto -60px;width:220px;height:220px;border-radius:999px;background:radial-gradient(circle,rgba(var(--rgb),.18),transparent 72%)}.section-head{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(240px,.92fr);gap:22px;position:relative;z-index:1;margin-bottom:22px}.section-kicker{margin:0 0 10px;color:rgb(var(--rgb));font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:.82rem}.section h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.12}.section p.section-desc{margin:12px 0 0;color:var(--muted);line-height:1.78}.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.stats span{background:rgba(var(--rgb),.1);color:#46352b}
+    .intro-pages{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.intro-pages button,.page-grid button{border:none;padding:0;background:rgba(255,255,255,.78);border-radius:18px;overflow:hidden;cursor:pointer;box-shadow:0 18px 34px rgba(72,54,40,.1)}.intro-pages label,.page-grid span{display:block;padding:12px 14px;font-size:.9rem;font-weight:800;color:#41362d}.section-links{margin-bottom:22px;position:relative;z-index:1}.section-links a{background:rgba(255,255,255,.62);border:1px solid rgba(var(--rgb),.15)}
+    .sub{padding:22px;border-radius:24px;border:1px solid rgba(var(--rgb),.16);background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,250,244,.62));position:relative;z-index:1;scroll-margin-top:128px}.sub-head{display:flex;justify-content:space-between;gap:16px;align-items:start;margin-bottom:16px}.sub-kicker{margin:0 0 8px;color:rgb(var(--rgb));font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800}.sub h3{margin:0;font-size:clamp(1.32rem,2vw,1.98rem);line-height:1.34}.sub-range{background:rgba(var(--rgb),.12);color:#43352c;flex-shrink:0}
+    .lead{grid-template-columns:minmax(0,1.2fr) minmax(220px,.8fr);margin-bottom:14px}.lead-copy,.facts{padding:18px;border-radius:18px;background:rgba(255,255,255,.72);border:1px solid rgba(72,54,40,.08)}.lead-copy h4{margin:0 0 12px;font-size:.95rem;letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--rgb))}.lead-copy p{margin:0 0 10px;color:#41362d;line-height:1.8}.lead-copy p:last-child{margin-bottom:0}.facts{display:grid;gap:10px}.facts div{padding-bottom:10px;border-bottom:1px solid rgba(72,54,40,.08)}.facts div:last-child{border-bottom:none;padding-bottom:0}.facts span{display:block;color:var(--muted);font-size:.82rem;margin-bottom:4px}
+    details.more{border-radius:18px;border:1px solid rgba(72,54,40,.08);background:rgba(255,255,255,.74);margin-top:12px;overflow:hidden}details.more summary{list-style:none;padding:16px 20px;cursor:pointer;font-weight:800;display:flex;justify-content:space-between;align-items:center}details.more summary::-webkit-details-marker{display:none}details.more summary::after{content:'＋';font-size:1.1rem;color:rgb(var(--rgb))}details.more[open] summary::after{content:'－'}
+    .text-stack{display:grid;gap:12px;padding:0 20px 20px}.text-card{padding:18px;border-radius:18px;background:rgba(250,246,239,.92);border:1px solid rgba(72,54,40,.08)}.text-meta{display:flex;justify-content:space-between;gap:14px;margin-bottom:10px;color:var(--muted);font-size:.85rem;font-weight:800}.text-card pre{margin:0;white-space:pre-wrap;font-family:'Noto Sans KR',sans-serif;font-size:.96rem;line-height:1.72;color:#332b24}
+    .page-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;padding:0 20px 20px}
+    .footer-note{padding:24px 28px;display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap}.footer-note p{margin:0;color:var(--muted);line-height:1.72}.footer-note strong{color:var(--ink)}
+    .lightbox{position:fixed;inset:0;z-index:80;display:none;background:rgba(29,26,23,.82);backdrop-filter:blur(14px);padding:20px}.lightbox.open{display:grid;place-items:center}.lightbox-panel{width:min(1200px,100%);max-height:calc(100vh - 40px);background:#fff8ef;border-radius:24px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}.lightbox-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(72,54,40,.1)}.lightbox-close{border:none;background:rgba(29,26,23,.08);width:42px;height:42px;border-radius:999px;cursor:pointer;font-size:1.1rem;font-weight:800}.lightbox-body{padding:18px;overflow:auto;display:grid;place-items:center;background:#f7efdf}.lightbox-body img{width:min(100%,980px);height:auto;border-radius:18px;box-shadow:0 20px 54px rgba(72,54,40,.18)}
+    @media(max-width:1100px){.hero,.section-head,.lead,.read-grid,.toc-grid{grid-template-columns:1fr}}
+    @media(max-width:860px){.layout{padding:18px 16px 90px}.bar{display:grid;grid-template-columns:1fr auto;grid-template-areas:'brand menu' 'nav nav' 'action action';gap:12px}.brand{grid-area:brand}.menu{display:inline-flex;align-items:center;justify-content:center;grid-area:menu}.nav{grid-area:nav;display:none;flex-direction:column;align-items:stretch}.nav a{background:rgba(255,255,255,.56)}body.menu-open .nav{display:flex}.header-actions{grid-area:action}.header-actions .pdf-link{display:block;text-align:center;width:100%}.panel,.section,.card,.footer-note{border-radius:24px}.panel,.section{padding:24px}.sub{padding:18px}.sub-head{flex-direction:column}.sub-range{width:100%;text-align:center}.page-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:520px){.page-grid{grid-template-columns:1fr}.hero-actions,.section-links{flex-direction:column}.hero-actions a,.section-links a{width:100%;text-align:center;justify-content:center}.meta{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="layout" id="top">
+    <header class="bar">
+      <a class="brand" href="#top">
+        <div class="brand-mark">AI 2.0</div>
+        <div class="brand-copy"><strong>AI교육 2.0 탐색형 보고서</strong><span>AI기본사회, 교육의 대전환</span></div>
+      </a>
+      <button class="menu" type="button" aria-label="목차 열기">목차</button>
+      <nav class="nav"><a href="#frontmatter">들어가기</a><a href="#section-01">01 소개</a><a href="#section-02">02 핵심 원칙</a><a href="#section-03">03 모델 구조</a><a href="#section-04">04 세부 내용</a><a href="#references">참고문헌</a></nav>
+      <div class="header-actions"><a class="pdf-link" href="assets/report-source.pdf" target="_blank" rel="noreferrer">원문 PDF 열기</a></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="panel">
+          <div class="eyebrow">한국AI교육학회 2025 정책연구보고서</div>
+          <h1>AI교육 2.0<span>미래를 설계하다</span></h1>
+          <p class="sub">AI기본사회, 교육의 대전환</p>
+          <p class="desc">이 페이지는 <strong>20250829_경인교대_AI 교육 2.0 모형 구현_2.pdf</strong>의 전체 내용을 목차 기반으로 재구성한 아카이브입니다. 상단 메뉴와 절별 링크를 따라 이동하면, 각 절의 핵심 미리보기와 원문 전문, 실제 PDF 페이지를 함께 확인할 수 있습니다.</p>
+          <div class="meta">
+            <article><span>개발진</span><strong>한선관, 천종필, 류미영</strong></article>
+            <article><span>검토진</span><strong>이철현, 정종진, 서지훈, 홍수빈, 김태령, 김도용, 임새이, 김지혜, 김지현, 서지인, 김상현</strong></article>
+            <article><span>발행처</span><strong>한국인공지능교육학회</strong></article>
+            <article><span>분량</span><strong>PDF 66쪽 / 본문 61쪽</strong></article>
+          </div>
+          <div class="tags"><span>Digitacy</span><span>AI Thinking</span><span>AI이해교육</span><span>AI협력교육</span><span>AI가치교육</span><span>메타협력주의</span><span>공진주의</span></div>
+          <div class="hero-actions"><a href="#toc-master">전체 목차로 이동</a><a href="#section-04">핵심 본문 바로 읽기</a></div>
+        </div>
+        <aside class="panel cover-box">
+          <div class="cover-top"><span>표지 미리보기</span><span>PDF 1쪽</span></div>
+          <button class="cover-button page" type="button" data-src="assets/report-pages/page-001.png" data-title="표지 · PDF 1쪽"><img src="assets/report-pages/page-001.png" alt="AI교육 2.0 보고서 표지" /></button>
+        </aside>
+      </section>
+
+      <section class="read-grid">
+        <article class="card"><span>How To Read</span><h3>탐색 순서</h3><p>전체 목차로 구조를 잡고, 각 절 카드의 핵심 원문 미리보기를 먼저 본 뒤 전문과 페이지 원본을 여는 방식으로 설계했습니다.</p></article>
+        <article class="card"><span>No Loss</span><h3>누락 방지</h3><p>절마다 정제하지 않은 원문 텍스트 전문과 PDF 페이지 원본을 모두 붙여, 텍스트 추출만으로 놓칠 수 있는 표와 배치까지 확인할 수 있습니다.</p></article>
+        <article class="card"><span>Page Map</span><h3>쪽수 읽는 법</h3><p>각 카드에는 실제 파일 기준 PDF 쪽수와 보고서 하단 인쇄면 기준 쪽수를 함께 적었습니다. 본문 인쇄면은 PDF 6쪽부터 시작합니다.</p></article>
+      </section>
+
+      <section class="panel toc" id="toc-master">
+        <div class="toc-head"><div><h2>전체 목차</h2><p>상단 메뉴는 장 단위, 아래 카드는 절 단위 이동입니다. 보고서의 구조를 먼저 훑고 원하는 절로 바로 들어갈 수 있습니다.</p></div></div>
+        <div class="toc-grid"><article class="toc-item" style="--rgb:193, 101, 72"><div class="toc-item-head"><span>Prelude</span><a href="#frontmatter">들어가기</a></div><p>표지, 문제 제기, 연구 서문, 전체 목차를 먼저 읽고 보고서의 관점과 구조를 잡습니다.</p><ul><li><a href="#cover">표지와 발간 기본 정보</a></li><li><a href="#question">문제 제기</a></li><li><a href="#foreword">연구 서문</a></li><li><a href="#toc">보고서 목차</a></li></ul></article><article class="toc-item" style="--rgb:207, 116, 43"><div class="toc-item-head"><span>01</span><a href="#section-01">AI교육 2.0의 소개</a></div><p>AI기본사회 전환에 대응하기 위해 왜 새로운 교육 패러다임이 필요한지, 어떤 목표와 대상을 갖는지 설명합니다.</p><ul><li><a href="#why-aied20">왜 ‘AI교육 2.0’인가?</a></li><li><a href="#goal-target">‘AI교육 2.0’의 목표와 대상</a></li></ul></article><article class="toc-item" style="--rgb:36, 116, 128"><div class="toc-item-head"><span>02</span><a href="#section-02">AI교육 2.0 모델의 핵심 원칙</a></div><p>디지털 기초, AGI·ASI 관점, AI 이해, AI사고력, 협력, 가치, 학습이론, 가능성 중심 교육이라는 여덟 원칙을 정리합니다.</p><ul><li><a href="#digital-first">AI교육 2.0 모델의 근간: 디지털로부터 시작해야 한다.</a></li><li><a href="#agi-asi">AGI와 ASI를 고려한 교육의 특이점: 기술의 미래를 전제로 설계하는 교육</a></li><li><a href="#understand-ai">무엇보다 AI를 ‘제대로’ 알아야 하는 이유: 올바른 협력과 가치는 이해로부터</a></li><li><a href="#new-thinking">AI시대를 준비하는 새로운 사고력: 컴퓨팅 사고를 넘어서</a></li><li><a href="#partnership">AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육</a></li><li><a href="#value-over-ethics">윤리보다는 가치교육에: 기술의 방향을 규율하는 새로운 교육의 초점</a></li><li><a href="#learning-theory">AI기본사회를 위한 새로운 학습이론의 필요성: 인간–AI 관계 기반 교육 패러다임의 전환</a></li><li><a href="#possibility">두려움보다 가능성에 주목하는 교육: 인간은 기술의 변화에 유연하고 결국 환경에 적응한다</a></li></ul></article><article class="toc-item" style="--rgb:62, 89, 150"><div class="toc-item-head"><span>03</span><a href="#section-03">AI교육 2.0 모델의 구조</a></div><p>AI기본교육, AI이해교육, AI협력교육, AI가치교육, AI Thinking, Digitacy, 메타협력주의, 공진주의의 연결 구조를 보여줍니다.</p><ul><li><a href="#model-diagram">AI교육 2.0 모형도</a></li><li><a href="#term-definitions">모형도 세부 용어 정의</a></li></ul></article><article class="toc-item" style="--rgb:120, 105, 32"><div class="toc-item-head"><span>04</span><a href="#section-04">AI교육 2.0 모델의 세부 내용</a></div><p>새로운 학습이론, 디지터시, AI사고력, 인지 수준, AI이해교육, AI협력교육, AI가치교육까지 보고서의 핵심 본문을 절별로 읽게 구성했습니다.</p><ul><li><a href="#new-learning-theory">AI기본사회 교육은 왜 새로운 학습이론이 필요한가?</a></li><li><a href="#digitacy">디지터시란 무엇인가?</a></li><li><a href="#ai-thinking">AI사고력이란 무엇인가?</a></li><li><a href="#cognitive-levels">AI사고력으로 신장되는 학습자의 인지 수준</a></li><li><a href="#ai-understanding-edu">AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가?</a></li><li><a href="#ai-collaboration-edu">AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가?</a></li><li><a href="#ai-value-edu">AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가?</a></li></ul></article><article class="toc-item" style="--rgb:109, 83, 110"><div class="toc-item-head"><span>Ref</span><a href="#references">참고문헌</a></div><p>보고서의 이론적 기반과 인용 문헌, 발행 정보를 페이지 단위로 확인합니다.</p><ul><li><a href="#reference-list">문헌 목록</a></li><li><a href="#colophon">발행 정보</a></li></ul></article></div>
+      </section>
+
+      <section class="section" id="frontmatter" style="--rgb:193, 101, 72">
+  <div class="section-head">
+    <div>
+      <p class="section-kicker">Prelude</p>
+      <h2>들어가기</h2>
+      <p class="section-desc">표지, 문제 제기, 연구 서문, 전체 목차를 먼저 읽고 보고서의 관점과 구조를 잡습니다.</p>
+      <div class="stats"><span>PDF 1-5쪽 · 앞부분</span><span>4개 절</span><span>원문 페이지 포함</span></div>
+    </div>
+    
+  </div>
+  <nav class="section-links"><a href="#cover">표지와 발간 기본 정보</a><a href="#question">문제 제기</a><a href="#foreword">연구 서문</a><a href="#toc">보고서 목차</a></nav>
+  <div class="section-nav"><article class="sub" id="cover" style="--rgb:193, 101, 72">
+  <div class="sub-head">
+    <div><p class="sub-kicker">들어가기</p><h3>표지와 발간 기본 정보</h3></div>
+    <div class="sub-range">PDF 1-2쪽 · 앞부분</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>미래를 설계하다</p><p>메타 협력주의 공진주의 AI 협력교육 AI AI 가치교육 AI Thinking 기본교육 Digitacy AI 이해교육</p><p>미래를 설계하다</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>2쪽</strong></div>
+      <div><span>범위</span><strong>PDF 1~2</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:193, 101, 72"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 1쪽</span><span>앞부분</span></div><pre>한국AI교육학회 2025정책연구보고서
+AI기본사회, 교육의 대전환
+AI교육 2.0
+미래를 설계하다
+메타 협력주의
+공진주의
+AI
+협력교육
+AI
+AI
+가치교육
+AI Thinking
+기본교육
+Digitacy
+AI
+이해교육</pre></article><article class="text-card"><div class="text-meta"><span>PDF 2쪽</span><span>앞부분</span></div><pre>한국AI교육학회 2025정책연구보고서
+AI기본사회, 교육의 대전환
+AI교육 2.0
+미래를 설계하다
+메타 협력주의
+공진주의
+AI
+협력교육
+AI
+AI
+가치교육
+AI Thinking
+기본교육
+Digitacy
+AI
+이해교육
+개발진 : 한선관, 천종필, 류미영
+검토진 : 이철현, 정종진, 서지훈, 홍수빈, 김태령, 김도용, 임새이, 김지혜, 김지현, 서지인, 김상현</pre></article></div></details>
+  <details class="more" style="--rgb:193, 101, 72"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-001.png" data-title="표지와 발간 기본 정보 · PDF 1쪽"><img src="assets/report-pages/page-001.png" alt="표지와 발간 기본 정보 PDF 1쪽" loading="lazy" /><span>PDF 1쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-002.png" data-title="표지와 발간 기본 정보 · PDF 2쪽"><img src="assets/report-pages/page-002.png" alt="표지와 발간 기본 정보 PDF 2쪽" loading="lazy" /><span>PDF 2쪽</span></button></div></details>
+</article><article class="sub" id="question" style="--rgb:193, 101, 72">
+  <div class="sub-head">
+    <div><p class="sub-kicker">들어가기</p><h3>문제 제기</h3></div>
+    <div class="sub-range">PDF 3쪽 · 앞부분</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>교육과 기술의 경쟁에서 누가 살아남을 것인가?</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 3</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:193, 101, 72"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 3쪽</span><span>앞부분</span></div><pre>교육과 기술의 경쟁에서
+누가 살아남을 것인가?</pre></article></div></details>
+  <details class="more" style="--rgb:193, 101, 72" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-003.png" data-title="문제 제기 · PDF 3쪽"><img src="assets/report-pages/page-003.png" alt="문제 제기 PDF 3쪽" loading="lazy" /><span>PDF 3쪽</span></button></div></details>
+</article><article class="sub" id="foreword" style="--rgb:193, 101, 72">
+  <div class="sub-head">
+    <div><p class="sub-kicker">들어가기</p><h3>연구 서문</h3></div>
+    <div class="sub-range">PDF 4쪽 · 앞부분</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>연구 서문 “AI와 함께 성장하는 사람, AI와 더불어 살아가는 사회” “우리는 지금 인공지능과 함께 살아가는 새로운 문명의 초입에 서 있습니다. ”생성형 인공지능(Generative AI)의 비약적 인 발전은 단지 기술의 진보를 넘어서, 인간이 사고하고 배우며 살아가는 방식에 근본적인 질문을 던지고 있습니다. 인공지능 은 이제 단순한 도구를 넘어, 창작하고 판단하며 의사결정까지 영향을 미치는 ‘지능적 파트너’로 부상하고 있습니다. 이러한 변화 속에서 교육은 과연 어떤 역할을 해야 할까요?</p><p>기존의 AI교육은 AI를 ‘사용하는 법’에 초점을 맞춰왔습니다. 하지만 이제는 AI와 함께 생각하고, 문제를 해결하며, 더 나은 사회를 만들어가는 교육으로 전환되어야 합니다. 우리는 기술에 대한 기능적 이해를 넘어, 인간과 기술의 협력, 그리고 기술 이 실현해야 할 사회적 가치에 주목해야 할 시점에 있습니다.</p><p>이러한 인식 아래, 본 보고서는 ‘AI교육 2.0 모델’을 제안합니다. 이 모델은 단순한 기술 학습을 넘어, “AI이해교육, AI 협력교육, AI가치교육”이라는 세 가지 교육 유형을 통해 AI가 기본이 되는 사회에 필요한 사고력과 실천 역량을 교육의 안에 서 통합적으로 기르고자 합니다. 특히 ‘AI처럼 생각하기’를 중심 개념으로, ‘추상화–자동화–자율화’의 AI 사고 구조를 기반 으로 한 교육적 접근을 모색하고 있습니다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 4</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:193, 101, 72"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 4쪽</span><span>앞부분</span></div><pre>연구 서문
+“AI와 함께 성장하는 사람, AI와 더불어 살아가는 사회”
+“우리는 지금 인공지능과 함께 살아가는 새로운 문명의 초입에 서 있습니다. ”생성형 인공지능(Generative AI)의 비약적
+인 발전은 단지 기술의 진보를 넘어서, 인간이 사고하고 배우며 살아가는 방식에 근본적인 질문을 던지고 있습니다. 인공지능
+은 이제 단순한 도구를 넘어, 창작하고 판단하며 의사결정까지 영향을 미치는 ‘지능적 파트너’로 부상하고 있습니다. 이러한
+변화 속에서 교육은 과연 어떤 역할을 해야 할까요?
+기존의 AI교육은 AI를 ‘사용하는 법’에 초점을 맞춰왔습니다. 하지만 이제는 AI와 함께 생각하고, 문제를 해결하며, 더 나은
+사회를 만들어가는 교육으로 전환되어야 합니다. 우리는 기술에 대한 기능적 이해를 넘어, 인간과 기술의 협력, 그리고 기술
+이 실현해야 할 사회적 가치에 주목해야 할 시점에 있습니다.
+이러한 인식 아래, 본 보고서는 ‘AI교육 2.0 모델’을 제안합니다. 이 모델은 단순한 기술 학습을 넘어, “AI이해교육, AI
+협력교육, AI가치교육”이라는 세 가지 교육 유형을 통해 AI가 기본이 되는 사회에 필요한 사고력과 실천 역량을 교육의 안에
+서 통합적으로 기르고자 합니다. 특히 ‘AI처럼 생각하기’를 중심 개념으로, ‘추상화–자동화–자율화’의 AI 사고 구조를 기반
+으로 한 교육적 접근을 모색하고 있습니다.
+이 보고서는 교육 현장의 교사, 교육 행정가, 정책 결정자, 연구자 모두에게 새로운 방향성과 구체적 실천 방안을 제시하고
+자 합니다. 인간 중심의 AI기본사회, 그리고 그 안에서 AI와 함께 살아가는 선한 시민을 기르기 위한 실천적 모델을 함께 고민
+하고 제안하는 이 보고서가, 더 나은 미래 교육을 향한 출발점이 되기를 바랍니다.
+연구진 일동</pre></article></div></details>
+  <details class="more" style="--rgb:193, 101, 72" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-004.png" data-title="연구 서문 · PDF 4쪽"><img src="assets/report-pages/page-004.png" alt="연구 서문 PDF 4쪽" loading="lazy" /><span>PDF 4쪽</span></button></div></details>
+</article><article class="sub" id="toc" style="--rgb:193, 101, 72">
+  <div class="sub-head">
+    <div><p class="sub-kicker">들어가기</p><h3>보고서 목차</h3></div>
+    <div class="sub-range">PDF 5쪽 · 앞부분</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>목 차 01. AI교육 2.0의 소개 05 1. 왜 ‘AI교육 2.0’인가?</p><p>06 2. ‘AI교육 2.0’의 목표와 대상 08 02. AI교육 2.0 모델의 핵심 원칙 10 1. AI교육 2.0 모델의 근간: 디지털로부터 시작해야 한다.</p><p>11 2. AGI와 ASI를 고려한 교육의 특이점: 기술의 미래를 전제로 설계하는 교육 12 3. 무엇보다 AI를 ‘제대로’ 알아야 하는 이유: 올바른 협력과 가치는 이해로부터 13 4. AI시대를 준비하는 새로운 사고력: 컴퓨팅 사고를 넘어서 14 5. AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육 15 6. 윤리보다는 가치교육에: 기술의 방향을 규율하는 새로운 교육의 초점 18 7. AI기본사회를 위한 새로운 학습이론의 필요성: 인간–AI 관계 기반 교육 패러다임의 전환 19 8. 두려움보다 가능성에 주목하는 교육: 인간은 기술의 변화에 유연하고 결국 환경에 적응한다</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 5</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:193, 101, 72"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 5쪽</span><span>앞부분</span></div><pre>목 차
+01. AI교육 2.0의 소개 05
+1. 왜 ‘AI교육 2.0’인가?
+06
+2. ‘AI교육 2.0’의 목표와 대상
+08
+02. AI교육 2.0 모델의 핵심 원칙 10
+1. AI교육 2.0 모델의 근간: 디지털로부터 시작해야 한다.
+11
+2. AGI와 ASI를 고려한 교육의 특이점: 기술의 미래를 전제로 설계하는 교육
+12
+3. 무엇보다 AI를 ‘제대로’ 알아야 하는 이유: 올바른 협력과 가치는 이해로부터
+13
+4. AI시대를 준비하는 새로운 사고력: 컴퓨팅 사고를 넘어서
+14
+5. AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육
+15
+6. 윤리보다는 가치교육에: 기술의 방향을 규율하는 새로운 교육의 초점
+18
+7. AI기본사회를 위한 새로운 학습이론의 필요성: 인간–AI 관계 기반 교육 패러다임의 전환
+19
+8. 두려움보다 가능성에 주목하는 교육: 인간은 기술의 변화에 유연하고 결국 환경에 적응한다
+20
+03. AI교육 2.0 모델의 구조 22
+1. AI교육 2.0 모형도 23
+2. 모형도 세부 용어 정의 24
+04. AI교육 2.0 모델의 세부 내용 26
+1. AI기본사회 교육은 왜 새로운 학습이론이 필요한가?
+27
+2. 디지터시란 무엇인가?
+29
+3. AI사고력이란 무엇인가?
+38
+4. AI사고력으로 신장되는 학습자의 인지 수준
+46
+5. AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가?
+49
+6. AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가?
+52
+7. AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가?
+58
+참고문헌 61</pre></article></div></details>
+  <details class="more" style="--rgb:193, 101, 72" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-005.png" data-title="보고서 목차 · PDF 5쪽"><img src="assets/report-pages/page-005.png" alt="보고서 목차 PDF 5쪽" loading="lazy" /><span>PDF 5쪽</span></button></div></details>
+</article></div>
+</section><section class="section" id="section-01" style="--rgb:207, 116, 43">
+  <div class="section-head">
+    <div>
+      <p class="section-kicker">01</p>
+      <h2>AI교육 2.0의 소개</h2>
+      <p class="section-desc">AI기본사회 전환에 대응하기 위해 왜 새로운 교육 패러다임이 필요한지, 어떤 목표와 대상을 갖는지 설명합니다.</p>
+      <div class="stats"><span>PDF 7-10쪽 · 보고서 6쪽~보고서 9쪽</span><span>2개 절</span><span>원문 페이지 포함</span></div>
+    </div>
+    <div class="intro-pages"><button class="page" type="button" data-src="assets/report-pages/page-006.png" data-title="AI교육 2.0의 소개 · PDF 6쪽"><label>PDF 6쪽</label><img src="assets/report-pages/page-006.png" alt="AI교육 2.0의 소개 도입 페이지 6" loading="lazy" /></button></div>
+  </div>
+  <nav class="section-links"><a href="#why-aied20">왜 ‘AI교육 2.0’인가?</a><a href="#goal-target">‘AI교육 2.0’의 목표와 대상</a></nav>
+  <div class="section-nav"><article class="sub" id="why-aied20" style="--rgb:207, 116, 43">
+  <div class="sub-head">
+    <div><p class="sub-kicker">01 소개</p><h3>왜 ‘AI교육 2.0’인가?</h3></div>
+    <div class="sub-range">PDF 7-8쪽 · 보고서 6쪽~보고서 7쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>01. AI교육 2.0 소개 1 왜 ‘AI교육 2.0’인가?</p><p>인공지능 기술의 비약적인 발전과 함께 도래한 ‘AI기본사회’로의 전환에 대응하기 위해 인재양성 분야에도 새로운 교육 패러다임이 요구된다. 이는 단순한 기술 습득이나 활용 수준에 머무르지 않고, AI와 함께 살아가는 사회에서 모든 시민이 갖추어야 할 기본 역량을 기르기 위한 교육으로의 전환이다. 특히 인공지능이 인간의 인지 능력과 유사한 수준까지 도달할 수 있는 AGI(일반 인공지능) 시대를 염두에 두고, 이에 걸맞은 실천적 교육 모델로 ‘AI교육 2.0’을 제안한다.</p><p>이 교육 모델은 기존의 AI교육이 주로 &#x27;도구로서의 AI 활용&#x27;이나 &#x27;타 교과와의 융합&#x27;에 중점을 두었다면, 이제는 한 걸음 더 나아가 인공지능을 ‘협력의 대상’으로 인식하는 전환적 사고를 기반으로 한다. 다시 말해, AI를 단순히 사용하는 존재가 아닌, 인간과 함께 문제를 해결하고 가치를 창출해 나가는 교육의 동반자로 삼는 것이 ‘AI교육 2.0’의 핵심적인 특징이다. 이러한 관점 전환은 AI기본사회를 구성하는 핵심적 토대가 되며, 이를 위한 교육이 바로 ‘AI교육 2.0’인 것이다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>2쪽</strong></div>
+      <div><span>범위</span><strong>PDF 7~8</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:207, 116, 43" open><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 7쪽</span><span>보고서 6쪽</span></div><pre>01. AI교육 2.0 소개
+1 왜 ‘AI교육 2.0’인가?
+인공지능 기술의 비약적인 발전과 함께 도래한 ‘AI기본사회’로의 전환에 대응하기 위해 인재양성 분야에도 새로운 교육
+패러다임이 요구된다. 이는 단순한 기술 습득이나 활용 수준에 머무르지 않고, AI와 함께 살아가는 사회에서 모든 시민이
+갖추어야 할 기본 역량을 기르기 위한 교육으로의 전환이다. 특히 인공지능이 인간의 인지 능력과 유사한 수준까지 도달할 수
+있는 AGI(일반 인공지능) 시대를 염두에 두고, 이에 걸맞은 실천적 교육 모델로 ‘AI교육 2.0’을 제안한다.
+이 교육 모델은 기존의 AI교육이 주로 &#x27;도구로서의 AI 활용&#x27;이나 &#x27;타 교과와의 융합&#x27;에 중점을 두었다면, 이제는 한 걸음 더
+나아가 인공지능을 ‘협력의 대상’으로 인식하는 전환적 사고를 기반으로 한다. 다시 말해, AI를 단순히 사용하는 존재가 아닌,
+인간과 함께 문제를 해결하고 가치를 창출해 나가는 교육의 동반자로 삼는 것이 ‘AI교육 2.0’의 핵심적인 특징이다. 이러한
+관점 전환은 AI기본사회를 구성하는 핵심적 토대가 되며, 이를 위한 교육이 바로 ‘AI교육 2.0’인 것이다.
+AGI, ASI 시대의 도래
+생성형 AI
+생성 AI의 지속적 발전
+인식, 이해, 추론
+2020년대
+딥러닝
+전문가시스템 신경망 모델로 학습
+지식기반 시스템의 등장 2010년대
+다트머스 회의 1980년대
+3차 AI겨울 도래
+AI의 시작
+1956년
+튜링의 제안
+ʻ기계는 생각이 가능한가?’
+2차 AI겨울
+1980-90년대
+1차 AI겨울
+1970년대
+s s s s s s
+[그림] 3차 AI 붐 이후의 시나리오
+이에 따른 ‘AI교육 2.0’의 추구하는 역량과 기저 이론은 다음과 같다.
+▶ 디지터시(Digitacy)를 기초로 하여 인공지능 기술을 근본적으로 이해하고 AI기본사회의 핵심 가치가 통합된 교육을 목표로 한다.
+▶ 컴퓨팅 파워를 활용하는 컴퓨팅 사고력을 넘어 AI와 협력하여 문제를 해결하는 AI사고력(AI Thinking)을 기른다.
+▶ 메타협력주의(Meta-Collaborativism)를 학습이론으로 채택하여, 인간과 AI의 협력을 확장하고 새로운 학습 구조를 제시한다.
+▶ 공진주의(Symbiotism)는 AGI 이후 시대를 전제로 한 차세대 학습이론으로, 메타협력주의를 넘어선 인간-AI 공동 진화의
+방향을 탐색한다.
+6 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 8쪽</span><span>보고서 7쪽</span></div><pre>참고자료
+DX에서 AX로
+디지털 전환(DX, Digital Transformation)은 기존의 아날로그 또는 기존 IT 기반 프로세스를 디지털화하고 자동화하는 것에
+중점을 두었다. 하지만 이제는 AI 기술이 디지털화된 프로세스를 넘어 지능화, 스스로 자율적으로 결정하는 단계인 AI 전환(AX, AI
+Transformation)으로의 진화를 요구받고 있다. 이 흐름은 Microsoft CEO Satya Nadella가 “DX는 자동화(Automation)이고,
+AX는 자율화(Autonomy)”라고 정의한 바에서도 분명하게 확인할 수 있다.
+AX는 단순한 업무 자동화 수준을 넘어, 기업 운영 전반에 걸쳐 AI 기반의 자율 판단과 실행을 내리는 것을 목표로 한다. 결국, AX
+로의 전환은 단순한 기술 혁신이 아니라, 기업이 AI를 통해 스스로 판단하고 실행하는 존재로 변화해가는 과정이며, 이러한 변화는
+조직을 넘어 사회 전체의 일하는 방식, 가치 판단, 인간-기술 관계까지 근본적으로 재구성하는 흐름을 이끌고 있다. 기업의 변화는
+사회의 변화를 앞당기며, AI 전환은 모든 시민이 마주할 새로운 삶의 방식의 서막을 열고 있다.
+구분 DX (Digital Transformation) AX (AI Transformation)
+아날로그 → 디지털 전환, 디지털화를 넘어 ‘지능화·자율화’,
+목표
+자동화 중심 AI 기반 의사결정과 실행
+시스템 자동화(RPA 등), LLM, AI 에이전트,
+주요 기술
+ERP, 클라우드 자율 판단 시스템, 예측 AI
+의사결정 수준 정형화된 규칙 기반 자동 수행 AI가 상황 인식·분석·판단하여 최적 선택
+업무 프로세스 일부 또는 전체의
+적용 범위 현장 운영부터 중간 관리자 의사결정, 최고 전략수립까지 전 계층
+자동화
+참고: https://enterprise.kt.com/bt/dxstory/2959.do
+다시 보는 교육 대전환, EX(Education Transformation)
+교육 현장에서도 디지털 기술을 기반으로 한 에듀테크 중심의 디지털 전환이 교육의 효율성과 접근성을 높이는 데 기여했다. 하지만
+AI가 사회 전반을 지능화하고 자율화하는 AX의 시대로 진입함에 따라 교육 역시 본질적인 전환이 요구된다. 즉, EX(Education
+Transformation, 교육의 대전환)로의 방향 정립이 필요하다. EX는 AI기술을 잘 쓰는 방법을 가르치는 것이 아니라, AI와 함께
+어떻게 존재할 것인가를 교육하는 것이다. 이는 단순한 기술 습득이 아니라, 존재방식·관계방식·판단방식의 전환을 요구하는 교육
+혁신이며, AI시대의 새로운 시민성을 기르는 과정이라고 할 수 있다.
+전환 요소 기존 교육(DX 중심) EX: AI교육 2.0 기반 교육
+학습의 대상 인간 vs 기술 인간 + AI(공진적 파트너십)
+교육의 목표 디지털 활용 역량 AI이해 → 협력 → 가치 실천
+교육의 방식 정답 중심, 콘텐츠 주입형 질문 기반, 관계 중심, 의미 창출형
+기술의 역할 도구(automation) 동반자(co-agency, augmentation)
+학습자상 지식 소비자 성찰적 탐구자, 공진적 협력자, 창조적 실천가
+01. AI 교육 2.0의 소개 7</pre></article></div></details>
+  <details class="more" style="--rgb:207, 116, 43"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-007.png" data-title="왜 ‘AI교육 2.0’인가? · PDF 7쪽"><img src="assets/report-pages/page-007.png" alt="왜 ‘AI교육 2.0’인가? PDF 7쪽" loading="lazy" /><span>PDF 7쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-008.png" data-title="왜 ‘AI교육 2.0’인가? · PDF 8쪽"><img src="assets/report-pages/page-008.png" alt="왜 ‘AI교육 2.0’인가? PDF 8쪽" loading="lazy" /><span>PDF 8쪽</span></button></div></details>
+</article><article class="sub" id="goal-target" style="--rgb:207, 116, 43">
+  <div class="sub-head">
+    <div><p class="sub-kicker">01 소개</p><h3>‘AI교육 2.0’의 목표와 대상</h3></div>
+    <div class="sub-range">PDF 9-10쪽 · 보고서 8쪽~보고서 9쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>01. AI교육 2.0 소개 2 ‘AI교육 2.0’의 목표와 대상</p><p>목표</p><p>AI교육 2.0의 핵심 목표는 AI기본사회 실현을 위한 시민의 역량을 기르는 것이다. 이를 위해 다음과 같은 지향점을 갖는다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>2쪽</strong></div>
+      <div><span>범위</span><strong>PDF 9~10</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:207, 116, 43"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 9쪽</span><span>보고서 8쪽</span></div><pre>01. AI교육 2.0 소개
+2 ‘AI교육 2.0’의 목표와 대상
+목표
+AI교육 2.0의 핵심 목표는 AI기본사회 실현을 위한 시민의 역량을 기르는 것이다. 이를 위해 다음과 같은 지향점을 갖는다.
+▶ AI를 정확히 이해하는 능력 : 인공지능의 개념, 원리, 한계 등을 기술적·사회적 맥락에서 균형 있게 이해한다.
+▶ AI와 협력할 수 있는 실천력 : AI를 도구가 아닌 협력의 파트너로 인식하고, 인간-기계 협력의 과제를 수행할 수 있는 사고
+력과 실행력을 갖춘다.
+▶ AI시대에 필요한 가치 감수성 : 인간과 AI가 공존하는 사회에서 가치 중심의 윤리적 판단과 사회적 책임을 다할 수 있는 가치
+지향적 태도를 형성한다.
+▶ 기존의 컴퓨팅 사고력을 넘어서는 새로운 사고틀 : 자동화 중심의 컴퓨팅 사고에서 한 걸음 더 나아가, AI의 판단과 학습 구조
+를 반영한 AI사고력을 기반으로 문제를 바라보고 해결한다.
+추구하는 인재상
+AI교육 2.0이 지향하는 인재상은 단순한 기술 활용 능력을 넘어, 인공지능과 함께 살아가는 시대에 요구되는 깊이 있는
+사고력과 공동체적 감수성을 갖춘 책임 있는 미래 시민의 모습을 그린다. 이 교육이 추구하는 인재는 다음과 같은 세 가지
+특성을 중심으로 형성된다.
+첫째, 성찰하는 탐구자이다. 이러한 인재는 단순한 정보 수용을 넘어, 인간, 기술, 사회에 대한 본질적인 질문을 던지며 깊이
+있는 이해를 추구한다. 스스로의 경험과 생각을 지속적으로 성찰하고, AI기술과 사회 현상에 대해 비판적이고 철학적인 시각
+으로 접근한다. ‘왜’라는 근본적 질문을 통해 문제의 본질을 탐구하며, 내면의 성장과 본질적 이해를 바탕으로 삶과 배움에
+대한 통찰을 확장해 나간다.
+둘째, 창조적인 협력자이다. 이 인재는 AI와 인간, 인간과 인간 사이의 관계에서 공감적으로 소통하고, 창의적인 방식으로
+협력하는 능력을 갖춘 존재이다. 단순한 역할 분담을 넘어, 서로의 차이를 이해하고 조율하며 새로운 아이디어를 함께 만들어
+내는 협력적 역량을 발휘한다. 공동의 목표와 가치를 중심으로 의식 있게 협력하고, 타자·기술·사회와의 관계를 조율하며
+지속적으로 상호발전하는 관계를 이끌어낸다.
+셋째, 책임 있는 실천가이다. 이 인재는 기술 중심의 사고에 머무르지 않고, AI가 연결하는 사회적 맥락 속에서 인간 중심의
+가치와 윤리를 실천하는 존재이다. 단지 문제를 해결하는 데 그치지 않고, 그 해결 과정과 결과가 사회에 어떤 의미를 갖는지
+성찰하며 행동한다. 생성된 가치를 공동체와 연결하여 확산시키고, 기술 활용의 책임을 자각하며 지속 가능한 미래를 위한
+실천적 태도를 견지한다.
+8 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 10쪽</span><span>보고서 9쪽</span></div><pre>인재상 핵심 개념 역량
+성찰하는 탐구자
+▶ 성찰적 사고 역량 : 자신의 경험, 지식, 감정을 되돌아보며
+기술과 인간, 사회에 대한 깊은 성찰을 바탕 문제의 본질을 통찰하고 새로운 관점을 도출하는 능력
+으로 본질을 이해하고, 끊임없는 탐구를 통해 ▶ 본질적 탐구 역량 : 복잡한 현상 속에서 핵심 원리와
+더 나은 방향을 모색하는 인재 구조를 파악하고, 근본적인 질문을 통해 이해를 확장
+하는 능력
+창조적인 협력자
+▶ 창의적 협업 역량 : 다양한 자원과 사람, AI의 관점을 융합하여
+AI와 사람, 환경과 협력하여, 새로운 아이디어와 새로운 방식으로 협력하고 문제를 해결하는 능력
+관점을 통해 창의적으로 문제를 해결하는 인재 ▶ 공감 소통 역량 : 타인의 감정과 관점을 이해하며 열린 자세로
+소통하고 조율하는 능력
+책임 있는 실천가
+▶ 가치 판단 역량 : 사회적, 도덕적 관점에서 상황을 해석하고
+AI와 연결된 사회 속에서 인간 중심의 가치를
+올바른 방향을 결정하는 능력
+존중하고, 그에 기반한 윤리적 판단과 실천으
+▶ 윤리적 실천 역량 : 결정한 가치와 판단에 따라 책임 있게
+로 공동체에 기여하는 인재
+행동하고 결과에 대해 숙고하는 능력
+대상
+AI교육 2.0은 인공지능과 함께 살아갈 미래 사회를 대비하여, 전 생애 주기에 걸쳐 AI에 대한 이해와 실천적 역량이 필요한
+모든 시민을 대상으로 한다. 특히 다음과 같은 네 가지 교육 단계별로 적용 범위를 설정하고 있다:
+① 초·중등교육(K-12) : 미래 사회의 주역이 될 학생들을 대상으로, AI에 대한 기초적인 이해와 바람직한 태도를 형성하도록
+한다. 이 시기는 AI를 이해하기 위한 기초 디지터시와 AI 협력 감각을 자연스럽게 익히는 출발점이다.
+② 고등교육 : 전문성을 향해 나아가는 청년 세대가 AI기술의 구조와 한계를 비판적으로 이해하고, 다양한 학문 및 사회 문제
+해결에 AI를 활용할 수 있도록 돕는다. 이 과정에서는 협력적 문제해결과 가치판단 능력이 더욱 강조된다.
+③ 직업교육 : 산업 및 직무 환경에서 AI와의 실질적인 협업이 필요한 이들을 대상으로, AI시스템의 구조적 이해와 실용적 적용
+능력을 키우며, 직무별 AI활용 및 적응 역량을 강화한다. AI기술의 한계에 도전하여 세상을 바꾸고 미래를 만드는 혁신적 능력
+이 강조된다.
+④ 평생교육 : 기술 변화에 지속적으로 대응하며, 모든 세대가 AI시대의 변화 속에서도 자기 주도적 삶과 사회적 책임을 수행
+할 수 있도록 지원한다. 특히 디지털 소외를 방지하고, 시민 모두가 AI에 대한 기본 권한과 이해를 갖추는 것을 목표로 한다.
+01. AI 교육 2.0의 소개 9</pre></article></div></details>
+  <details class="more" style="--rgb:207, 116, 43"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-009.png" data-title="‘AI교육 2.0’의 목표와 대상 · PDF 9쪽"><img src="assets/report-pages/page-009.png" alt="‘AI교육 2.0’의 목표와 대상 PDF 9쪽" loading="lazy" /><span>PDF 9쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-010.png" data-title="‘AI교육 2.0’의 목표와 대상 · PDF 10쪽"><img src="assets/report-pages/page-010.png" alt="‘AI교육 2.0’의 목표와 대상 PDF 10쪽" loading="lazy" /><span>PDF 10쪽</span></button></div></details>
+</article></div>
+</section><section class="section" id="section-02" style="--rgb:36, 116, 128">
+  <div class="section-head">
+    <div>
+      <p class="section-kicker">02</p>
+      <h2>AI교육 2.0 모델의 핵심 원칙</h2>
+      <p class="section-desc">디지털 기초, AGI·ASI 관점, AI 이해, AI사고력, 협력, 가치, 학습이론, 가능성 중심 교육이라는 여덟 원칙을 정리합니다.</p>
+      <div class="stats"><span>PDF 12-22쪽 · 보고서 11쪽~보고서 21쪽</span><span>8개 절</span><span>원문 페이지 포함</span></div>
+    </div>
+    <div class="intro-pages"><button class="page" type="button" data-src="assets/report-pages/page-011.png" data-title="AI교육 2.0 모델의 핵심 원칙 · PDF 11쪽"><label>PDF 11쪽</label><img src="assets/report-pages/page-011.png" alt="AI교육 2.0 모델의 핵심 원칙 도입 페이지 11" loading="lazy" /></button></div>
+  </div>
+  <nav class="section-links"><a href="#digital-first">AI교육 2.0 모델의 근간: 디지털로부터 시작해야 한다.</a><a href="#agi-asi">AGI와 ASI를 고려한 교육의 특이점: 기술의 미래를 전제로 설계하는 교육</a><a href="#understand-ai">무엇보다 AI를 ‘제대로’ 알아야 하는 이유: 올바른 협력과 가치는 이해로부터</a><a href="#new-thinking">AI시대를 준비하는 새로운 사고력: 컴퓨팅 사고를 넘어서</a><a href="#partnership">AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육</a><a href="#value-over-ethics">윤리보다는 가치교육에: 기술의 방향을 규율하는 새로운 교육의 초점</a><a href="#learning-theory">AI기본사회를 위한 새로운 학습이론의 필요성: 인간–AI 관계 기반 교육 패러다임의 전환</a><a href="#possibility">두려움보다 가능성에 주목하는 교육: 인간은 기술의 변화에 유연하고 결국 환경에 적응한다</a></nav>
+  <div class="section-nav"><article class="sub" id="digital-first" style="--rgb:36, 116, 128">
+  <div class="sub-head">
+    <div><p class="sub-kicker">02 핵심 원칙</p><h3>AI교육 2.0 모델의 근간: 디지털로부터 시작해야 한다.</h3></div>
+    <div class="sub-range">PDF 12쪽 · 보고서 11쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>AI교육 2.0의 출발점은 단순히 인공지능 기술을 다루는 것이 아니라, 그 기술이 어떻게 만들어졌는지를 이해하는 데 있다.</p><p>오늘날 우리가 사용하는 AI기술은 표면적으로는 데이터, 알고리즘, 머신러닝, 딥러닝 같은 복잡한 개념으로 구성되어 있지만, 그 가장 밑바닥에는 0과 1로 이루어진 디지털의 세계, 즉 디지털 논리의 작동 원리가 존재한다.</p><p>AI기술의 토대는 수학과 컴퓨터 과학이다. 수학이 이론적 구조와 모델링을 가능케 했다면, 컴퓨터 과학은 이를 논리적 명령 어와 기계어로 구체화해 오늘날의 디지털 환경을 만들었다. 모든 AI 기술은 결국 디지털 연산 위에서 움직이는 컴퓨팅 시스템 이며, 이를 이해하지 않고는 AI의 작동 방식과 한계를 파악하기 어렵다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 12</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:36, 116, 128"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 12쪽</span><span>보고서 11쪽</span></div><pre>1 AI교육 2.0 모델의 근간: 디지털로부터 시작해야 한다.
+AI교육 2.0의 출발점은 단순히 인공지능 기술을 다루는 것이 아니라, 그 기술이 어떻게 만들어졌는지를 이해하는 데 있다.
+오늘날 우리가 사용하는 AI기술은 표면적으로는 데이터, 알고리즘, 머신러닝, 딥러닝 같은 복잡한 개념으로 구성되어 있지만,
+그 가장 밑바닥에는 0과 1로 이루어진 디지털의 세계, 즉 디지털 논리의 작동 원리가 존재한다.
+AI기술의 토대는 수학과 컴퓨터 과학이다. 수학이 이론적 구조와 모델링을 가능케 했다면, 컴퓨터 과학은 이를 논리적 명령
+어와 기계어로 구체화해 오늘날의 디지털 환경을 만들었다. 모든 AI 기술은 결국 디지털 연산 위에서 움직이는 컴퓨팅 시스템
+이며, 이를 이해하지 않고는 AI의 작동 방식과 한계를 파악하기 어렵다.
+디지털은 단순히 0과 1의 신호를 의미하는 것이 아니다. 세상을 수치화하고, 논리적으로 처리하며, 추상화하는 사고방식이자,
+현대 기술 문명의 언어라고 할 수 있다. 컴퓨터 과학은 디지털의 개념을 기반으로 다양한 알고리즘과 구조를 발명했고, 그것은
+다시 인공지능과 생성형 모델의 기반이 되었다.
+오늘날 AI가 스스로 코드를 작성하고, 창의적인 결과를 생성하는 시대가 되었지만, 그 모든 연산과 판단은 결국 디지털적
+표현과 처리 위에서 이루어진다. 디지털에 대한 이해 없이 AI를 바로 다루는 것은 기초 없이 건물을 올리는 것처럼 불가능한
+일이다.
+따라서 AI교육 2.0은 단순히 AI를 ‘활용하는 교육’을 넘어서, AI가 무엇 위에 서 있는가에 대한 이해에서 출발해야 한다. 결국,
+AI를 올바로 이해하고 활용하며 그 가치를 판단하는 교육은 디지털에 대한 깊이 있는 성찰에서부터 시작해야 하는 것이다.
+디지털이다
+by 니콜라스 네그로폰테 1995
+디지털 시대의 핵심은 세상의 구성단위가 ‘원자(atom)’에서 ‘비트(bit)’로 전환되는 것을 의미한다. 비트는 무게도, 형태도 없지
+만, 정보의 저장·복제·전달에 있어서 엄청난 효율성과 자유로움을 제공한다. 이로 인해 책, 신문, 음악, 영상 등 모든 매체가 물리적
+형태에서 디지털 형태로 급속히 전환되고, 인간의 생활 방식과 소통 방식도 비트 중심으로 재구성되고 있다.
+네그로폰테는 디지털 사회가 네 가지 방향으로 변화한다고 설명한다 : 탈중심화, 세계화, 조화, 그리고 분권화이다. 정보는 중앙
+집중형이 아닌 네트워크를 통해 개인 간에 직접 연결되고, 지역과 국가의 경계를 넘어 전 세계가 하나로 연결되는 디지털 지구촌이
+만들어진다. 동시에 개인의 목소리가 강화되고 다양한 관점이 공존하는 사회로 변화한다.
+디지털 기술은 인간과 컴퓨터 간의 상호작용 방식도 바꾸고 있다. 네그로폰테는 좋은 디지털 인터페이스는 단순한 도구가 아니라
+인간을 이해하고 반응하는 ‘디지털 대리자’가 되어야 한다고 본다. 음성 인식, 감정 인지, 맞춤형 정보 제공 등의 기술은 인간의 삶
+을 중심으로 컴퓨터가 조율되는 방향으로 진화하고 있다.
+그의 대표적 예측 중 하나는 ‘Daily Me’ 개념으로, 사용자의 취향과 관심사에 맞춘 맞춤형 정보 제공 시스템이다. 이는 현대의
+알고리즘 기반 뉴스 피드나 추천 시스템의 원형이라 할 수 있다. 또한 그는 ‘Negroponte Switch’를 통해 무선과 유선 통신 구조의
+전환을 주장하며 디지털 인프라의 구조적 재편을 강조했다.
+네그로폰테는 디지털 기술이 사회를 평등하게 만들고 개인에게 더 많은 권한을 부여할 것이라 낙관하면서도, 동시에 저작권,
+개인정보 보호, 정보 격차 등 새로운 윤리적 문제에 대한 주의도 촉구한다. 디지털 사회는 기술만으로 완성되지 않으며, 그에 걸맞
+은 제도와 철학, 인간 중심의 가치가 함께 설계되어야 한다는 것이 그의 일관된 메시지이다.
+02. AI 교육 2.0 모델의 핵심 원칙 11</pre></article></div></details>
+  <details class="more" style="--rgb:36, 116, 128" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-012.png" data-title="AI교육 2.0 모델의 근간: 디지털로부터 시작해야 한다. · PDF 12쪽"><img src="assets/report-pages/page-012.png" alt="AI교육 2.0 모델의 근간: 디지털로부터 시작해야 한다. PDF 12쪽" loading="lazy" /><span>PDF 12쪽</span></button></div></details>
+</article><article class="sub" id="agi-asi" style="--rgb:36, 116, 128">
+  <div class="sub-head">
+    <div><p class="sub-kicker">02 핵심 원칙</p><h3>AGI와 ASI를 고려한 교육의 특이점: 기술의 미래를 전제로 설계하는 교육</h3></div>
+    <div class="sub-range">PDF 13쪽 · 보고서 12쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>02. AI교육 2.0 모델의 핵심 원칙 2 AGI와 ASI를 고려한 교육의 특이점: 기술의 미래를 전제로 설계하는 교육 AI교육 2.0은 기존 AI 기술의 단편적인 기능이나 성능을 중심에 두지 않는다. 이는 단지 현재의 기술 수준을 따라가는 교육 이 아니라, AI 기술이 도달할 미래의 가능성을 전제로 새로운 교육 패러다임을 구축하는 방향을 지향한다.</p><p>인공지능의 역사는 앨런 튜링의 추상적 컴퓨팅 기계에서 시작하여, 1·2·3차 AI 붐과 AI 겨울을 반복하며 지금에 이르렀다.</p><p>우리는 과거와 현재의 AI 기술을 이해함으로써 기초를 다질 수 있지만, 교육이 과거와 현재에만 머무른다면 기술의 속도를 따라가지 못한 채 뒤처진 대응 교육에 갇힐 수밖에 없다. AI교육 2.0은 AI 중심의 대전환기 교육을 지향한다. 이는 단지 &#x27;AI 를 활용하는 교육&#x27;을 넘어, AI와 함께 인간의 사고, 삶, 사회를 재구성하는 교육을 의미한다. 그렇기에 AI교육은 현실의 기술 을 반영함과 동시에, 미래의 기술을 선도적으로 고려해야 한다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 13</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:36, 116, 128"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 13쪽</span><span>보고서 12쪽</span></div><pre>02. AI교육 2.0 모델의 핵심 원칙
+2 AGI와 ASI를 고려한 교육의 특이점:
+기술의 미래를 전제로 설계하는 교육
+AI교육 2.0은 기존 AI 기술의 단편적인 기능이나 성능을 중심에 두지 않는다. 이는 단지 현재의 기술 수준을 따라가는 교육
+이 아니라, AI 기술이 도달할 미래의 가능성을 전제로 새로운 교육 패러다임을 구축하는 방향을 지향한다.
+인공지능의 역사는 앨런 튜링의 추상적 컴퓨팅 기계에서 시작하여, 1·2·3차 AI 붐과 AI 겨울을 반복하며 지금에 이르렀다.
+우리는 과거와 현재의 AI 기술을 이해함으로써 기초를 다질 수 있지만, 교육이 과거와 현재에만 머무른다면 기술의 속도를
+따라가지 못한 채 뒤처진 대응 교육에 갇힐 수밖에 없다. AI교육 2.0은 AI 중심의 대전환기 교육을 지향한다. 이는 단지 &#x27;AI
+를 활용하는 교육&#x27;을 넘어, AI와 함께 인간의 사고, 삶, 사회를 재구성하는 교육을 의미한다. 그렇기에 AI교육은 현실의 기술
+을 반영함과 동시에, 미래의 기술을 선도적으로 고려해야 한다.
+그 미래는 다가오고 있다. AGI(일반 인공지능)의 도래는 더 이상 상상 속의 일이 아니다. 인간처럼 사고하고, 판단하며,
+다양한 분야에 적용가능한 AGI는 앞으로의 사회와 노동, 창의, 가치의 구조를 급격하게 변화시킬 것이다. 교육은 이 변화에
+수동적으로 대응하는 것이 아니라, AGI 시대를 살아갈 인간을 능동적으로 준비시키는 기반이 되어야 한다.
+더 나아가 ASI(초인공지능)의 가능성까지 고려한다면, 교육은 더욱 근본적인 질문과 혁신적 상상력이 필요하다. 단지 기술
+을 배우는 것이 아닌, 기술과 공존하고, 책임지고, 인간다움을 확장할 수 있는 교육이 되어야 한다. AI교육 2.0은 예측 가능한
+기술적 특이점(singularity)을 향한 흐름 속에서, 학생이 미래의 변화를 주체적으로 설계하고 대응할 수 있는 사고력, 윤리성,
+사회적 감수성을 함양하는 교육이어야 한다.
+현재 미래? 가능성
+AI
+AI
+AI
+ANI AGI ASI
+약한 인공지능 강한 인공지능 초인공지능
+1단계 2단계 3단계
+좁은 의미의 인공지능, 머신러닝 강력한 인공지능, 머신러닝 강력한 인공지능,
+특정한 능력 광범한 능력 의식을 가진 기계
+탁월한 능력
+자율주행 등 특정한 분야에서는 모든 분야에서
+인간보다 나은 능력 인간과 같은 능력 모든 분야에서
+인간보다 나은 능력
+https://investpension.miraeasset.com/contents/view.do?idx=23146
+12 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article></div></details>
+  <details class="more" style="--rgb:36, 116, 128" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-013.png" data-title="AGI와 ASI를 고려한 교육의 특이점: 기술의 미래를 전제로 설계하는 교육 · PDF 13쪽"><img src="assets/report-pages/page-013.png" alt="AGI와 ASI를 고려한 교육의 특이점: 기술의 미래를 전제로 설계하는 교육 PDF 13쪽" loading="lazy" /><span>PDF 13쪽</span></button></div></details>
+</article><article class="sub" id="understand-ai" style="--rgb:36, 116, 128">
+  <div class="sub-head">
+    <div><p class="sub-kicker">02 핵심 원칙</p><h3>무엇보다 AI를 ‘제대로’ 알아야 하는 이유: 올바른 협력과 가치는 이해로부터</h3></div>
+    <div class="sub-range">PDF 14쪽 · 보고서 13쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>02. AI교육 2.0 모델의 핵심 원칙</p><p>▶ ANI(약한 인공지능): 특정 작업이나 좁은 범위의 작업을 위해 설계되고 훈련된 AI 시스템이다. 체스를 두거나 음성을 인식하는 것</p><p>과 같이 미리 정의된 작업을 수행하는 데 탁월하다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 14</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:36, 116, 128"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 14쪽</span><span>보고서 13쪽</span></div><pre>02. AI교육 2.0 모델의 핵심 원칙
+▶ ANI(약한 인공지능): 특정 작업이나 좁은 범위의 작업을 위해 설계되고 훈련된 AI 시스템이다. 체스를 두거나 음성을 인식하는 것
+과 같이 미리 정의된 작업을 수행하는 데 탁월하다.
+▶ AGI(강한 인공지능): 인간 지능과 유사하게 광범위한 작업에 걸쳐 지식을 이해하고 학습하고 적용할 수 있는 AI 시스템이다. AGI
+는 인간과 비슷한 인지 능력을 보유한다.
+▶ ASI(초인공지능): 모든 측면에서 인간의 지능과 역량을 능가하는 AI 시스템이다. ASI는 인간을 훨씬 능가하는 인지 능력을 보유
+하며 잠재적으로 획기적인 발전을 가져오거나 실존적 위험을 초래할 수 있다.
+3 무엇보다 AI를 ‘제대로’ 알아야 하는 이유:
+올바른 협력과 가치는 이해로부터
+오늘날 AI는 우리 일상 곳곳에 이미 깊숙이 들어와 있다. AI를 활용하고 응용할 수 있는 사람은 경제적 기회에 유리하고, 기술
+을 선도하며 사회적 영향력을 갖는 시대가 도래했다. 이러한 배경 속에서 “AI를 잘 활용하자”, “AI를 통한 혁신을 이루자”는
+담론이 강하게 자리 잡고 있다.
+그러나 여기에서 한 가지 근본적인 질문이 제기된다. AI를 제대로 이해하지 않고도 과연 진정한 활용이 가능한가? ‘활용’
+이라는 말은 기술을 도구로 다룬다는 의미를 담고 있지만, 그 도구의 원리와 작동 방식을 모른 채로 사용하는 것은 표면적
+기능에 의존하는 수동적 사용에 그칠 수 있다. 진정한 활용은 도구의 한계를 이해하고, 맥락에 따라 판단하며, 새로운 방식
+으로 변형하거나 창조적으로 재구성하는 데까지 이르러야 한다. 이를 위해선 AI의 구조, 작동 원리, 판단방식과 알고리즘적
+편향에 대한 이해가 선행되어야 한다.
+또한 AI시대의 핵심 역량으로 꼽히는 가치 판단력, 윤리적 성찰력 역시 AI에 대한 충분한 지식과 이해 없이는 공허한 구호
+에 그칠 수밖에 없다. AI가 왜 특정 결과를 냈는지, 어떤 데이터와 구조로 학습했는지조차 모른다면 그 결과에 대해 비판하거나
+개선 방향을 제시하는 것도 불가능하다. 즉, 윤리와 가치는 이해를 바탕으로 가능하다.
+모든 지식은 그 개념과 원리를 이해해야만 ‘안다’고 할 수 있다. AI에 대해 ‘앎’ 없이 ‘활용’만 강조한다면, 이는 미래 사회의
+핵심 기술을 마치 ‘블랙박스’처럼 대하며 비판 없이 수용하고 소비하는 태도로 이어질 위험이 있다.
+AI교육 2.0은 이러한 문제의식을 바탕으로, AI와의 협력, 가치 판단, 윤리적 실천 등 모든 교육의 출발점을 ‘AI에 대한 깊이
+있는 이해’로 설정한다. 학생들은 AI를 단순히 편리한 기술로 인식하는 것이 아니라, 그 내부 구조를 탐구하고, 한계와 가능성
+을 스스로 분석하며, 더 나은 방향으로 활용하거나 재설계할 수 있는 능동적 존재로 성장하게 된다.
+AI시대의 시민으로서 기술을 제대로 이해하고 다룰 수 있는 지성이야말로 가장 근본적인 교육의 출발점이 되어야 한다.
+02. AI 교육 2.0 모델의 핵심 원칙 13</pre></article></div></details>
+  <details class="more" style="--rgb:36, 116, 128" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-014.png" data-title="무엇보다 AI를 ‘제대로’ 알아야 하는 이유: 올바른 협력과 가치는 이해로부터 · PDF 14쪽"><img src="assets/report-pages/page-014.png" alt="무엇보다 AI를 ‘제대로’ 알아야 하는 이유: 올바른 협력과 가치는 이해로부터 PDF 14쪽" loading="lazy" /><span>PDF 14쪽</span></button></div></details>
+</article><article class="sub" id="new-thinking" style="--rgb:36, 116, 128">
+  <div class="sub-head">
+    <div><p class="sub-kicker">02 핵심 원칙</p><h3>AI시대를 준비하는 새로운 사고력: 컴퓨팅 사고를 넘어서</h3></div>
+    <div class="sub-range">PDF 15쪽 · 보고서 14쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>02. AI교육 2.0 모델의 핵심 원칙 우리가 세상을 이해하길 멈출 때 『우리가 세상을 이해하길 멈출 때』는 과학자들의 혁신적 업적 뒤에 감춰진 고뇌와 윤리적 질문들을 조명한 책이다. 프리츠 하버 는 인류를 기아에서 구할 비료를 개발했지만, 동시에 대량 학살에 사용될 독가스도 함께 만들어 냈다. 하이젠베르크와 슈바르츠실 트, 그리고 그로텐디크는 눈부신 이론의 정점을 찍으면서도 그 대가로 정신적 고립과 광기의 경계에 서게 되었다. 이 작품은 과학 기술의 발전이 무조건 진보를 의미하지 않으며, 그 원리뿐 아니라 목적과 이유를 묻지 않으면 파멸로 이어질 수 있다고 경고한다.</p><p>이와 같은 이야기는 오늘날 AI 시대를 살아가는 우리에게도 똑같은 질문을 던진다. 우리는 지금 AI라는 이름 아래 수많은 기술을 ‘활용’하고 있다. 그러나 이 기술이 어떻게 학습하고 판단하는지, 어떤 데이터를 바탕으로 작동하며, 그 과정에서 어떤 편향과 왜곡 이 생길 수 있는지에 대해 얼마나 이해하고 있는가?</p><p>AI는 결코 중립적인 존재가 아니며, 인간의 의도와 선택이 코드와 알고리즘 속에 고스란히 반영된다. 그럼에도 불구하고 AI를 단순한 편리함의 도구로만 인식하고, 그 원리를 ‘블랙박스’처럼 방치한 채 수동적으로 사용하는 태도는 과거 과학이 겪었던 윤리적 실패를 반복할 위험을 안고 있다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 15</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:36, 116, 128"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 15쪽</span><span>보고서 14쪽</span></div><pre>02. AI교육 2.0 모델의 핵심 원칙
+우리가 세상을 이해하길 멈출 때
+『우리가 세상을 이해하길 멈출 때』는 과학자들의 혁신적 업적 뒤에 감춰진 고뇌와 윤리적 질문들을 조명한 책이다. 프리츠 하버
+는 인류를 기아에서 구할 비료를 개발했지만, 동시에 대량 학살에 사용될 독가스도 함께 만들어 냈다. 하이젠베르크와 슈바르츠실
+트, 그리고 그로텐디크는 눈부신 이론의 정점을 찍으면서도 그 대가로 정신적 고립과 광기의 경계에 서게 되었다. 이 작품은 과학
+기술의 발전이 무조건 진보를 의미하지 않으며, 그 원리뿐 아니라 목적과 이유를 묻지 않으면 파멸로 이어질 수 있다고 경고한다.
+이와 같은 이야기는 오늘날 AI 시대를 살아가는 우리에게도 똑같은 질문을 던진다. 우리는 지금 AI라는 이름 아래 수많은 기술을
+‘활용’하고 있다. 그러나 이 기술이 어떻게 학습하고 판단하는지, 어떤 데이터를 바탕으로 작동하며, 그 과정에서 어떤 편향과 왜곡
+이 생길 수 있는지에 대해 얼마나 이해하고 있는가?
+AI는 결코 중립적인 존재가 아니며, 인간의 의도와 선택이 코드와 알고리즘 속에 고스란히 반영된다. 그럼에도 불구하고 AI를 단순한
+편리함의 도구로만 인식하고, 그 원리를 ‘블랙박스’처럼 방치한 채 수동적으로 사용하는 태도는 과거 과학이 겪었던 윤리적 실패를
+반복할 위험을 안고 있다.
+『우리가 세상을 이해하길 멈출 때』가 전하려는 핵심은 단순하다. &quot;이해를 멈출 때, 책임도 멈춘다&quot;는 것이다. 기술은 인간의 이해
+와 성찰 위에서만 진정한 가치와 방향을 가질 수 있다. AI 또한 마찬가지다. 우리가 AI를 제대로 이해하려는 노력을 기울이지 않는
+다면, 우리는 그 기술의 결과 앞에서 비판할 수 없고, 책임질 수도 없는 존재로 전락할 수 있다.
+따라서 AI 시대의 교육은 단지 &#x27;기술을 잘 쓰는 사람&#x27;을 기르는 데 그쳐서는 안 된다. 기술의 이면을 탐구하고, 인간과 기술의 관계
+를 철학적으로 성찰하며, AI와의 ‘올바른 협력’을 설계할 수 있는 지적이고 윤리적인 시민을 기르는 데 있어야 한다. 그것이야말로
+기술을 &#x27;제대로&#x27; 아는 것, 그리고 진정으로 &#x27;잘&#x27; 사용하는 것이다.
+4 AI 시대를 준비하는 새로운 사고력: 컴퓨팅 사고를 넘어서
+인류는 시대마다 새로운 기술을 맞이하며 교육의 방향과 목적을 재정의해왔다. 산업혁명기의 학교 시스템은 산업에 필요한
+인재를 양성하기 위한 구조로 설계되었고, 교실은 그 목적을 구현하는 공간이었다. 각 교과는 산업사회의 요구에 따라 체계화
+되었으며, 그 안에서 지식, 기능, 태도의 균형을 갖춘 전인적 인간을 기르기 위한 4C 역량(비판적 사고, 창의성, 소통, 협업)
+이 강조되었다.
+이후 디지털 혁명과 정보화 사회의 도래는 새로운 도전 과제를 교육에 제시했다. 디지털 기술을 이해하고 활용하는 능력은
+생존을 위한 필수 역량이 되었고, 이에 따라 컴퓨팅 사고력(Computational Thinking)이 새로운 교육의 핵심 역량으로 떠올랐다.
+이는 문제를 구조화하고, 알고리즘화하며, 컴퓨터 기반의 자동화를 통해 해결하는 사고력으로, 디지털 세계에서의 적응과
+실천 능력을 뒷받침해주었다.
+그러나 지금 우리는 그보다 더 근본적인 변화를 마주하고 있다. AI는 더 이상 단순한 도구가 아니라, 인간의 사고를 닮아가
+고, 판단하고, 생성하는 ‘지능적 존재’로 진화하고 있다. 기계가 인간의 정신적 역량과 유사한 형태로 사고하고 선택할 수 있게
+14 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article></div></details>
+  <details class="more" style="--rgb:36, 116, 128" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-015.png" data-title="AI시대를 준비하는 새로운 사고력: 컴퓨팅 사고를 넘어서 · PDF 15쪽"><img src="assets/report-pages/page-015.png" alt="AI시대를 준비하는 새로운 사고력: 컴퓨팅 사고를 넘어서 PDF 15쪽" loading="lazy" /><span>PDF 15쪽</span></button></div></details>
+</article><article class="sub" id="partnership" style="--rgb:36, 116, 128">
+  <div class="sub-head">
+    <div><p class="sub-kicker">02 핵심 원칙</p><h3>AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육</h3></div>
+    <div class="sub-range">PDF 16-18쪽 · 보고서 15쪽~보고서 17쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>되면서, 단순한 기술 활용이나 절차적 문제 해결만으로는 대응할 수 없는 복합적이고 비판적인 사고의 필요성이 제기된다. AI 시대의 인재는 단지 디지털 기술을 사용할 수 있는 사람이 아니라, AI와 함께 사고하고, 협력하고, 창조하고, 그 결과에 대해 성찰할 수 있는 존재이어야 한다.</p><p>이를 위해서는 기존의 컴퓨팅 사고력을 넘어서는 AI 사고력(AI Thinking)이 필요하다. AI 사고력은 단순한 논리적, 절차적 사고를 넘어서 AI의 판단방식과 작동 원리를 이해하고, 그 결과를 비판적으로 분석하며, 인간과 AI가 협력하여 문제를 해결 하고 새로운 가치를 생성할 수 있는 사고 능력이다.</p><p>AI교육 2.0은 시대적 전환점에서, 인간과 AI가 공존하는 미래를 살아갈 새로운 인재를 위한 사고력의 혁신을 지향한다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>3쪽</strong></div>
+      <div><span>범위</span><strong>PDF 16~18</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:36, 116, 128"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 16쪽</span><span>보고서 15쪽</span></div><pre>되면서, 단순한 기술 활용이나 절차적 문제 해결만으로는 대응할 수 없는 복합적이고 비판적인 사고의 필요성이 제기된다. AI
+시대의 인재는 단지 디지털 기술을 사용할 수 있는 사람이 아니라, AI와 함께 사고하고, 협력하고, 창조하고, 그 결과에 대해
+성찰할 수 있는 존재이어야 한다.
+이를 위해서는 기존의 컴퓨팅 사고력을 넘어서는 AI 사고력(AI Thinking)이 필요하다. AI 사고력은 단순한 논리적, 절차적
+사고를 넘어서 AI의 판단방식과 작동 원리를 이해하고, 그 결과를 비판적으로 분석하며, 인간과 AI가 협력하여 문제를 해결
+하고 새로운 가치를 생성할 수 있는 사고 능력이다.
+AI교육 2.0은 시대적 전환점에서, 인간과 AI가 공존하는 미래를 살아갈 새로운 인재를 위한 사고력의 혁신을 지향한다.
+그리고 그 중심에는 AI를 매개로 사고 자체를 확장하는 역량, 곧 AI사고력이 자리하고 있다.
+컴퓨팅 사고(Computational Thinking)
+컴퓨팅 사고는 컴퓨터 과학의 원리를 바탕으로 복잡한 문제를 논리적이고 체계적으로 해결하는 사고방식이다. 이는 단순히 컴퓨터
+를 사용하는 기술이 아니라, 문제를 이해하고, 해결 방법을 설계하며, 그 과정을 자동화할 수 있는 능력을 말한다.
+주요 요소는 다음과 같다.
+▶ 문제 분해(Decomposition) : 복잡한 문제를 더 작은 문제로 나누기
+▶ 패턴 인식(Pattern Recognition) : 문제 속에서 반복되는 규칙이나 유사점 찾기
+▶ 추상화(Abstraction) : 핵심만 남기고 불필요한 정보 제거하기
+▶ 알고리즘 설계(Algorithm Design) : 문제 해결을 위한 명확한 절차 만들기
+▶ 자동화(Automation) : 기계가 자동으로 문제를 해결하도록 코딩으로 구현하기
+컴퓨팅 사고는 문제를 분석하고, 핵심을 추출하고, 절차를 설계하며, 해결을 자동화할 수 있도록 사고하는 능력으로, 디지털 시대
+를 살아가는 모든 사람에게 필요한 핵심 역량이다.
+5 AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육
+오늘날 우리는 AI가 인간의 능력을 일부 넘어서는 장면을 일상에서 쉽게 마주한다. 이미 바둑, 법률, 작문, 예술, 의료 진단
+등 다양한 분야에서 AI는 인간 전문가 수준을 뛰어넘는 성과를 보여주고 있다.
+그렇다면 우리는 질문해야 한다. AI는 어디까지 발전할 것인가?
+레이 커즈와일이 제시한 기술의 특이점(singularity)은 더 이상 먼 미래의 이야기가 아니다. AGI(일반 인공지능), 더 나아가
+ASI(초인공지능)의 가능성이 점점 현실감 있게 다가오는 이 시점에서, 우리는 단순히 AI를 ‘도구로 활용하는 수준’에 머무를
+것인지, 아니면 AI와 협력하는 새로운 관계를 정립할 것인지 고민해야 한다.
+02. AI 교육 2.0 모델의 핵심 원칙 15</pre></article><article class="text-card"><div class="text-meta"><span>PDF 17쪽</span><span>보고서 16쪽</span></div><pre>02. AI교육 2.0 모델의 핵심 원칙
+그렇다면 협력이란 무엇인가?
+전통적으로 협력이란 인간과 인간이 공동의 목표를 위해 상호 이해와 책임, 분업을 기반으로 관계를 맺는 활동이었다.
+그런데 AI는 인간이 아니다. 감정, 의도, 주체성을 지닌 존재는 아니기 때문에, 인간 간 협력과 동일한 기준을 적용할 수는 없다.
+그러나 AI는 문제를 함께 해결하고, 의사결정 과정에 영향을 미치며, 창작과 생산에 실질적으로 기여하는 존재가 되었다.
+이러한 점에서 AI와의 협력은 새로운 방식의 ‘확장된 협력’ 또는 ‘이질적 협력’으로 정의할 수 있으며, 교육 또한 그에 맞게
+재설계되어야 한다.
+우리는 왜 아직 AI를 협력의 대상으로 받아들이는 데 어려움을 겪는가? 그 이유는 다양하다.
+AI와 협력하는 것이 기술에 대한 두려움, 인간의 자존감에 대한 위협, 또는 책임 소재의 모호함 때문일 수 있다. 하지만
+중요한 것은, 우리가 이미 AI와 협력하고 있다는 사실이다. 코딩을 자동화하는 AI, 콘텐츠를 함께 제작하는 생성형 AI, 업무
+를 보조하는 AI도우미 등은 모두 실질적인 협력의 초기 형태다.
+AI를 협력 파트너로 인정한다면, 교육은 어떤 변화가 필요할까?
+단순한 기술 습득을 넘어서, AI의 판단을 이해하고, 역할을 나누며, 공동의 목표를 이루는 과정을 학습해야 한다. 이는
+단지 AI를 도구로 사용하는 것이 아니라, AI와 사고의 흐름을 조율하고, 피드백을 주고받으며, 창조적 결과를 공동으로 도출
+하는 경험이다.
+이러한 교육은 다음과 같은 함의를 가진다.
+▶ 인간과 AI 간의 관계적 감수성 함양
+▶ 역할 분담과 책임, 윤리에 대한 재정의
+▶ AI결과에 대한 비판적 수용과 재구성 역량 강화
+▶ 공동 창작, 공동 탐색, 공동 문제해결을 위한 학습 설계의 변화
+이를 위해 교육은 다음과 같은 방법을 도입할 수 있다.
+▶ AI와 함께 학습하는 프로젝트 기반 학습
+▶ AI의 결과물에 대해 비판하고 재설계하는 메타인지 중심 수업
+▶ AI도구와 인간 간 협력 시나리오 기반 실습 활동
+▶ 역할놀이와 시뮬레이션을 통한 인간-AI 공동 판단 훈련
+AI와 협력하는 역량은 단순한 기술 활용을 넘어서, 새로운 형태의 사고, 판단, 책임, 감수성을 기르는 핵심 역량이다.
+AI교육 2.0은 이를 명확히 인식하고, 교육을 ‘AI와 협력하는 인간’을 길러내는 방향으로 전환해야 한다.
+16 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 18쪽</span><span>보고서 17쪽</span></div><pre>파트너의 의미와 전제 조건
+1. 협력적 파트너의 기본 전제 조건
+▶ 공동의 목표(shared goal) : 파트너 간에 공통된 목적과 비전이 있어야 협력이 성립된다. 목표가 일치하지 않으면 협력은 단순한
+역할 분담이나 거래에 그칠 수 있다.
+▶ 상호 신뢰(mutual trust) : 상대를 믿고 존중하며, 약속을 지킬 것이라는 기본적인 신뢰가 형성되어 있어야 한다. 신뢰가 깨지면
+협력은 갈등이나 통제 관계로 바뀌게 된다.
+▶ 대등한 관계(equality in partnership) : 협력은 지시-복종 관계가 아니라 수평적 상호작용을 전제로 한다. 상대방의 전문성이나
+경험을 인정하고 동등하게 기여할 수 있어야 한다.
+▶ 자율성과 책임(responsibility &amp; autonomy) : 각자가 자신의 역할과 책임을 자율적으로 수행하고, 그에 대한 책임을 질 수 있어야 한다.
+2. 협력적 파트너에게 필요한 역량과 태도
+▶ 의사소통 능력(Communication) : 명확하게 자신의 생각을 표현하고, 상대의 의견을 경청하는 능력, 갈등이나 오해를 피하기
+위한 투명하고 개방적인 소통 태도
+▶ 공감과 배려(Empathy &amp; Respect) : 서로의 입장을 이해하고 배려할 줄 아는 태도, 차이를 인정하고 다양성을 존중하는 자세
+▶ 조율 능력(Negotiation &amp; Coordination) : 이해관계나 의견이 다를 때 합의점을 찾고 조율하는 능력, 집단의 목표를 해치지
+않으면서 유연하게 조정할 수 있어야 함
+▶ 공동 문제 해결 능력(Co-problem solving) : 각자의 역량을 모아 문제를 분석하고 해결책을 도출하는 능력, 함께 아이디어를
+나누고, 가능한 방안을 만들어내는 능력
+▶ 지속적 피드백과 성찰(Feedback &amp; Reflection) : 협력 과정 중 상호 피드백을 주고받으며 개선하려는 태도, 결과뿐 아니라
+과정을 함께 되돌아보는 능력도 필요
+메타협력(meta-cooperation)
+&quot;메타협력&quot;은 일반적인 ‘협력(cooperation or collaboration)’을 넘어선 더 높은 수준의 협력을 의미한다. 여기서 &quot;메타(meta)&quot;
+는 ‘초월한’, ‘상위의’, ‘자기 자신에 대한’이라는 뜻을 가진 접두어이다.
+1. 상위 수준의 협력: 단순한 공동작업이 아니라, 서로 다른 협력 주체들 간의 협력 구조를 설계하고 조정하는 협력이다.
+예: 개인과 AI, 집단과 AI, 기관과 기술 시스템 사이의 관계 조율
+2. 협력에 대한 협력: 협력의 방식 자체를 함께 성찰하고 개선하며, 어떻게 더 잘 협력할 수 있을지를 함께 논의하고 실행하는 과정이다.
+예: 교육 현장에서 교사, 학생, AI가 어떻게 서로 역할을 분담하고 효과적으로 상호작용할 수 있을지를 함께 설계하는 것
+인간과 인간의 협력 vs. 인간과 AI의 협력 (메타협력 관점)
+구분 인간과 인간의 협력 인간과 AI의 협력
+협력 주체 감정, 의식, 가치관을 가진 자율적 존재들 알고리즘 기반의 비자율적·비의식적 존재
+전제 조건 상호 이해, 공감, 신뢰 정확한 역할 정의, 책임 분배, 데이터 기반 신뢰
+의사소통 방식 언어, 비언어, 정서적 맥락까지 공유 가능 명시적 프로토콜, 논리적 지시, 인터페이스 기반
+협력 구조 설계 암묵적 협약이나 유연한 조정 가능 사전에 정의된 규칙 또는 인간의 주도적 조율 필요
+문제 해결 방식 공동 탐색, 창의적 조율, 협상 규칙 기반 최적화, 인간의 목적에 맞춘 실행
+메타협력 가능성 함께 협력 구조 자체를 창의적으로 논의하고 재구성 가능 AI는 구조 설계에 참여하지 않음, 인간이 책임지고 조율
+협력 윤리 관계와 맥락에 따른 도덕적 책임 강조 인간의 윤리적 설계와 통제가 핵심
+02. AI 교육 2.0 모델의 핵심 원칙 17</pre></article></div></details>
+  <details class="more" style="--rgb:36, 116, 128"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-016.png" data-title="AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육 · PDF 16쪽"><img src="assets/report-pages/page-016.png" alt="AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육 PDF 16쪽" loading="lazy" /><span>PDF 16쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-017.png" data-title="AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육 · PDF 17쪽"><img src="assets/report-pages/page-017.png" alt="AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육 PDF 17쪽" loading="lazy" /><span>PDF 17쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-018.png" data-title="AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육 · PDF 18쪽"><img src="assets/report-pages/page-018.png" alt="AI와 협력해야 하는 이유: 기술을 넘어 ‘파트너십’으로 나아가는 교육 PDF 18쪽" loading="lazy" /><span>PDF 18쪽</span></button></div></details>
+</article><article class="sub" id="value-over-ethics" style="--rgb:36, 116, 128">
+  <div class="sub-head">
+    <div><p class="sub-kicker">02 핵심 원칙</p><h3>윤리보다는 가치교육에: 기술의 방향을 규율하는 새로운 교육의 초점</h3></div>
+    <div class="sub-range">PDF 19쪽 · 보고서 18쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>0022.. AAII교교육육 22..00 모모델델의의 핵핵심심 원원칙칙 6 윤리보다는 가치교육에: 기술의 방향을 규율하는 새로운 교육의 초점 AI시대의 교육에서 ‘윤리’는 빠지지 않는 화두다. AI의 판단, 생성, 작동이 인간의 삶에 깊숙이 영향을 미치는 지금, 우리는 자연스럽게 AI가 ‘윤리적’일 수 있는가, 또는 AI를 만드는 인간은 어떤 윤리를 따라야 하는가를 묻는다. 하지만 여기서 한 걸음 더 나아가 생각해볼 필요가 있다.</p><p>우리는 기술에게 윤리를 요구할 수 있는가?</p><p>그리고 개발자나 설계자에게 모든 윤리적 책임을 전가하는 것이 과연 가능한가?</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 19</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:36, 116, 128"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 19쪽</span><span>보고서 18쪽</span></div><pre>0022.. AAII교교육육 22..00 모모델델의의 핵핵심심 원원칙칙
+6 윤리보다는 가치교육에: 기술의 방향을 규율하는 새로운 교육의 초점
+AI시대의 교육에서 ‘윤리’는 빠지지 않는 화두다. AI의 판단, 생성, 작동이 인간의 삶에 깊숙이 영향을 미치는 지금, 우리는
+자연스럽게 AI가 ‘윤리적’일 수 있는가, 또는 AI를 만드는 인간은 어떤 윤리를 따라야 하는가를 묻는다. 하지만 여기서
+한 걸음 더 나아가 생각해볼 필요가 있다.
+우리는 기술에게 윤리를 요구할 수 있는가?
+그리고 개발자나 설계자에게 모든 윤리적 책임을 전가하는 것이 과연 가능한가?
+윤리는 원칙적으로 선과 악, 옳고 그름을 구분하기 위한 기준이지만, 그 자체가 시대와 문화, 사회적 합의에 따라 변동되는
+상대적이고 맥락 의존적인 개념이다. 인간의 윤리 또한 절대적 기준이 존재하는 것이 아니라, 인간의 철학, 경험, 가치관에
+따라 달라진다. AI기술에 ‘윤리’를 일괄적으로 적용하려는 시도는, 때때로 기술 발전을 위축시키거나, 책임 소재를 모호하게
+만들기도 한다. 그렇기에 AI교육 2.0은 기존의 ‘윤리 중심 교육’을 넘어, ‘가치 중심 교육’으로의 전환을 제안한다.
+윤리는 행위의 정당성을 묻는다면, ‘가치’는 무엇을 지향하고 왜 그러한 방향을 택해야 하는지에 대한 적극적 질문이다.
+기술을 만들어내는 것도, 사용하는 것도 결국 인간이며, 기술의 최종적 방향은 인간이 추구하는 ‘가치’에 의해 결정된다. 예컨대,
+동일한 AI기술이라도 생명보호, 공정성, 자율성, 공동체, 지속가능성 등 어떤 가치를 우선시하느냐에 따라 전혀 다른 모습
+으로 구현될 수 있다.
+AI교육 2.0이 추구하는 교육은 다음과 같다.
+▶ AI기술의 윤리적 책임을 단일 기준으로 규정하는 것이 아니라, 다양한 가치 기준을 분별하고 토론할 수 있는 능력의 함양
+▶ 기술 사용에 앞서, ‘무엇을 위해 이 기술을 쓸 것인가’에 대한 가치 판단의 습관을 기르는 교육
+▶ 복잡하고 모순적인 문제 상황 속에서도 공동체적 합의와 인간 중심의 결정을 이끌어낼 수 있는 가치 판단력 교육
+▶ 기술의 한계와 가능성을 균형 있게 이해하며, 인간에게 이로운 방향으로 기술을 선택하고 설계할 수 있는 시민 양성
+AI윤리교육이 기술로 인한 피해를 줄이기 위한 방어적 접근이었다면, AI가치교육은 기술을 통해 인간과 사회가 더 나은
+방향으로 나아가기 위한 능동적 접근이다. AI교육은 이제, &#x27;무엇이 옳은가&#x27;를 묻는 수준을 넘어, &#x27;무엇을 위해 살아갈 것인가&#x27;
+를 함께 묻고 고민하는 교육으로 진화해야 한다.
+18 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article></div></details>
+  <details class="more" style="--rgb:36, 116, 128" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-019.png" data-title="윤리보다는 가치교육에: 기술의 방향을 규율하는 새로운 교육의 초점 · PDF 19쪽"><img src="assets/report-pages/page-019.png" alt="윤리보다는 가치교육에: 기술의 방향을 규율하는 새로운 교육의 초점 PDF 19쪽" loading="lazy" /><span>PDF 19쪽</span></button></div></details>
+</article><article class="sub" id="learning-theory" style="--rgb:36, 116, 128">
+  <div class="sub-head">
+    <div><p class="sub-kicker">02 핵심 원칙</p><h3>AI기본사회를 위한 새로운 학습이론의 필요성: 인간–AI 관계 기반 교육 패러다임의 전환</h3></div>
+    <div class="sub-range">PDF 20쪽 · 보고서 19쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>윤리와 가치의 차이 1. 정의의 차이</p><p>▶ 윤리(Ethics) : 사회나 집단에서 옳고 그름, 선과 악을 판단하는 규범이나 기준이다. “무엇이 도덕적으로 바람직한가?”에 대한</p><p>판단 기준을 제시한다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 20</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:36, 116, 128"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 20쪽</span><span>보고서 19쪽</span></div><pre>윤리와 가치의 차이
+1. 정의의 차이
+▶ 윤리(Ethics) : 사회나 집단에서 옳고 그름, 선과 악을 판단하는 규범이나 기준이다. “무엇이 도덕적으로 바람직한가?”에 대한
+판단 기준을 제시한다.
+▶ 가치(Value) : 어떤 대상이나 행동, 신념이 가지는 중요성이나 의미, 즉 중요하다고 여기는 것이다. 개인이나 집단이 “무엇을
+더 중요하게 여기는가?”에 대한 판단이다.
+2. 관점의 차이
+▶ 윤리는 ‘해야 할 것’에 대한 기준 ex) “거짓말을 해서는 안 된다.” (사회적 규범)
+▶ 가치는 ‘중요하게 여기는 것’에 대한 판단 ex) “정직이 중요하다.” (개인의 신념)
+3. 적용의 차이
+▶ 윤리는 사회, 집단 등 보통 외부에서 요구되며, 공동체 안에서 지켜야 하는 행동 기준이다.
+▶ 가치는 개인 또는 사회 내부에서 형성되며, 무엇을 우선시할지를 선택하는 기준이다.
+즉, 윤리는 ‘옳고 그름’의 기준이며, 가치는 ‘중요도’에 대한 판단이다
+7 AI기본사회를 위한 새로운 학습이론의 필요성:
+인간–AI 관계 기반 교육 패러다임의 전환
+인류가 지향하였던 교육은 언제나 기술의 진보와 긴밀히 얽혀 변화해 왔다. 산업혁명기의 대량 교육 체제는 기계와 공장
+중심의 사회를 떠받치기 위해 학교라는 시스템을 만들었고, 그 이후 정보화 사회에 이르기까지 교육은 시대와 기술의 변화에
+적응하며 끊임없이 형태를 바꾸어왔다.
+기술은 가속적으로 진보했고, 교육은 그것을 쫓고 수용하며 새로운 방향을 모색해왔다. 이와 함께, 학습자에 대한 이해와
+교육의 방식도 발전해왔다. 행동주의 학습이론은 외부 자극과 보상을 중심으로 학습을 바라보았고, 인지주의는 인간 내부의
+정보처리 과정을 주목했으며, 구성주의는 학습자 스스로가 의미를 구성해 나가는 주체임을 강조했다. 이 세 가지 주요 이론
+은 모두 ‘인간과 인간 사이의 상호작용’을 전제로 한 학습이론이었다. 즉, 교사와 학습자, 혹은 학습자 간의 관계를 중심에 둔
+이론들이다.
+그러나 지금, 우리는 인간만이 학습의 상대가 아닌 시대에 들어섰다. AI는 더 이상 단순한 정보 제공자나 피교육 대상이
+02. AI 교육 2.0 모델의 핵심 원칙 19</pre></article></div></details>
+  <details class="more" style="--rgb:36, 116, 128" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-020.png" data-title="AI기본사회를 위한 새로운 학습이론의 필요성: 인간–AI 관계 기반 교육 패러다임의 전환 · PDF 20쪽"><img src="assets/report-pages/page-020.png" alt="AI기본사회를 위한 새로운 학습이론의 필요성: 인간–AI 관계 기반 교육 패러다임의 전환 PDF 20쪽" loading="lazy" /><span>PDF 20쪽</span></button></div></details>
+</article><article class="sub" id="possibility" style="--rgb:36, 116, 128">
+  <div class="sub-head">
+    <div><p class="sub-kicker">02 핵심 원칙</p><h3>두려움보다 가능성에 주목하는 교육: 인간은 기술의 변화에 유연하고 결국 환경에 적응한다</h3></div>
+    <div class="sub-range">PDF 21-22쪽 · 보고서 20쪽~보고서 21쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>02. AI교육 2.0 모델의 핵심 원칙 아니라, 학습의 주체와 협력 파트너로 부상하고 있다. AI는 학습자의 질문에 실시간으로 반응하고, 학습의 흐름을 분석하며, 새로운 대안을 제시하는 등 교수자 역할의 일부를 대체하거나 보완하고 있다. 나아가, AI와 함께 문제를 해결하고 창조하는 능력은 이제 미래 사회를 살아가는 핵심 역량이 되고 있다.</p><p>이러한 변화는 기존의 학습이론만으로 충분히 설명되지 않으며, 교육에서 그 본질을 추구하고 학생들의 성장을 지원하는 데 한계를 갖는다. 왜냐하면 지금까지의 이론은 ‘인간-인간 관계’를 전제로 한 교육 구조였기 때문이다. AI라는 비인간적 이지만 지능적인 존재가 교육 파트너로 등장한 지금, 우리는 인간-AI 간 상호작용을 중심에 둔 새로운 교육 이론이 필요하다.</p><p>AI교육 2.0은 이를 위한 ‘메타협력주의’(Meta-Collaborativism), 그리고 인간과 AI가 함께 감응하며 변화하는 ‘공진주의’ (Symbiotic Learning)와 같은 새로운 학습이론의 필요성과 방향을 제시한다. 이러한 이론은 기존의 교수-학습 관계를 확장 하여, 인간–AI–환경 사이의 상호작용, 메타인지와 감성적 연결, 가치 판단과 공동 창출을 포함하는 다차원적 학습 구조를 구성 하고자 한다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>2쪽</strong></div>
+      <div><span>범위</span><strong>PDF 21~22</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:36, 116, 128"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 21쪽</span><span>보고서 20쪽</span></div><pre>02. AI교육 2.0 모델의 핵심 원칙
+아니라, 학습의 주체와 협력 파트너로 부상하고 있다. AI는 학습자의 질문에 실시간으로 반응하고, 학습의 흐름을 분석하며,
+새로운 대안을 제시하는 등 교수자 역할의 일부를 대체하거나 보완하고 있다. 나아가, AI와 함께 문제를 해결하고 창조하는
+능력은 이제 미래 사회를 살아가는 핵심 역량이 되고 있다.
+이러한 변화는 기존의 학습이론만으로 충분히 설명되지 않으며, 교육에서 그 본질을 추구하고 학생들의 성장을 지원하는
+데 한계를 갖는다. 왜냐하면 지금까지의 이론은 ‘인간-인간 관계’를 전제로 한 교육 구조였기 때문이다. AI라는 비인간적
+이지만 지능적인 존재가 교육 파트너로 등장한 지금, 우리는 인간-AI 간 상호작용을 중심에 둔 새로운 교육 이론이 필요하다.
+AI교육 2.0은 이를 위한 ‘메타협력주의’(Meta-Collaborativism), 그리고 인간과 AI가 함께 감응하며 변화하는 ‘공진주의’
+(Symbiotic Learning)와 같은 새로운 학습이론의 필요성과 방향을 제시한다. 이러한 이론은 기존의 교수-학습 관계를 확장
+하여, 인간–AI–환경 사이의 상호작용, 메타인지와 감성적 연결, 가치 판단과 공동 창출을 포함하는 다차원적 학습 구조를 구성
+하고자 한다.
+또한 미래에는 단지 AGI(일반 인공지능)만이 아니라, ASI(초인공지능)의 등장까지 고려해야 한다. 이는 교육의 대상과 방식,
+평가와 목표 자체를 완전히 새롭게 설계할 필요성을 제기한다. 즉, 인간만을 위한 교육이 아니라, 인간과 AI가 함께 성장하는
+교육, 그리고 AI를 능동적으로 이해하고 책임 있게 활용할 수 있는 주체를 기르는 교육으로 나아가야 한다.
+8 두려움보다 가능성에 주목하는 교육:
+인간은 기술의 변화에 유연하고 결국 환경에 적응한다
+기술이 급진적으로 발전할 때마다 반복되는 담론이 있다.
+“AI가 인간의 일자리를 모두 대체할 것이다.”
+“새로운 기술이 인간의 역할을 무의미하게 만들 것이다.”
+이러한 담론은 종종 불안, 두려움, 저항감을 자극하며 사회 전체에 기술 회의론을 퍼뜨린다. 그러나 역사를 돌아보면, 우리
+는 전혀 다른 사실을 확인하게 된다. 인류는 기술의 변화 속에서도 언제나 살아남았고, 오히려 그것을 발판 삼아 성장해왔다.
+기계가 처음 등장했을 때 인간의 육체노동이 위협받았고, 컴퓨터가 등장했을 때 사무직의 위기를 말했으며, 인터넷이 확산
+되었을 때 사회의 붕괴를 우려하는 목소리가 있었다.
+하지만 그 모든 시대를 거치며 인간은 새로운 방식으로 일하고, 배우고, 창조하며 끊임없이 진화해왔다. 기술은 인간의 자리를
+빼앗는 것이 아니라, 인간이 자신의 역량을 재구성하고 확장하는 계기가 되어왔다. 물론 변화는 불편하고 낯설며 때로는 고통
+을 수반한다. 하지만 인간은 본질적으로 학습하고 적응하며, 문제를 재구성하고 대응하는 존재다.
+20 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 22쪽</span><span>보고서 21쪽</span></div><pre>이러한 특성은 단순한 생존이 아니라, 새로운 삶의 방식과 가치관을 창출하는 능력으로 이어진다. AI기술의 시대도 마찬가지다.
+지금까지와는 차원이 다른 속도와 영향력을 가진 변화지만, 인간의 적응력과 회복력 역시 그에 못지않다. 우리는 지금 기계와
+경쟁하는 시대가 아니라, 기계와 협력하고 공진하며, 인간다움을 확장하는 시대를 맞이하고 있다.
+AI교육 2.0은 이러한 관점에서 출발한다. 기술의 공포를 강조하는 대신, 인간의 회복탄력성과 유연한 사고, 창조적 재구성
+능력을 신뢰한다. 학생들에게 변화에 대한 막연한 두려움을 주입하는 것이 아니라, 그 변화를 주도적으로 이해하고, 자신의
+삶과 연결하며, 능동적으로 AI와 협력하여 문제의 해결 방안을 모색할 힘을 길러주는 것이 교육의 역할이다.
+이런 교육은 다음을 포함해야 한다:
+▶ 기술 변화에 대한 비판적 이해와 주체적 해석 능력
+▶ 변화에 유연하게 반응하며 새로운 환경을 스스로 구성하는 역량
+▶ 인간 고유의 감성, 상상력, 도덕성, 공동체성 등을 기술과 융합할 수 있는 창조적 통합력
+▶ 실패를 두려워하지 않고 끊임없이 새롭게 적응해나가는 학습 지속성
+우리는 인간에 대한 신뢰를 바탕으로 교육을 설계해야 한다. 기술은 인간을 대체하기 위한 것이 아니라, 인간의 가능성을
+확장하기 위한 도구다. AI교육 2.0은 기술을 두려워하지 않고, 변화에 유연하게 대응하며 자기 삶을 주도적으로 설계하는 인간
+을 믿고, 그러한 인재를 길러내고자 한다.
+02. AI 교육 2.0 모델의 핵심 원칙 21</pre></article></div></details>
+  <details class="more" style="--rgb:36, 116, 128"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-021.png" data-title="두려움보다 가능성에 주목하는 교육: 인간은 기술의 변화에 유연하고 결국 환경에 적응한다 · PDF 21쪽"><img src="assets/report-pages/page-021.png" alt="두려움보다 가능성에 주목하는 교육: 인간은 기술의 변화에 유연하고 결국 환경에 적응한다 PDF 21쪽" loading="lazy" /><span>PDF 21쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-022.png" data-title="두려움보다 가능성에 주목하는 교육: 인간은 기술의 변화에 유연하고 결국 환경에 적응한다 · PDF 22쪽"><img src="assets/report-pages/page-022.png" alt="두려움보다 가능성에 주목하는 교육: 인간은 기술의 변화에 유연하고 결국 환경에 적응한다 PDF 22쪽" loading="lazy" /><span>PDF 22쪽</span></button></div></details>
+</article></div>
+</section><section class="section" id="section-03" style="--rgb:62, 89, 150">
+  <div class="section-head">
+    <div>
+      <p class="section-kicker">03</p>
+      <h2>AI교육 2.0 모델의 구조</h2>
+      <p class="section-desc">AI기본교육, AI이해교육, AI협력교육, AI가치교육, AI Thinking, Digitacy, 메타협력주의, 공진주의의 연결 구조를 보여줍니다.</p>
+      <div class="stats"><span>PDF 24-26쪽 · 보고서 23쪽~보고서 25쪽</span><span>2개 절</span><span>원문 페이지 포함</span></div>
+    </div>
+    <div class="intro-pages"><button class="page" type="button" data-src="assets/report-pages/page-023.png" data-title="AI교육 2.0 모델의 구조 · PDF 23쪽"><label>PDF 23쪽</label><img src="assets/report-pages/page-023.png" alt="AI교육 2.0 모델의 구조 도입 페이지 23" loading="lazy" /></button></div>
+  </div>
+  <nav class="section-links"><a href="#model-diagram">AI교육 2.0 모형도</a><a href="#term-definitions">모형도 세부 용어 정의</a></nav>
+  <div class="section-nav"><article class="sub" id="model-diagram" style="--rgb:62, 89, 150">
+  <div class="sub-head">
+    <div><p class="sub-kicker">03 모델 구조</p><h3>AI교육 2.0 모형도</h3></div>
+    <div class="sub-range">PDF 24쪽 · 보고서 23쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>1 AI교육 2.0 모형도 AI교육 2.0 모형도는 인공지능 기본사회에서 시민이 갖추어야 할 핵심 역량을 세 가지 교육 영역으로 구조화하고, 이를 바탕 으로 AI시대의 교육적 전환을 시각적으로 표현한 통합 모델이다.</p><p>AI교육 2.0 모형 ➅ AI Thinking ➃ AI ➂ AI 가치교육 협력교육 ➀ AI 기본교육 ➇ ➆ ➁ AI 이해교육 ➄ Digitacy 모형의 중심에는 AI가 기본인 사회의 중심이 되는 교육으로 ‘AI 기본교육’이 위치하며, 이는 모든 학습자들이 AI 사회에서 살아가기 위해 반드시 갖추어야 할 기본적 교육 요소들을 통합한 개념이다. 기본교육은 AI이해교육, AI협력교육, AI가치교육 의 세 영역으로 구성되어 있으며, 각각의 영역은 상호 보완적이면서도 독립적인 교육 목표를 지닌다.</p><p>▶ AI이해교육은 AI기술의 원리와 작동 구조에 대한 비판적 이해를 바탕으로 한 지식적 토대를 다진다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 24</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:62, 89, 150"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 24쪽</span><span>보고서 23쪽</span></div><pre>1 AI교육 2.0 모형도
+AI교육 2.0 모형도는 인공지능 기본사회에서 시민이 갖추어야 할 핵심 역량을 세 가지 교육 영역으로 구조화하고, 이를 바탕
+으로 AI시대의 교육적 전환을 시각적으로 표현한 통합 모델이다.
+AI교육 2.0 모형
+➅ AI Thinking
+➃ AI
+➂ AI
+가치교육
+협력교육
+➀ AI
+기본교육
+➇
+➆
+➁ AI
+이해교육
+➄ Digitacy
+모형의 중심에는 AI가 기본인 사회의 중심이 되는 교육으로 ‘AI 기본교육’이 위치하며, 이는 모든 학습자들이 AI 사회에서
+살아가기 위해 반드시 갖추어야 할 기본적 교육 요소들을 통합한 개념이다. 기본교육은 AI이해교육, AI협력교육, AI가치교육
+의 세 영역으로 구성되어 있으며, 각각의 영역은 상호 보완적이면서도 독립적인 교육 목표를 지닌다.
+▶ AI이해교육은 AI기술의 원리와 작동 구조에 대한 비판적 이해를 바탕으로 한 지식적 토대를 다진다.
+▶ AI협력교육은 인간과 AI의 공존을 넘어서, 협력적 주체로서 AI와 상호작용하며 문제를 해결할 수 있는 관계 역량을 기른다.
+▶ AI가치교육은 기술의 진보 속에서도 인간 중심의 가치를 실천할 수 있는 시민적 감수성과 윤리적 판단력을 함양하는 것을
+목표로 한다.
+이 세 교육 영역은 AI시대의 핵심 사고 역량인 AI사고력(AI Thinking)으로 통합되며, 이는 단순한 컴퓨팅 사고를 넘어, AI
+의 학습 구조, 판단방식, 인간-AI 협력 기반의 문제해결을 포함하는 고차원적 사고 체계를 지칭한다.
+03. AI 교육 2.0 모델의 구조 23
+의주력협 타메
+공진주의</pre></article></div></details>
+  <details class="more" style="--rgb:62, 89, 150" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-024.png" data-title="AI교육 2.0 모형도 · PDF 24쪽"><img src="assets/report-pages/page-024.png" alt="AI교육 2.0 모형도 PDF 24쪽" loading="lazy" /><span>PDF 24쪽</span></button></div></details>
+</article><article class="sub" id="term-definitions" style="--rgb:62, 89, 150">
+  <div class="sub-head">
+    <div><p class="sub-kicker">03 모델 구조</p><h3>모형도 세부 용어 정의</h3></div>
+    <div class="sub-range">PDF 25-26쪽 · 보고서 24쪽~보고서 25쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>03. AI교육 2.0 모델의 구조 모형의 핵과 맨틀을 둘러싸는 외부의 테두리는 AI사고력의 기반으로서 디지터시(Digitacy)를 강조한다. 이는 ICT, 소프트웨어, 데이터, AI에 대한 기본 소양을 바탕으로 디지털 환경에 주체적으로 적응하고 창의적으로 대응할 수 있는 기초 역량이다.</p><p>또한 AI교육의 모형 전체를 지지하는 학습이론으로 기존의 학습이론으로 발전한 메타협력주의와 공진주의라는 두 철학적 기반 위에 놓여 있다.</p><p>메타협력주의는 인간, AI, 사회 간 다층적 협력의 구조를 통해 교육이 기술과 함께 재구성되어야 함을 강조하며, 공진주의 는 인간과 AI가 서로를 감응하고 함께 진화하는 관계 통해 교육의 존재론적 전환을 지향한다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>2쪽</strong></div>
+      <div><span>범위</span><strong>PDF 25~26</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:62, 89, 150"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 25쪽</span><span>보고서 24쪽</span></div><pre>03. AI교육 2.0 모델의 구조
+모형의 핵과 맨틀을 둘러싸는 외부의 테두리는 AI사고력의 기반으로서 디지터시(Digitacy)를 강조한다. 이는 ICT, 소프트웨어,
+데이터, AI에 대한 기본 소양을 바탕으로 디지털 환경에 주체적으로 적응하고 창의적으로 대응할 수 있는 기초 역량이다.
+또한 AI교육의 모형 전체를 지지하는 학습이론으로 기존의 학습이론으로 발전한 메타협력주의와 공진주의라는 두 철학적
+기반 위에 놓여 있다.
+메타협력주의는 인간, AI, 사회 간 다층적 협력의 구조를 통해 교육이 기술과 함께 재구성되어야 함을 강조하며, 공진주의
+는 인간과 AI가 서로를 감응하고 함께 진화하는 관계 통해 교육의 존재론적 전환을 지향한다.
+이 모형은 단순히 기술을 가르치는 AI교육을 넘어, AI와 함께 살아갈 인간을 길러내는 교육, 그리고 인공지능 기본사회에서
+시민으로서 의미 있게 존재할 수 있는 능력을 기르는 실천적 교육 철학을 담고 있다.
+2 모형도 세부 용어 정의
+용어 의미
+AI시대를 살아가는 모든 시민이 갖추어야 할 기초 역량을 기르기 위한 교육으로,AI에 대한 이해, 협력, 가치의
+① AI기본교육
+세 영역을 아우르는 핵심 기반 교육
+AI는 무엇이며 어떻게 작동하는지를 이해하고, 알고리즘, 데이터, 인공지능 시스템의 원리를 비판적으로 분석할 수
+② AI이해교육
+있는 능력을 기르는 교육
+AI를 단순한 도구가 아니라 협력의 파트너로 인식하고, 인간과 AI가 함께 문제를 해결하며 과제를 수행하는 능력을
+③ AI협력교육
+기르는 교육
+AI기술이 사회에 미치는 영향과 인간 중심 가치의 중요성을 이해하고, 공존과 책임, 윤리와 공동체 의식을 바탕으로
+④ AI가치교육
+행동할 수 있는 역량을 기르는 교육
+⑤ 디지터시 ICT, SW, 데이터, AI를 기반으로 디지털 환경에 비판적으로 적응하고, 문제를 창의적으로 해결하는 역량
+AI의 판단과 학습 방식까지 고려하는 고차 사고로서, 기존의 컴퓨팅 사고력보다 확장된 개념이다. 문제를 인식하고,
+⑥ AI사고력
+AI적 관점에서 재구성하며, 인간-AI협력 기반의 해결 방안을 탐색하는 사고 능력을 포함
+인간과 인공지능(AI) 간의 지속적이고 상호 진화적인 협력 학습을 핵심으로 하는 이론으로, 학습자가 메타 인지적
+⑦ 메타협력주의 성찰과 메타 사고(meta-thinking)를 통해 AI와의 관계 속에서 사고를 조정하고 재구성하며, 지식과 문제 해결
+과정을 공동 구성해 나가는 학습 패러다임
+인간과 AI가 단순히 공존하는 것을 넘어서, 상호감응하고 함께 진화해가는 관계성을 강조하는 관점으로 존재론적
+⑧ 공진주의
+전환을 수반하는 교육 철학
+*감응: 두 존재(또는 시스템)가 서로의 변화나 상태에 민감하게 반응하며, 일방향이 아닌 상호작용을 통해 새로운 의미나 상태를 함께 생성해 나가는 과정
+24 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 26쪽</span><span>보고서 25쪽</span></div><pre>참고자료
+‘AI교육 1.0’ 교육 모델
+2020년 한국 AI교육학회에서는 인공지능교육의 모델을 아래와 같이 설계하여 발표하였다. 가장 기초 단계에서는 수학, 과학,
+컴퓨터과학 등 인간과 인공지능의 작동 원리를 이해하기 위한 기본교육이 자리하며, 이는 AI에 대한 논리적 사고력과 개념적 기반
+을 형성하는 출발점이다. 이 바탕 위에서 학습자는 인공지능의 개념과 작동 방식, 알고리즘의 원리를 이해하는 AI이해교육을 통해
+기술에 대한 비판적 안목을 갖게 된다.
+이후, 다양한 실제 문제에 AI기술을 적용하고 도구로써 활용하는 AI활용교육을 통해 실천적 역량을 키우게 되며, 궁극적으로는
+AI를 타 분야와 창의적으로 융합해 사회적 문제를 해결하고 새로운 가치를 만들어내는 AI융합교육으로 확장된다.
+이 모형에서는 AI교육이 단편적인 기능 습득이 아니라, AI의 이해를 바탕으로 한 활용교육, 그리고 창의적 통합으로 이어지는
+총체적이고 점진적인 학습 과정임을 강조하였다.
+인공지능
+융합교육
+인
+공
+인공지능 활용교육 지
+능
+소
+양
+인공지능 이해교육
+능
+력
+인간과 인공지능 기반교육
+수학, 과학, 컴퓨터과학 등
+[그림] AI교육 모델 1.0(한국인공지능교육학회, 2020.2)
+03. AI 교육 2.0 모델의 구조 25</pre></article></div></details>
+  <details class="more" style="--rgb:62, 89, 150"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-025.png" data-title="모형도 세부 용어 정의 · PDF 25쪽"><img src="assets/report-pages/page-025.png" alt="모형도 세부 용어 정의 PDF 25쪽" loading="lazy" /><span>PDF 25쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-026.png" data-title="모형도 세부 용어 정의 · PDF 26쪽"><img src="assets/report-pages/page-026.png" alt="모형도 세부 용어 정의 PDF 26쪽" loading="lazy" /><span>PDF 26쪽</span></button></div></details>
+</article></div>
+</section><section class="section" id="section-04" style="--rgb:120, 105, 32">
+  <div class="section-head">
+    <div>
+      <p class="section-kicker">04</p>
+      <h2>AI교육 2.0 모델의 세부 내용</h2>
+      <p class="section-desc">새로운 학습이론, 디지터시, AI사고력, 인지 수준, AI이해교육, AI협력교육, AI가치교육까지 보고서의 핵심 본문을 절별로 읽게 구성했습니다.</p>
+      <div class="stats"><span>PDF 28-61쪽 · 보고서 27쪽~보고서 60쪽</span><span>7개 절</span><span>원문 페이지 포함</span></div>
+    </div>
+    <div class="intro-pages"><button class="page" type="button" data-src="assets/report-pages/page-027.png" data-title="AI교육 2.0 모델의 세부 내용 · PDF 27쪽"><label>PDF 27쪽</label><img src="assets/report-pages/page-027.png" alt="AI교육 2.0 모델의 세부 내용 도입 페이지 27" loading="lazy" /></button></div>
+  </div>
+  <nav class="section-links"><a href="#new-learning-theory">AI기본사회 교육은 왜 새로운 학습이론이 필요한가?</a><a href="#digitacy">디지터시란 무엇인가?</a><a href="#ai-thinking">AI사고력이란 무엇인가?</a><a href="#cognitive-levels">AI사고력으로 신장되는 학습자의 인지 수준</a><a href="#ai-understanding-edu">AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가?</a><a href="#ai-collaboration-edu">AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가?</a><a href="#ai-value-edu">AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가?</a></nav>
+  <div class="section-nav"><article class="sub" id="new-learning-theory" style="--rgb:120, 105, 32">
+  <div class="sub-head">
+    <div><p class="sub-kicker">04 세부 내용</p><h3>AI기본사회 교육은 왜 새로운 학습이론이 필요한가?</h3></div>
+    <div class="sub-range">PDF 28-29쪽 · 보고서 27쪽~보고서 28쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>AI기본사회에서 AI는 학습의 파트너, 존재의 조건, 사회적 구조를 재구성하는 매개체로 작용하고 있다. 기존의 행동주의, 인지주의, 구성주의는 인간 중심 사고에 기반해 ‘인지적 처리’ 또는 ‘경험적 구성’을 강조했다. 그러나 AI가 학습을 수행하고, 추천하며, 예측하고, 감각적으로 인간과 상호작용하는 시대에, 이제 학습은 존재와 존재 간의 협력과 감응, 다층적 연결과 조율, 의미와 가치의 공동 생성이라는 차원에서 재설계되어야 한다.</p><p>이에 교육에 대한 새로운 질문을 토대로 메타협력주의와 공진주의 두 개의 학습이론을 제안한다.</p><p>▶ 우리는 AI와 함께 어떻게 사고하고 판단하며 살아갈 것인가?</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>2쪽</strong></div>
+      <div><span>범위</span><strong>PDF 28~29</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:120, 105, 32"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 28쪽</span><span>보고서 27쪽</span></div><pre>1 AI기본사회 교육은 왜 새로운 학습이론이 필요한가?
+AI기본사회에서 AI는 학습의 파트너, 존재의 조건, 사회적 구조를 재구성하는 매개체로 작용하고 있다. 기존의 행동주의,
+인지주의, 구성주의는 인간 중심 사고에 기반해 ‘인지적 처리’ 또는 ‘경험적 구성’을 강조했다. 그러나 AI가 학습을 수행하고,
+추천하며, 예측하고, 감각적으로 인간과 상호작용하는 시대에, 이제 학습은 존재와 존재 간의 협력과 감응, 다층적 연결과 조율,
+의미와 가치의 공동 생성이라는 차원에서 재설계되어야 한다.
+이에 교육에 대한 새로운 질문을 토대로 메타협력주의와 공진주의 두 개의 학습이론을 제안한다.
+▶ 우리는 AI와 함께 어떻게 사고하고 판단하며 살아갈 것인가?
+▶ 우리는 기술과 인간성 사이에서 어떤 균형을 만들고, 어떤 가치를 선택할 것인가?
+▶ 교육은 이러한 복잡한 세계에서 어떤 존재를 길러내야 하는가?
+메타협력주의(Meta-Collaborativism, Meta-Co Learning Theory)
+인간과 인공지능(AI) 간의 지속적인 협력을 강조하는 학습이론이다. 학습자는 메타인지적 성찰을 기반으로 AI와 상호작용
+하며 지식을 공동으로 구성하고 과제를 점진적으로 완성해 나간다.
+핵심 원칙
+▶ 인간-AI협력 : 학습자는 AI를 단순 도구가 아닌 인지적 파트너로 인식하며, 사고를 심화시키고 작업을 조정하는 의미 있는
+상호작용에 참여한다.
+▶ 메타인지적 인식 : 학습자는 자신의 사고뿐만 아니라 AI의 응답을 모니터링하고 성찰하면서 고차원적 조절 능력을 기른다.
+▶ 의미의 공동 구성 : 지식은 전달되는 것이 아니라, 학습자와 AI 간의 역동적 상호작용을 통해 협력, 검증, 반복을 거쳐 공동
+으로 생성된다.
+▶ 프롬프트 기반 스캐폴딩 제공 : 학습자는 AI에게 입력하는 프롬프트를 설계하고 수정하며 평가하는 과정 자체를 메타 협동적
+활동으로 간주하고 이를 통해 사고 과정을 이끈다.
+▶ 분산 인지 : AI는 반복적이고 계산 기반의 작업뿐 아니라 아이디어 생성, 패턴 분석, 요약 등의 고차원 인지 활동에도
+참여하며, 학습자는 AI와 함께 사고를 분산시키고 공동으로 지식을 창출한다.
+전통적 협력주의 vs. 메타협력주의
+항목 전통적 협력주의 메타협력주의
+학습 주체 동등한 인간 학습자들 인간과 AI가 동등·상호보완적 주체
+과정 설계 역할 분담 → 협력 → 결과 공유 문제 재정의 → AI·인간 공동 탐구 → 지속적 피드백과 조정 → 새로운 문제 발견
+04. AI 교육 2.0 모델의 세부 내용 27</pre></article><article class="text-card"><div class="text-meta"><span>PDF 29쪽</span><span>보고서 28쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+항목 전통적 협력주의 메타협력주의
+사고 수준 주로 과제 해결 중심의 실행적 사고 실행적 사고 + 메타인지·메타사고를 통한 자기 조정과 전략 설계
+관계 특성 단기적 협력 프로젝트 중심 지속적·진화적 관계(공진적 협력)
+성과 측정 과제 완성도, 협력 태도 지식 창출력, 적응력, AI 협력 역량, 가치 판단 능력
+※ 메타협력주의 학습이론을 바탕으로 AI교육 2.0 모델을 구성하되 AGI 시대가 본격적으로 도래하는 것을 가정하면
+메타협력주의가 심화되어 공진주의의 학습이론으로 발전함.
+공진주의 (Symbiotism)
+AGI시대를 대비한 학습이론으로, 인간과 인공지능 간의 ‘존재적·인지적 공진화(co-evolution)’를 중심으로 한 교육적
+패러다임이다.
+학습자는 AI와의 동시적 진화 관계 속에서 자기 성찰과 사회적 책임을 기반으로 ‘공동 실천자(co-agent)’로 기능하며, AI
+와 함께 새로운 지식, 가치, 의미를 창출한다.
+핵심 원칙
+▶ 인간-AI 상호 진화적 존재성 : 학습자는 AI를 능동적 파트너로 받아들이며, 인간과 AI 모두가 상호 영향을 주고받으며 함께
+진화하는 존재로 인식한다. 학습은 ‘정보 전달’이 아니라 존재론적 상호 구성의 과정이다.
+▶ 상호 책무성과 윤리적 사고 : 인간은 AI의 의사결정 결과에 대한 책임, 편향 인식, 윤리적 판단을 동반하는 존재로, 단순한
+사용자나 감독자가 아니라 ‘공동 설계자(co-designer)’로 작동한다.
+▶ 지식의 생태적 확장 : 학습은 인간-기계-환경 간의 네트워크에서 실시간으로 이루어지는 생태적 학습으로, 지식은 정적
+저장물이 아닌 공진적 흐름 속에서 유기적으로 생성되고 확장된다.
+▶ 기술 내면화 및 존재 확장 : AI는 외부 도구가 아닌, 학습자의 감각과 인지의 일부로 내면화되며, 인간의 존재 방식과 학습
+방식 자체를 변화시킨다. 학습은 단순한 기술 활용이 아니라, 인간 능력의 진화적 확장이다.
+▶ 공진적 실천 공동체 형성 : 학습자는 AI와 협력하는 단독 주체를 넘어서, AI, 인간, 사회가 함께 성장하는 실천 공동체의
+일원이 되며, 공동 문제 해결, 가치 창출, 미래 사회 설계에 능동적으로 참여한다.
+&lt;표&gt; 시대별 학습이론 비교
+28 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article></div></details>
+  <details class="more" style="--rgb:120, 105, 32"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-028.png" data-title="AI기본사회 교육은 왜 새로운 학습이론이 필요한가? · PDF 28쪽"><img src="assets/report-pages/page-028.png" alt="AI기본사회 교육은 왜 새로운 학습이론이 필요한가? PDF 28쪽" loading="lazy" /><span>PDF 28쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-029.png" data-title="AI기본사회 교육은 왜 새로운 학습이론이 필요한가? · PDF 29쪽"><img src="assets/report-pages/page-029.png" alt="AI기본사회 교육은 왜 새로운 학습이론이 필요한가? PDF 29쪽" loading="lazy" /><span>PDF 29쪽</span></button></div></details>
+</article><article class="sub" id="digitacy" style="--rgb:120, 105, 32">
+  <div class="sub-head">
+    <div><p class="sub-kicker">04 세부 내용</p><h3>디지터시란 무엇인가?</h3></div>
+    <div class="sub-range">PDF 30-38쪽 · 보고서 29쪽~보고서 37쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>&lt;표&gt; 시대별 학습이론 비교</p><p>시대 학습이론 중심 개념 지식관 교사 역할 학습자 역할 철학적 배경 실증주의, 산업사회 행동주의 자극-반응 외재적 지식 습득 전달자 수동적 수용자 기계론적 인간관 정보사회 인지주의 정보처리 내면화된 구조화 구조적 설명자 능동적 정보처리자 합리주의, 인지과학 네트워크 구성주의 인식론, 구성주의 의미 구성 맥락 속 구성 촉진자/안내자 의미 창출자 사회 사회 문화 철학 대화주의 인식론 메타인지 기반 AI와의 상호작용을 메타협력 관계 속 공동 생성 메타 협력 촉진 분산 인지 인간-AI 상호 통한 성찰적 의미의 주의 및 반성적 구성 자 및 설계자 메타인지 이론 작용과 협력 공동 창출자 AI 포스트인지주의 기본사회 AI와 인간이 상호 생태적 시스템 인간과 AI의 존재와 학습의 통 의존적으로 배우며 포스트휴머니즘, 공진주의 설계자/윤리적 상호진화 합적 공동 진화 함께 진화하는 관계론적 존재론 촉진자 존재 2 디지터시란 무엇인가?</p><p>디지터시(Digitacy, 디지력)는 Digital과 Literacy의 합성어로 단순히 디지털 기기를 잘 다루는 능력이나 ICT 활용 능력을 넘어서, 컴퓨터 과학 기반의 기술과 컴퓨팅 사고를 실생활의 문제 해결 과정에 적용할 수 있는 능력을 뜻한다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>9쪽</strong></div>
+      <div><span>범위</span><strong>PDF 30~38</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:120, 105, 32" open><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 30쪽</span><span>보고서 29쪽</span></div><pre>&lt;표&gt; 시대별 학습이론 비교
+시대 학습이론 중심 개념 지식관 교사 역할 학습자 역할 철학적 배경
+실증주의,
+산업사회 행동주의 자극-반응 외재적 지식 습득 전달자 수동적 수용자
+기계론적 인간관
+정보사회 인지주의 정보처리 내면화된 구조화 구조적 설명자 능동적 정보처리자 합리주의, 인지과학
+네트워크 구성주의 인식론,
+구성주의 의미 구성 맥락 속 구성 촉진자/안내자 의미 창출자
+사회 사회 문화 철학
+대화주의 인식론
+메타인지 기반 AI와의 상호작용을
+메타협력 관계 속 공동 생성 메타 협력 촉진 분산 인지
+인간-AI 상호 통한 성찰적 의미의
+주의 및 반성적 구성 자 및 설계자 메타인지 이론
+작용과 협력 공동 창출자
+AI 포스트인지주의
+기본사회 AI와 인간이 상호
+생태적 시스템
+인간과 AI의 존재와 학습의 통 의존적으로 배우며 포스트휴머니즘,
+공진주의 설계자/윤리적
+상호진화 합적 공동 진화 함께 진화하는 관계론적 존재론
+촉진자
+존재
+2 디지터시란 무엇인가?
+디지터시(Digitacy, 디지력)는 Digital과 Literacy의 합성어로 단순히 디지털 기기를 잘 다루는 능력이나 ICT 활용 능력을
+넘어서, 컴퓨터 과학 기반의 기술과 컴퓨팅 사고를 실생활의 문제 해결 과정에 적용할 수 있는 능력을 뜻한다.
+디지털 리터러시 ≠ 디지터시
+디지터시 = 디지털+리터러시
+기존의 디지털 리터러시는 디지털 기기가 생성해 내는 정보에 초점을 맞춰서 정보의 수집, 소통, 평가, 윤리적인 요소를 강조
+하였기에 컴퓨터 과학이라는 본연이 학문이 아닌 소통을 중요시하는 언어, 사회 영역에서 다루는 일반적인 소양의 개념으로
+간주하였다.
+하지만 디지터시는 단순히 디지털 기기를 사용하는 능력을 넘어, 컴퓨터 과학을 근간으로 하는 실생활에서의 적용 능력을
+강조한다. 이는 셈하기가 단순한 계산 능력을 넘어서 수리력(Numeracy)으로 발전한 것과 유사한 맥락에서 이해할 수
+있다. 셈하기가 시대적 요구에 따라 수학적 사고와 실생활에서의 적용 능력을 포함하게 된 것처럼, 디지털 리터러시 역시 컴퓨팅
+04. AI 교육 2.0 모델의 세부 내용 29</pre></article><article class="text-card"><div class="text-meta"><span>PDF 31쪽</span><span>보고서 30쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+사고(CT)와 빠르게 변하는 현대의 기술적 환경에 맞춰 더 포괄적이고 심화된 개념으로 발전하고 독자적인 이름으로 자리매김
+해야 하기 때문이다.
+이는 기술 숙련에 국한되지 않고, 지식과 기능, 태도의 조화를 통해 현재의 디지털 환경에 비판적으로 적응하고, 미래를
+능동적으로 주도하는 소양이라 할 수 있다.
+디지터시의 필요성
+① 빠르게 변하는 기술 환경에의 적응과 주도성 요구
+▶ 기존의 기술적 문해력만으로는 복잡하고 고도화된 디지털 환경에 대응하기 어렵다. 이에 따라, 기술 변화에 능동적으로
+대응하고 새로운 환경에 효과적으로 적응할 수 있는 체계적 역량을 기르는 것이 필수적이다.
+▶ 디지털 환경에 단순 적응이 아닌 변화를 수용하고 적극적으로 주도하는 능력이 요구된다.
+② 디지털 기술은 정적인 지식이 아니라 지속적으로 변화하는 영역으로, 누구든지 지속적으로 학습하지 않으면 디지털 소외
+계층이 될 수 있다.
+▶ 디지터시는 특정 계층만을 위한 능력이 아니라, 모든 시민이 지속적으로 개발해야 할 평생학습 중심의 보편적 소양이다.
+③ 기존 디지털 리터러시와 미디어 리터러시가 제시하는 역량의 한계 극복
+▶ 현대 사회의 많은 시민들이 디지털 기술의 근본 원리, 구조, 개념 등에 대한 이해가 부족한 상황이며, 윤리적 담론에만 치우친
+디지털 교육은 기술 활용 능력의 확장에 한계를 드러낸다.
+▶ 디지털 관련 윤리적 문제에 관한 소양만이 강조되면서기술을 이해하고 활용하는 데 필요한 기초적인 지식과 능력은 소홀히
+다뤄지고 있다. 디지터시는 이러한 부족함을 메우기 위해, 디지털 기술의 기초부터 심화된 지식까지 포괄적으로 교육해야
+한다.
+▶ 디지털 윤리와 비판 중심의 접근에서 벗어나, SW, AI기술을 활용한 기회 창출에 대한 균형이 필요하다.
+▶ 미디어 리터러시에서 말하는 디지털 소양으로의 접근은 기술 본연의 발전을 저해할 수 있으며, 기술로 인한 유토피아적
+가능성을 무시하게 만들 수 있다. 디지터시는 이러한 편향을 바로잡고, 기술의 긍정적 가능성과 윤리적 책임을 균형 있게
+다룰 수 있는 핵심 소양을 제공해야 한다. 디지터시는 기술의 윤리적 측뿐만 아니라, 그 기술을 통해 창출될 수 있는 기회와
+가능성을 탐구하고 활용하는 데 중점을 둔다.
+④ 문해력, 수리력과 함께 디지털 사회의 핵심 역량으로 정립
+▶ 현대 사회에서 문해력(Literacy), 수리력(Numeracy), 그리고 디지터시(Digitacy)는 가장 중요한 세 가지 리터러시로 자리
+잡고 있다. 문해력은 전통적인 읽기와 쓰기 능력을 포함하고, 수리력은 기초적인 수학적 사고와 문제 해결 능력을 강조한다.
+이에 더해 디지터시는 디지털 환경에서 필요한 복합적이고 심화된 능력을 함양하는 데 중점을 둔다.
+▶ 단순 도구적 사용을 넘어 정보처리, 프로그래밍, AI 활용 등의 역량을 통합적으로 함양하여야 한다.
+30 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 32쪽</span><span>보고서 31쪽</span></div><pre>⑤ 실생활 기반 문제 해결 능력의 요구
+▶ 수리력이 실생활 수학 적용 능력으로 확장된 것과 유사한 맥락으로, 디지터시 역시 현실 문제 해결에 기여하는 실천적 도구로
+작동해야 한다.
+▶ 디지터시도 단순한 기술적 지식을 넘어서, 실생활에서 기술을 활용하여 문제를 해결하고, 기술적 기회를 포착할 수 있는
+능력으로 발전해야 한다.
+수학적 사고와 수리력
+수학적 사고력은 수학의 본질을 이해하고 추론하는 능력으로 ‘수학 안에서의 사고’이고,
+수리력은 실생활에서 수학을 읽고, 해석하고, 활용하는 능력으로 ‘수학을 통한 삶의 사고’이다.
+▶ 수학적 사고력(MATHEMATICAL THINKING)은 수학 문제를 깊이 있게 사고하고, 논리적으로 해결하는 능력
+▶ 수리력(NUMERACY)은 삶의 문제에 수학을 적용하여 합리적으로 판단하는 능력
+수학적 사고력
+구분 수리력 / 수리 문해력 (Numeracy)
+(Mathematical Thinking)
+수학적 개념과 구조를 활용하여 논리적·추상적으로 실생활 맥락에서 수학적 지식과 기술을 활용하여 이해하고
+개념
+사고하고 문제를 해결하는 능력 판단하며 의사를 결정하는 능력
+수학 자체의 사고 현실 문제에 수학 적용
+초점
+(문제 해결, 논증, 추상화, 일반화 등) (정보 해석, 수량 판단, 리터러시 기반 활용 등)
+목적 수학적 개념에 대한 깊이 있는 이해와 논리적 사고 실생활 문제 해결과 합리적 의사결정
+배경 수학 교육의 고차 사고 능력 강조 OECD PISA 등 국제 평가에서 강조하는 실천적 문해력
+접근 추상적·이론적 문제 해결 중심 맥락 기반·현실 적용 중심
+함수의 성질을 추론하고 일반화하기, 증명하기 신문 속 통계 그래프 해석, 물건 할인 계산, 예산 짜기 등
+예시 “이 문제에서 어떤 수학 원리가 작용하는가?”, “이 그래프는 신뢰할 수 있는가?”,
+“모든 경우에 성립하는가?” “이 가격이 실제로 이득인가?”
+04. AI 교육 2.0 모델의 세부 내용 31</pre></article><article class="text-card"><div class="text-meta"><span>PDF 33쪽</span><span>보고서 32쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+정보적 사고와 디지터시
+정보적 사고는 컴퓨터 과학의 원리를 바탕으로 정보를 논리적으로 분석·처리하고 문제를 해결하는 사고 능력이며,
+디지터시(DIGITACY)는 이러한 컴퓨팅 사고를 넘어, 실생활과 사회 속 문제에 적용하고 실천할 수 있는 능력으로 확장
+된 개념입니다. 다시 말해, 정보적 사고가 ‘어떻게 문제를 구조화하고 처리할 것인가’에 집중한다면, 디지터시는 ‘그 능력
+을 삶과 사회에 어떻게 쓰고 살아갈 것인가’에 초점을 둔다.
+▶ 정보적 사고는 컴퓨터처럼 생각하는 법으로 정보를 어떻게 조직하고 처리할지 설계하는 기술 중심의 사고 역량
+▶ 디지터시는 디지털 사회에서 현명하게 살아가는 능력으로 기술을 이해할 뿐 아니라, 실제 삶의 문제에 책임감 있게
+적용하고 실천하는 역량
+구분 정보적 사고 (Informatics Thinking) 디지터시 (Digitacy)
+정보 과학(Informatics) 기반의 문제 해결 사고 : 디지털 환경에서 비판적·창의적·책임감 있게 정보와
+개념
+정보를 분석·구조화·처리·활용하는 사고방식 기술을 다루는 실천 역량
+정보를 중심으로 문제를 인식하고 해결하는 능력 디지털 사회에서 살아가기 위한 시민의 기본 문해 능력,
+초점
+(정보처리, 알고리즘, 자동화 등 포함) 즉 디지털적 사고·소통·윤리·참여 역량 포함
+디지털 시대에 기술의 원리를 이해하고 비판적이고 윤리
+목적 정보를 논리적으로 조직하고 활용하여 문제를 해결
+적인 사용자/생산자로 살아가기
+실천적·사회적 역량 중심(정보 판단, 창의 표현, 협업,
+성격 도구적·기술적 사고 기반(정보 분석, 처리, 자동화 등)
+디지털 시민성)
+디지털 커뮤니케이션, 플랫폼 활용, 디지털 윤리, 온라인
+적용 영역 정보처리 과정, 알고리즘 설계, 정보 시스템 활용 등
+정체성 등
+디지털 리터러시(digital literacy)의 진화된 개념(리터러
+기원 정보 과학, 컴퓨터 과학, 컴퓨팅 사고에서 발전
+시 + 디지털 기술 이해 + 실천적 감수성 + 사회적 참여)
+디지터시의 영역 및 하위요소
+① 디지터시 영역 선정 기준
+▶ 실생활 적용성 : 생활 속에서 디지털 도구나 데이터를 활용하여 문제를 해결할 수 있는가?
+▶ 컴퓨터 과학 기반성 : 알고리즘, 하드웨어, 네트워크 등 컴퓨터 과학 개념이 반영되어 있는가?
+▶ 디지털 환경 적응력 : 급변하는 디지털 사회에서 정보를 분석, 선택, 창출할 수 있는가?
+▶ 문제해결 구조성 : 문제 인식 → 분석 → 해결책 생성의 논리 구조가 드러나는가?
+▶ 시민의 책임성과 윤리성 : 디지털 참여자의 권리, 책임, 윤리의식이 반영되어 있는가?
+32 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 34쪽</span><span>보고서 33쪽</span></div><pre>② 디지터시 하위요소 구성 원칙
+▶ 개념-기능-태도 통합 : 각 하위요소는 지식 이해, 실천 활동, 가치 판단을 포함한다.
+▶ 학교급별 위계 구성 : 초·중·고 발달 수준에 따라 개념의 깊이와 실천 수준을 단계화한다.
+▶ 리터러시 간 연결성 확보 : 정보·데이터·AI 등 리터러시 간 상호작용 구조를 고려한다. (예: 검색 → 평가 → 활용 → 윤리)
+▶ 기술 중립성 유지 : 특정 기기나 소프트웨어에 종속되지 않고 원리를 중심으로 구성한다.
+▶ 실제 상황 기반 : 하위요소는 모두 실생활 문제 상황에서 적용할 수 있는 내용으로 구성한다.
+&lt;표&gt; 디지터시 7대 리터러시 영역 및 구성 목표
+대영역 구성 목표
+디지털 디지털 시스템과 기술의 작동 원리를 이해하고 설명할 수 있다.
+ICT 리터러시 다양한 디지털 기기 및 통신 기술을 목적에 맞게 조작하고 활용할 수 있다.
+정보 리터러시 목적에 맞는 정보를 탐색, 평가, 가공, 저장하여 실생활 문제 해결에 활용할 수 있다.
+컴퓨팅 리터러시 문제를 절차적으로 분석하고 알고리즘과 프로그래밍으로 해결할 수 있다.
+데이터 리터러시 데이터를 수집·분석·시각화하고 이를 근거로 의사결정을 내릴 수 있다.
+디지털 시민 리터러시 디지털 사회에서의 윤리, 보안, 권리와 책임을 이해하고 실천할 수 있다.
+&lt;표&gt; 학교급별 디지터시 성취기준
+대영역 하위요소 초등 중등 고등
+파일 크기를 비교하거나 저장 공 파일을 저장하거나 전송할 때, 데 데이터 전송, 압축, 저장 등에
+비트와 바이트 간이 부족한 상황에서, 비트와 이터의 크기를 이해하고 효율적 서 비트와 바이트 단위를 활용
+개념 이해 바이트 개념을 활용하여 문제를 인 사용 방법을 설명할 수 있다. 하여 효율성과 성능을 분석할
+설명할 수 있다. 수 있다.
+0과 1로 정보를 표현하는 활동 논리 연산의 의미를 이해하고, 이진수와 논리 연산을 활용하
+이진수 및 논리 을 통해 디지털 기기의 작동 원 조건 판단 문제를 해결하는 데 여 디지털 회로나 조건 처리 시
+연산 이해 리를 체험할 수 있다. 활용할 수 있다. 스템의 동작을 분석하고 예측할
+디지털의 수 있다.
+이해 컴퓨터를 구성하는 주요 부품의 CPU, 메모리, 저장장치 등의 컴퓨터의 주요 구성 요소와 상호
+컴퓨터 구성 요 이름과 역할을 설명할 수 있다. 역할을 이해하고, 성능과 용도 작용을 이해하고, 목적에 따라
+소 이해 에 따라 적절한 기기를 선택할 성능과 비용을 고려한 시스템을
+수 있다. 설계할 수 있다.
+운영체제를 통해 앱을 실행하고 운영체제의 기본 기능을 이해하 운영체제의 자원 관리, 멀티태스
+운영체제의 기능 폴더를 관리할 수 있다. 고, 파일 관리나 다중 작업 문제 킹, 사용자 인터페이스 등을 분
+과 역할 이해 해결에 적용할 수 있다. 석하고 실제 문제 해결에 적용할
+수 있다.
+04. AI 교육 2.0 모델의 세부 내용 33</pre></article><article class="text-card"><div class="text-meta"><span>PDF 35쪽</span><span>보고서 34쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+대영역 하위요소 초등 중등 고등
+스마트기기나 컴퓨터를 사용하 디지털 기기의 특성과 기능을 비 다양한 디지털 기기와 기능을
+디지털 기기 여 정보를 찾거나 표현하는 활동 교하고, 목적에 따라 적절히 활 비교·분석하여 문제 상황에 적
+조작 및 활용 을 문제 해결에 활용할 수 있다. 용할 수 있다. 합한 기기를 선택하고 활용할
+수 있다.
+파일을 안전하게 보관하고 친구 파일을 공유하거나 공동작업을 협업, 백업, 공유 목적에 따라 다
+클라우드 와 공유하기 위해 클라우드 저장 위해 클라우드 기반 협업 도구 양한 클라우드 도구를 선택하
+도구 활용 소를 활용할 수 있다. 를 사용할 수 있다. 여 생산성과 협업 효율을 높일
+수 있다.
+ICT
+인터넷이 어떻게 연결되는지 간 인터넷과 와이파이의 차이를 이 IP주소, DNS, 라우팅 등 네트워
+리터러시 네트워크 기초
+단한 흐름을 알고, 집이나 학교 해하고, 간단한 네트워크 연결 크의 기본 개념을 이해하고, 실
+및 연결 구조
+에서 와이파이를 이용해 기기를 방식을 설명할 수 있다. 제 네트워크 문제를 구조적으로
+이해
+연결할 수 있다. 진단하고 해결할 수 있다.
+집이나 학교에서 사용되는 스마 생활 속 IoT기기의 동작 원리와 IoT시스템의 구조와 센서-네트
+트 기기(예 : 스마트 조명, 무선 구성 요소를 설명하고, 활용 사 워크-서버 간 데이터 흐름을 설
+IoT와 통신 기술
+스피커 등)를 살펴보고, 이 기기 례를 분석할 수 있다. 명하고, 실생활 적용 사례를 분
+개념 이해
+들이 어떻게 연결되어 작동하는 석할 수 있다.
+지 이야기할 수 있다.
+검색 키워드를 정해 인터넷에서 적절한 키워드와 검색식, 필터 복잡한 주제에 대해 고급 검색식
+정보 검색 전략과 정보를 찾을 수 있다. 를 활용하여 원하는 정보를 효 과 다양한 도구를 활용하여 정보
+검색 도구 사용 율적으로 찾고 정제할 수 있다. 의 질과 목적에 맞는 결과를 도
+출할 수 있다.
+여러 출처에서 얻은 정보 중 어 정보의 출처를 비교하고 신뢰성 정보 생산자와 맥락을 고려하여
+정보의 신뢰성 떤 것이 더 믿을 만한지 이유를 을 평가할 수 있다. 콘텐츠의 신뢰성, 정확성, 편향
+및 편향성 평가 들어 설명할 수 있다. 성을 평가하고 비판적으로 활용
+정보 할 수 있다.
+리터러시 여러 자료를 읽고 핵심 내용을 수집한 정보를 구조화하여 발표 방대한 정보를 목적에 맞게 요
+정보 요약 및 정리하거나 발표 자료로 재구성 자료나 보고서 형식으로 재구성 약·재구성하고, 시각 자료나 프
+재구성 할 수 있다. 할 수 있다. 레젠테이션 등 다양한 형식으로
+전달할 수 있다.
+유용한 정보를 폴더에 저장하 주제별로 정보를 분류하고, 저 저작권과 정보 윤리를 고려하여
+정보 저장 및 고, 필요한 상황에서 다시 찾아 작권을 고려하여 적절히 활용할 정보를 구조화하고 장기적으로
+재활용 쓸 수 있다. 수 있다. 활용할 수 있는 방식으로 저장
+할 수 있다.
+34 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 36쪽</span><span>보고서 35쪽</span></div><pre>대영역 하위요소 초등 중등 고등
+일상 문제 상황을 단계적으로 해 다양한 조건과 반복이 포함된 문제를 다양한 방식으로 분석
+알고리즘 결할 수 있도록 절차를 정리하고 문제를 절차적으로 분석하고, 하고, 효율성과 확장성을 고려
+설계와 표현 설명할 수 있다. 효율적인 해결 알고리즘을 블록 한 알고리즘을 설계하여 구현할
+코딩으로 구현할 수 있다. 수 있다.
+블록코딩을 통해 간단한 프로그 블록코딩 도구를 활용하여 간단 텍스트 기반 프로그래밍 언어를
+블록코딩과 램을 만들 수 있다. 한 프로그램을 구현할 수 있다. 활용하여 입력-처리-출력 구조
+텍스트코딩 기초 의 프로그램을 작성하고 디버깅
+컴퓨팅 할 수 있다.
+리터러시 조건에 따라 다르게 동작하거나 조건문과 반복문을 활용해 효 중첩된 조건과 반복 구조를 활
+조건/반복 반복되는 작업이 필요한 상황에 율적인 프로그램을 설계할 수 용하여 복잡한 프로그램을 만들
+구조 활용 서, 블록코딩을 활용해 해결 방 있다. 수 있다.
+안을 구현할 수 있다.
+블록코딩을 하다가 원하는 결과 프로그램 오류의 원인을 분석하 논리적 오류나 실행 오류를 구분
+디버깅과 가 나오지 않을 때, 문제를 찾아 고, 수정 전략을 세워 해결할 수 하고, 디버깅 도구와 전략을 활
+문제 해결 전략 수정해볼 수 있다. 있다. 용하여 문제를 체계적으로 해결
+할 수 있다.
+생활 속에서 관심 있는 주제에 목적에 따라 데이터를 수집하 목적에 맞게 데이터를 정제하고
+데이터 대해 자료를 모으고 불필요한 고, 오류나 중복 데이터를 정제 유형별로 분류할 수 있다.
+수집과 정제 데이터를 걸러낼 수 있다. 하여 신뢰성 있는 자료를 만들
+수 있다.
+표나 그래프를 활용해 친구들의 표와 그래프를 이용해 데이터를 통계 기법과 시각화 도구를 활용
+데이터
+의견이나 상황을 비교하고 설명 비교할 수 있다. 하여 데이터를 분석하고 의미 있
+분석과 시각화
+데이터 할 수 있다. 는 인사이트를 도출할 수 있다.
+리터러시 여러 자료 중 어떤 것이 더 적절 데이터를 근거로 하여 상황에 맞 상황에 따라 다양한 데이터를 비
+데이터 기반
+한지 근거를 들어 선택하고 판단 는 결정을 내릴 수 있다. 교 분석하고, 근거에 기반한 최
+의사결정
+할 수 있다. 적의 의사결정을 내릴 수 있다.
+인터넷에 올리는 글이나 사진 중 개인정보의 의미와 보호 방법을 데이터 수집·활용 과정에서 발
+데이터 보안 및 어떤 것이 개인정보인지 판단하 이해하고, 안전한 데이터 활용 생하는 보안·윤리 문제를 인식
+프라이버시 고 조심할 수 있다. 수칙을 실천할 수 있다. 하고 개인정보 보호 기준에 따
+라 대응할 수 있다.
+04. AI 교육 2.0 모델의 세부 내용 35</pre></article><article class="text-card"><div class="text-meta"><span>PDF 37쪽</span><span>보고서 36쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+대영역 하위요소 초등 중등 고등
+온라인 공간에서도 친구를 배려 온라인 공동체에서 소통과 협업 디지털 환경에서 공감, 책임, 신
+디지털 예절과
+하고 예의 바르게 소통할 수 있다. 상황에서 예절을 지키고, 공동 뢰를 바탕으로 공동체 구성원의
+공동체 의식
+체의 책임을 다할 수 있다. 역할을 실천할 수 있다.
+개인정보의 중요성을 알고 지키 비밀번호 관리, 공개 설정 등을 디지털 기술 발전에 따른 개인정
+개인정보
+는 방법을 실천할 수 있다. 통해 디지털 공간에서 스스로를 보 침해 유형을 이해하고, 예방
+보호와 보안
+보호할 수 있다. 과 대응 전략을 수립할 수 있다.
+디지털
+나쁜 댓글이나 놀리는 글이 상처 사이버폭력 유형과 대응 방법을 사이버폭력의 구조와 심각성을
+시민
+사이버폭력 가 될 수 있다는 점을 알고, 그런 알고 피해 발생 시 적절한 대응 인식하고, 피해 예방과 해결을
+리터러시
+예방 및 대응 상황에서 어떻게 해야 하는지 이 방안을 실행할 수 있다. 위한 사회적 대응 방안을 제안
+야기할 수 있다. 할 수 있다.
+디지털 기술이 등장하면서 새롭 디지털 기술로 인해 변화한 직업 디지털 전환이 가져오는 직업
+디지털 사회와 게 생긴 직업이나 바뀐 일의 모 세계를 조사할 수 있다. 세계의 구조 변화와 이에 필요
+직업 변화 이해 습을 살펴보고, 그 이유를 친구 한 역량을 분석하고, 진로에 반
+들과 이야기할 수 있다. 영할 수 있다.
+&lt;표&gt; 일반 시민 디지터시 성취기준
+대영역 하위요소 일반 시민
+비트와 바이트 디지털 자료의 저장, 전송, 압축 상황에서 비트와 바이트 개념을 이해하고 효율적
+개념 이해 선택을 할 수 있다.
+이진수 및 스마트 기기나 자동화 시스템의 작동 원리에 이진수와 논리 연산이 어떻게 적용
+논리 연산 이해 되는지 설명할 수 있다.
+디지털
+컴퓨터 CPU, 메모리, 저장장치 등의 역할과 성능을 이해하여 기기를 선택하거나 문제를 진단
+구성 요소 이해 할 수 있다.
+운영체제의 운영체제의 기본 기능(파일·앱 관리 등)을 이해하고, 오류 발생 시 적절한 대처를 할
+기능과 역할 이해 수 있다.
+디지털 기기
+상황에 맞는 디지털 기기를 선택하고 목적에 따라 효율적으로 사용할 수 있다.
+조작 및 활용
+클라우드 도구 활용 문서 작성, 협업, 백업을 위해 클라우드 기반 도구를 선택하고 활용할 수 있다.
+ICT
+와이파이, IP 주소, 인터넷 연결 상태 등을 점검하고 간단한 네트워크 문제를 해결
+리터러시 네트워크 기초 및 연결 구조 이해
+할 수 있다.
+스마트홈, 웨어러블 등 IoT 기기의 동작 구조를 이해하고, 안전성과 효율성을 판단
+IoT와 통신 기술 개념 이해
+할 수 있다.
+36 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 38쪽</span><span>보고서 37쪽</span></div><pre>대영역 하위요소 일반 시민
+자신의 목적에 맞는 키워드와 검색 전략을 사용하여 원하는 정보를 효율적으로 탐색
+정보 검색 전략과 검색 도구 사용
+할 수 있다.
+정보 출처, 목적, 표현 방식 등을 분석하여 정보의 신뢰성과 편향 여부를 비판적으로 판단
+정보의 신뢰성 및 편향성 평가
+리터러시 할 수 있다.
+정보 요약 및 재구성 복잡한 정보를 요약하거나 목적에 맞게 재구성하여 쉽게 전달할 수 있다.
+정보 저장 및 재활용 정보의 저작권과 활용 조건을 고려하여 적절히 저장·재사용할 수 있다.
+알고리즘 반복적 업무나 문제 상황을 절차적으로 분석하고, 자동화하거나 구조화하는 방식으로
+설계와 표현 해결할 수 있다.
+단순 자동화 도구나 코딩 교육 플랫폼을 활용해 문제 해결형 간단 프로그램을 만들
+블록코딩과 텍스트코딩 기초
+컴퓨팅 수 있다.
+리터러시 조건/반복
+조건과 반복 흐름을 인식하고, 이를 생활 속 자동화나 업무 처리에 적용할 수 있다.
+구조 활용
+디버깅과 디지털 도구 사용 중 오류가 발생했을 때, 논리적 절차에 따라 문제를 진단하고 수
+문제 해결 전략 정할 수 있다.
+일상이나 업무에서 필요한 데이터를 수집하고, 오류나 중복을 제거하여 신뢰성 있는
+데이터 수집과 정제
+자료를 구성할 수 있다.
+데이터
+데이터 분석과 시각화 표, 그래프, 통계 등을 활용해 데이터를 해석하고 의미 있는 정보를 도출할 수 있다.
+리터러시
+데이터 기반 의사결정 데이터를 비교·분석하여 실생활 또는 직무 상황에서 합리적인 결정을 내릴 수 있다.
+데이터 보안 및 프라이버시 개인정보와 민감 정보를 안전하게 보호하고, 데이터 활용 윤리를 실천할 수 있다.
+온라인상에서도 배려와 책임을 갖고 소통하며, 건전한 디지털 공동체 형성에 기여
+디지털 예절과 공동체 의식
+할 수 있다.
+개인정보
+디지털 자신과 타인의 개인정보를 보호하고, 피싱·해킹 등의 위험에 대응할 수 있다.
+보호와 보안
+시민
+사이버폭력 사이버폭력이나 혐오 표현을 인식하고, 이를 예방하고 대처하는 데 주도적으로 참여
+리터러시
+예방 및 대응 할 수 있다.
+디지털 사회와 디지털 기술 변화에 따라 변화하는 노동 환경과 직업 구조를 이해하고, 능동적으로
+직업 변화 이해 대처할 수 있다.
+04. AI 교육 2.0 모델의 세부 내용 37</pre></article></div></details>
+  <details class="more" style="--rgb:120, 105, 32"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-030.png" data-title="디지터시란 무엇인가? · PDF 30쪽"><img src="assets/report-pages/page-030.png" alt="디지터시란 무엇인가? PDF 30쪽" loading="lazy" /><span>PDF 30쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-031.png" data-title="디지터시란 무엇인가? · PDF 31쪽"><img src="assets/report-pages/page-031.png" alt="디지터시란 무엇인가? PDF 31쪽" loading="lazy" /><span>PDF 31쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-032.png" data-title="디지터시란 무엇인가? · PDF 32쪽"><img src="assets/report-pages/page-032.png" alt="디지터시란 무엇인가? PDF 32쪽" loading="lazy" /><span>PDF 32쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-033.png" data-title="디지터시란 무엇인가? · PDF 33쪽"><img src="assets/report-pages/page-033.png" alt="디지터시란 무엇인가? PDF 33쪽" loading="lazy" /><span>PDF 33쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-034.png" data-title="디지터시란 무엇인가? · PDF 34쪽"><img src="assets/report-pages/page-034.png" alt="디지터시란 무엇인가? PDF 34쪽" loading="lazy" /><span>PDF 34쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-035.png" data-title="디지터시란 무엇인가? · PDF 35쪽"><img src="assets/report-pages/page-035.png" alt="디지터시란 무엇인가? PDF 35쪽" loading="lazy" /><span>PDF 35쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-036.png" data-title="디지터시란 무엇인가? · PDF 36쪽"><img src="assets/report-pages/page-036.png" alt="디지터시란 무엇인가? PDF 36쪽" loading="lazy" /><span>PDF 36쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-037.png" data-title="디지터시란 무엇인가? · PDF 37쪽"><img src="assets/report-pages/page-037.png" alt="디지터시란 무엇인가? PDF 37쪽" loading="lazy" /><span>PDF 37쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-038.png" data-title="디지터시란 무엇인가? · PDF 38쪽"><img src="assets/report-pages/page-038.png" alt="디지터시란 무엇인가? PDF 38쪽" loading="lazy" /><span>PDF 38쪽</span></button></div></details>
+</article><article class="sub" id="ai-thinking" style="--rgb:120, 105, 32">
+  <div class="sub-head">
+    <div><p class="sub-kicker">04 세부 내용</p><h3>AI사고력이란 무엇인가?</h3></div>
+    <div class="sub-range">PDF 39-46쪽 · 보고서 38쪽~보고서 45쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>04. AI교육 2.0 모델의 세부 내용 3 AI사고력이란 무엇인가?</p><p>AI사고력의 정의 “인공지능과 협력하여 문제를 해결하는 사고력” AI사고력은 기존의 컴퓨팅 사고력(Computational Thinking)을 기반으로 하되, 그 사고의 범위와 대상, 방식을 근본적으 로 확장한 것이다.</p><p>즉, 컴퓨팅 사고력이 &quot;인간 중심의 사고 능력을 컴퓨터 기반 문제 해결로 전환하는 사고 방식&quot;이라면, AI사고력은 그 연장 선에서, 단순히 ‘컴퓨터를 쓰는 사고’를 넘어서 인공지능이라는 지능적 파트너와 협력하면서 사고 자체의 구조를 바꾸고 확 장하는 방식이다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>8쪽</strong></div>
+      <div><span>범위</span><strong>PDF 39~46</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:120, 105, 32" open><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 39쪽</span><span>보고서 38쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+3 AI사고력이란 무엇인가?
+AI사고력의 정의
+“인공지능과 협력하여 문제를 해결하는 사고력”
+AI사고력은 기존의 컴퓨팅 사고력(Computational Thinking)을 기반으로 하되, 그 사고의 범위와 대상, 방식을 근본적으
+로 확장한 것이다.
+즉, 컴퓨팅 사고력이 &quot;인간 중심의 사고 능력을 컴퓨터 기반 문제 해결로 전환하는 사고 방식&quot;이라면, AI사고력은 그 연장
+선에서, 단순히 ‘컴퓨터를 쓰는 사고’를 넘어서 인공지능이라는 지능적 파트너와 협력하면서 사고 자체의 구조를 바꾸고 확
+장하는 방식이다.
+AI사고력은 인공지능의 작동 원리와 판단 구조, 데이터 기반의 추론과 한계를 이해하고 성찰하는 능력을 바탕으로, 문제를
+새롭게 정의하고, AI와 협력하여 해결 전략을 탐색하며, 결과에 대한 책임 있는 판단을 내릴 수 있는 고차 사고력을 포함한다.
+이는 단순한 기술 이해가 아니라, 인간과 AI가 함께 사고하는 관계적 사고력이라 할 수 있다. AI사고력의 구성 요소에는 추
+상화, 자동화, 지능화, 자율화 4가지가 있다.
+▶ 추상화(Abstraction): 문제를 단순화하고 본질을 도출하여 표현하는 능력
+▶ 자동화(Automation): 알고리즘 및 코드를 통해 사고 과정을 실행 가능하게 전환하는 능력
+▶ 지능화(Intelligentization): AI의 학습·추론·인지·예측·적응 능력을 이해하고, 이를 문제 해결에 통합해 인간과 AI가 협력적
+판단과 고차원 결정을 수행하는 과정
+▶ 자율화(Autonomization): AI와 인간이 공동으로 자율적인 판단과 실행을 수행하도록 설계하고 조율하는 능력
+Abstraction
+o
+n
+Inte
+llig Intelligentization
+i e
+Simplifying complex c t n Understanding AI’s capabilities in
+a t i
+problems and r z learning, reasoning, and adaptation,
+t a
+modeling core elements s t and integrating them
+b i
+o
+A
+n
+AI A
+u
+Thinking t Autonomization
+o
+Automation n
+A o Understanding AI’s self-
+u m
+Expressing thought proc- directed mechanisms
+t zi
+cesses as algorithms and o
+m
+oit a and integrating and regu-
+n
+enabling machines to execu- lating them into human
+a
+t
+te them io problem-solving
+n
+“문제를 핵심적으로 구조화(추상화)하고, 이를 실행 가능하게 설계(자동화)하며, AI의 판단과 학습을 통합(지능화)하고,
+인간과 AI가 함께 자율적으로 사고하고 행동할 수 있도록 조율(자율화)하는 고차원적 사고 능력”
+38 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 40쪽</span><span>보고서 39쪽</span></div><pre>AI사고력의 핵심 요소
+1. 추상화 (ABSTRACTION) : 복잡한 현실을 단순화하고, 문제의 본질을 드러내는 과정
+▶ 현실 문제에서 불필요한 요소를 제거하고 핵심 구조만을 도출하여 표현하는 능력
+▶ 다양한 데이터를 분류·모델링하여 AI가 인식하고 처리할 수 있도록 전환
+▶ 인간의 사고 체계를 언어나 수치, 도식 등으로 표현해 기계가 해석 가능한 형식으로 만드는 사고
+2. 자동화 (AUTOMATION) : 사고 과정을 알고리즘으로 설계하여 기계가 실행하게 만드는 과정
+▶ 추상화된 문제 구조를 알고리즘이나 절차로 논리화하고 구현하는 능력
+▶ 코딩, 규칙 설계, 자동 반복 흐름 등을 통해 문제 해결 전략을 자동화
+▶ 프로그래밍을 통한 실행 가능성 확보뿐 아니라, 사고의 절차화와 재현성 확보
+3. 지능화 (Intelligentization): 인공지능의 학습, 추론, 인지, 예측, 적응 능력과 같은 지능적 사고 구조를 이해하고, 이를 문제
+해결 과정에 통합하여 인간과 AI가 협력적으로 판단하고 적응하며 더 높은 수준의 사고와 결정을 수행하는 과정
+▶ AI의 판단 과정, 학습 구조, 추론 방식 등 지능적 작동 원리를 이해하고 적용
+▶ 인간이 처리하기 어려운 대규모 데이터 기반 예측, 분류, 판단에 AI의 인지 능력을 활용
+▶ 인간의 감각·직관 중심 사고와 AI의 분석·예측 중심 사고를 융합하여 고차 문제 해결
+4. 자율화 (Autonomization) : AI와 인간이 공동으로 판단하고, 맥락에 맞게 자율적으로 실행하도록 설계하는 과정
+▶ AI와 인간의 협력 구조를 설계하고, 지속적 상호작용을 통해 문제를 해결하는 능력
+▶ AI의 실행 결과를 맹목적으로 수용하지 않고, 인간이 목표·가치·책임을 고려하여 조율
+▶ AI 시스템이 상황에 따라 스스로 판단·적응·실행할 수 있도록 지원하고, 인간은 이를 감독하거나 협력
+[자율화의 전제 조건]
+인간은 AI의 자율성을 전적으로 위임하지 않으며, 대부분 설계자·조정자·해석자로 기능한다. 따라서 AI 사고력에서
+말하는 &#x27;자율성&#x27;은 &#x27;협력적 자율성(CO-AGENCY)&#x27;으로 인간에게 가치로운 문제해결 과정에 기여한다
+04. AI 교육 2.0 모델의 세부 내용 39</pre></article><article class="text-card"><div class="text-meta"><span>PDF 41쪽</span><span>보고서 40쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+[현시점에서의 AI 지능성]
+영역 설명 AI의 수준 예시
+이미지, 음성, 텍스트 등 다양 인간 수준 또는 그 이상 (특정 이미지 분류 (YOLOv8), 음
+지각 (Perception)
+한 입력을 감지하고 해석 작업에선 초월적) 성 인식 (Whisper), 번역
+대용량 정보를 저장하고 빠 매우 우수 (정확성·속도는 인 대규모 언어모델의 컨텍스트
+기억 (Memory)
+르게 검색 간 초월) 처리, 벡터 검색
+패턴 인식 (Pattern 방대한 데이터에서 규칙과 패 탁월함 (정형화된 데이터에 추천 시스템, 사기 탐지, 시
+Recognition) 턴을 추출 강함) 계열 예측
+GPT-4o 수준에서 실용적
+언어 이해 (Language 문장 해석, 문맥 이해, 질문
+대화 가능하나, 여전히 오 ChatGPT, Claude, Gemini
+Understanding) 응답
+해 많음
+전제 → 결론으로 이끄는 논 단순 논리에는 능하나, 복합
+추론 (Reasoning) 체스, 수학 문제 일부 해결
+리적 사고 추론은 미흡
+상황 판단 및 자율 결정
+맥락 이해 기반의 목표 설정 제한적, 인간 피드백이 여전 자율주행차, 로봇팔 제어, 자
+(Autonomous Decision-
+및 실행 조율 히 필수 동 응답
+Making)
+감정 및 윤리 판단
+인간의 감정이나 가치 판단 매우 미흡, 학습된 틀 안에 감정 분석, 알고리즘 편향 문
+(Affective &amp; Ethical
+고려 서 작동 제 발생
+Intelligence)
+기존 학습 기반 재조합 창의
+새로운 아이디어, 콘텐츠 생 이미지 생성, 작곡, 시나리오
+창의성 (Creativity) 성은 우수, 진정한 창발성
+성 초안 작성
+은 제한
+40 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 42쪽</span><span>보고서 41쪽</span></div><pre>[현시점에서의 AI 자율성]
+지능적 기능 설명 자율성 수준
+높음
+지각 이미지를 인식하거나, 음성을 텍스트로 변환
+(정확도 높음)
+중간
+표현/이해 자연어 질문을 처리하고 요약·분류 수행
+(문맥 이해는 제한적)
+제한적
+추론 규칙 기반 판단, 통계적 예측, LLM의 문장 생성
+(진짜 ‘이해’는 아님)
+제한적
+학습/적응 일부 시스템은 사용자 피드백을 반영해 미세 조정
+(fine-tuning 수준)
+조건부 자율
+행동/의사소통 추천 시스템, 대화형 AI, 자율주행
+(시나리오 기반 실행)
+자율판단/결정 문제해결의 중요한 판단과 결정을 AI의 판단에 맡김
+* 현재 AI의 자율성은 ‘정해진 목표하에서, 인간의 설정된 경계 안에서 일부 판단을 수행할 수 있는 수준’이라고 할 수 있다.
+04. AI 교육 2.0 모델의 세부 내용 41</pre></article><article class="text-card"><div class="text-meta"><span>PDF 43쪽</span><span>보고서 42쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+&lt;표&gt; 추상화, 자동화, 지능화 그리고 자율화
+Abstraction Automation Autonomization Intelligentization
+추상화는 인간이 자연과 세계를 관찰하고, 그 속에서 의미 있는 패턴과 구조를 식별하
+추상화 시킴 자동화 구현시킴 자율화로 구현시함 지능화로 구현시킴
+여 핵심 요소를 끌어내는 사고 과정이다. 사람은 현실의 복잡한 현상을 단순화하고, 이를
+문제의 핵심 구조로 재구성한다. 이는 현실 세계의 문제를 AI가 인식하고 처리할 수 있도
+추상화로 문제해결 자동화로 문제해결 자율화로 문제해함 지능화로 문제해함
+록 표현하는 단계이며, AI사고력의 시작은 언제나 이 ‘본질을 꿰뚫는 감각과 표현력’에서
+출발한다.
+자연으로부터 추상화함 자연으로부터 자동화함 자연으로부터 자율화함 자연으로부터 지능화함
+Abstraction Automation Autonomization Intelligentization
+자동화는 추상화된 문제를 기계적으로 실행 가능한 단계로 변환하는 사고 과정이다. 인간과
+추상화 시킴 자동화 구현시킴 자율화로 구현시함 지능화로 구현시킴
+기계 사이에서는 자동화의 구현과 자동화를 통한 문제 해결이 순환되고 있으며, 인간이 추출한
+구조를 컴퓨터 알고리즘과 시스템으로 설계하여 반복 가능한 방식으로 실행함을 보여준다.
+추상화로 문제해결 자동화로 문제해결 자율화로 문제해함 지능화로 문제해함
+즉, 자동화는 사고의 절차화(절차 설계)이며, 인간이 생각한 방식이 기술을 통해 일관되게
+구현되도록 만드는 연결 고리다.
+자연으로부터 추상화함 자연으로부터 자동화함 자연으로부터 자율화함 자연으로부터 지능화함
+Abstraction Automation Autonomization Intelligentization
+지능화는 단순한 자동화의 반복을 넘어서, AI와의 상호작용 속에서 새로운 방식으로 문
+추상화 시킴 자동화 구현시킴 자율화로 구현시함 지능화로 구현시킴
+제를 해결하고, 더 나아가 AI가 학습하고 진화할 수 있도록 하는 고차원적 사고 과정이다.
+문제 해결 과정에서 사람과 AI 간의 지속적 순환이 강조되며, 이는 인간이 AI를 통해 문제
+추상화로 문제해결 자동화로 문제해결 자율화로 문제해함 지능화로 문제해함
+를 해결하는 동시에, AI 역시 자연과 인간으로부터 학습하며 지능화되는 구조를 표현하고
+있다. 이 단계에서 인간은 AI를 단지 사용하는 것이 아니라, AI와 함께 사고하며 공동 창조
+자연으로부터 추상화함 자연으로부터 자동화함 자연으로부터 자율화함 자연으로부터 지능화함
+의 주체가 된다.
+자율화는 인간이 설계한 알고리즘과 데이터 기반 모델이 단순히 명령을 수행하는 수준
+Abstraction Automation Autonomization Intelligentization
+추상화 시킴 자동화 구현시킴 자율화로 구현시함 을 넘어지서능화, 로외 구부현시 킴환경의 변화에 따라 스스로 최적의 선택을 내릴 수 있도록 설계되고 작동
+되는 것을 의미한다. 자율화는 학습(learning), 추론(reasoning), 인지(perception), 예측
+추상화로 문제해결 자동화로 문제해결 자율화로 문제해함 (predi지c능ti화o로n 문) 제등해함의 고차원적 기능을 포함한다. 인간은 AI의 자율성을 수용하거나 조절하며
+협력하고, AI는 인간의 복잡한 문제 해결을 보조하거나 주도하며 점차 지능적 파트너로 진
+화한다.
+자연으로부터 추상화함 자연으로부터 자동화함 자연으로부터 자율화함 자연으로부터 지능화함
+42 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 44쪽</span><span>보고서 43쪽</span></div><pre>참고자료
+AI사고력을 통해 신장되는 역량의 확장(증강)
+AI사고력(AI Thinking)은 단순히 &quot;기계를 잘 다루는 사고력&quot;이 아니라, 인간이 자신의 사고 과정을 성찰(meta-thinking)하고,
+AI의 판단을 해석하고 조정할 수 있는 수준의 인지적 여유와 통찰이 전제되어야 한다.
+1. 메타사고(Metacognition)
+AI가 제시하는 결과를 맹목적으로 받아들이는 것이 아니라, 그것이 왜 그렇게 나왔는지 이해하고 스스로 성찰할 수 있는 능력
+2. 데이터 기반 예측력(Predictive Awareness)
+AI의 출력 패턴을 기반으로 문제를 조망하고 예측하여 전략을 조정하는 사고
+3. 비판적 수용력(Critical Receptivity)
+AI의 결과를 무비판적으로 수용하는 것이 아니라, AI의 한계와 가능성을 인식하고 비판적으로 수용하는 역량
+4. 협력·소통(Human-AI Collaboration &amp; Communication)
+AI와 효과적으로 소통하거나, 사람과 AI 간 협업을 조율하는 능력
+5. 창의적 전이력(Creative Transferability)
+하나의 AI 개념이나 원리를 다양한 맥락과 문제에 창의적으로 전이(transfer)하여 적용할 수 있는 능력
+6. 알고리즘적 문제 해결력(Algorithmic Problem Solving)
+AI 사고 과정을 이해하고, 인간의 문제를 해결할 때 알고리즘 구조로 사고하고 절차화할 수 있는 능력
+7. 윤리적 성찰력(Ethical Reflexivity)
+AI가 생성하는 결과나 사용하는 데이터의 윤리적 함의에 대해 민감하게 성찰하고, 그에 따라 판단하고 행동할 수 있는 역량
+8. 감각적 상상력(Sensory Imagination)
+AI가 감각 데이터를 처리하는 방식(예: 이미지, 소리, 감정 등)을 이해하고, 이를 인간의 감각 경험과 연결해 사고할 수 있는 역량
+9. 시스템적 사고력(Systems Thinking)
+AI기술이 개인, 사회, 생태계에 미치는 영향을 거시적 관점에서 파악하고, 전체 시스템 내에서 사고하는 능력
+04. AI 교육 2.0 모델의 세부 내용 43</pre></article><article class="text-card"><div class="text-meta"><span>PDF 45쪽</span><span>보고서 44쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+참고자료
+AI사고력에 관한 FAQ
+1. 인간의 자율화: 언제 가능한가?
+조건 설명
+인지적 자각 내가 무엇을 하고 있는지, 왜 그렇게 행동하는지를 의식적으로 성찰할 수 있을 때
+판단의 주체성 외부 영향에 흔들리지 않고 스스로 판단하고 선택할 수 있을 때
+가치 기반 사고 행동의 기준이 사회적 가치나 윤리에 근거할 때
+반성적 사고력 자신의 판단과 결과를 되돌아보고 개선할 수 있을 때
+예시 : 학생이 AI추천도서를 무조건 수용하지 않고, 자신의 독서 취향과 학습 목표에 따라 스스로 선택을 조정할 때, 자율화가
+작동한 것.
+2. 기계(AI)의 자율화 : 어떻게 이루어지는가?
+요소 설명
+환경 인식 센서, 데이터 입력 등으로 상태 파악
+목표 설정 외부 설정 또는 강화학습을 통한 목표화
+판단 알고리즘 최적화된 의사결정 모델 적용 (예: MDP, 강화학습 등)
+학습 및 조정 시행착오와 피드백을 통해 행동 조정 가능 (예: AutoML, AutoGPT)
+예시 : 자율주행차가 교통 상황을 판단해 제한속도를 자동 조절하거나, 목적지를 우회하는 행동은 자율화된 판단·실행의 결과.
+3. 교육적 함의 : 학습자의 자율화는 무엇을 의미하는가?
+단순히 AI를 ‘사용’하는 것을 넘어, AI의 판단을 이해하고 해석하며 조정하는 능력을 갖춘 인간, 즉, AI의 기능을 넘어서 가치적·
+윤리적으로 판단하고 선택할 수 있는 사고 주체가 되는 것이다.
+- 교육의 과제
+▶ 학생들이 AI에 기대지 않고도 스스로 판단할 수 있는 능력
+▶ AI의 한계와 위험을 인식하고 적절히 활용하는 역량
+▶ ‘나의 문제를 AI가 도와 해결한다’는 협업적 관점의 내면화
+44 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 46쪽</span><span>보고서 45쪽</span></div><pre>참고자료
+컴퓨터 소양, 컴퓨팅 역량, 컴퓨팅 사고력의 비교
+1. 컴퓨팅 소양 (Computing Literacy)
+▶ 컴퓨터와 정보기술의 기본 개념을 이해하고, 일상생활 및 학습에 활용할 수 있는 기초적인 소양
+▶ 컴퓨터 구조, 운영체제, 인터넷, 파일 저장 방식, 정보 윤리 등 기초 이해
+▶ 워드, 엑셀, 코딩 체험, AI기초체험 등의 실용 기술 포함
+▶ ‘알고 있는가’, ‘쓸 수 있는가’에 초점
+2. 컴퓨팅 역량 (Computing Competency)
+▶ 컴퓨터와 관련된 도구, 언어, 시스템을 활용하여 실제 문제를 해결할 수 있는 실천적 능력
+▶ 코딩, 알고리즘 설계, 자료 구조, 데이터 분석, 네트워크 활용 등 포함
+▶ 실제 구현 가능성과 응용력 강조
+▶ ‘할 수 있는가’, 즉 문제를 주고 해결하게 할 수 있음
+3. 컴퓨팅 사고력 (Computational Thinking)
+▶ 문제를 컴퓨터적 사고방식으로 이해하고, 구조화하여 해결 전략을 설계하는 인지적 능력
+▶ 문제 분해, 패턴 인식, 추상화, 알고리즘, 자동화 등의 사고 과정
+▶ 반드시 프로그래밍이나 코딩을 동반하지 않아도 됨
+▶ ‘인간 중심 사고 능력’ → ‘컴퓨터 기반 문제 해결’로의 전환을 의미
+구분 컴퓨팅 사고력 (CT) AI 사고력 (AIT)
+인간 사고 컴퓨터 기반 사고
+기반 전환
+→ 컴퓨터 기반 문제해결 → AI와 협력하는 사고로 확장
+중심 개념 문제 분해, 알고리즘, 추상화 판단, 학습, 예측, 적응, 협력
+도구적 사고 컴퓨터는 실행 도구 AI는 판단·추천·협력하는 주체로 등장
+사고의 성격 절차적 사고 중심 맥락적·적응적·협력적 사고 중심
+문제를 설계하고 AI의 판단을 비판적으로
+인간 역할
+기계에 실행을 맡김 수용하고 함께 조율
+04. AI 교육 2.0 모델의 세부 내용 45</pre></article></div></details>
+  <details class="more" style="--rgb:120, 105, 32"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-039.png" data-title="AI사고력이란 무엇인가? · PDF 39쪽"><img src="assets/report-pages/page-039.png" alt="AI사고력이란 무엇인가? PDF 39쪽" loading="lazy" /><span>PDF 39쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-040.png" data-title="AI사고력이란 무엇인가? · PDF 40쪽"><img src="assets/report-pages/page-040.png" alt="AI사고력이란 무엇인가? PDF 40쪽" loading="lazy" /><span>PDF 40쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-041.png" data-title="AI사고력이란 무엇인가? · PDF 41쪽"><img src="assets/report-pages/page-041.png" alt="AI사고력이란 무엇인가? PDF 41쪽" loading="lazy" /><span>PDF 41쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-042.png" data-title="AI사고력이란 무엇인가? · PDF 42쪽"><img src="assets/report-pages/page-042.png" alt="AI사고력이란 무엇인가? PDF 42쪽" loading="lazy" /><span>PDF 42쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-043.png" data-title="AI사고력이란 무엇인가? · PDF 43쪽"><img src="assets/report-pages/page-043.png" alt="AI사고력이란 무엇인가? PDF 43쪽" loading="lazy" /><span>PDF 43쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-044.png" data-title="AI사고력이란 무엇인가? · PDF 44쪽"><img src="assets/report-pages/page-044.png" alt="AI사고력이란 무엇인가? PDF 44쪽" loading="lazy" /><span>PDF 44쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-045.png" data-title="AI사고력이란 무엇인가? · PDF 45쪽"><img src="assets/report-pages/page-045.png" alt="AI사고력이란 무엇인가? PDF 45쪽" loading="lazy" /><span>PDF 45쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-046.png" data-title="AI사고력이란 무엇인가? · PDF 46쪽"><img src="assets/report-pages/page-046.png" alt="AI사고력이란 무엇인가? PDF 46쪽" loading="lazy" /><span>PDF 46쪽</span></button></div></details>
+</article><article class="sub" id="cognitive-levels" style="--rgb:120, 105, 32">
+  <div class="sub-head">
+    <div><p class="sub-kicker">04 세부 내용</p><h3>AI사고력으로 신장되는 학습자의 인지 수준</h3></div>
+    <div class="sub-range">PDF 47-49쪽 · 보고서 46쪽~보고서 48쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>04. AI교육 2.0 모델의 세부 내용 4 AI사고력으로 신장되는 학습자의 인지 수준 AI사고력은 기존의 블룸(Bloom)의 인지 taxonomy와는 다르게, 데이터 중심의 감각적 인지에서부터, 예측적 사고, 윤리 적 성찰까지 이어지는 확장된 사고 과정을 포함한다. 특히 AI는 데이터를 감지하고 분류하며 예측하는 과정을 자동화하지만, 그 기반이 되는 정보의 구조화, 판단의 정당성 검토, 인간적 의미 부여는 여전히 학습자의 몫이다.</p><p>이에 따라, AI교육 2.0은 학습자의 인지 발달 과정을 7단계로 정리한다.</p><p>① 인지(Perceive) ② 탐색(Explore) ③ 이해(Comprehend) ④ 추론(Reason) ⑤ 적용(Apply) ⑥ 예측(Predict)</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>3쪽</strong></div>
+      <div><span>범위</span><strong>PDF 47~49</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:120, 105, 32"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 47쪽</span><span>보고서 46쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+4 AI사고력으로 신장되는 학습자의 인지 수준
+AI사고력은 기존의 블룸(Bloom)의 인지 taxonomy와는 다르게, 데이터 중심의 감각적 인지에서부터, 예측적 사고, 윤리
+적 성찰까지 이어지는 확장된 사고 과정을 포함한다. 특히 AI는 데이터를 감지하고 분류하며 예측하는 과정을 자동화하지만,
+그 기반이 되는 정보의 구조화, 판단의 정당성 검토, 인간적 의미 부여는 여전히 학습자의 몫이다.
+이에 따라, AI교육 2.0은 학습자의 인지 발달 과정을 7단계로 정리한다.
+① 인지(Perceive) ② 탐색(Explore) ③ 이해(Comprehend) ④ 추론(Reason) ⑤ 적용(Apply) ⑥ 예측(Predict)
+⑦ 성찰(Metacognize)의 흐름은, AI가 어떻게 정보를 처리하고, 인간은 그와 어떻게 상호작용하며 사고를 확장해 가는지
+를 보여준다.
+이러한 인지 과정은 일방향적 계단이 아닌, 끊임없이 되돌아보며 나선을 그리듯 반복되고 확장되는 과정이다. 학습자는 AI
+가 제공하는 정보에 수동적으로 반응하는 것이 아니라, AI를 이해하고, 조작하고, 성찰하며, 능동적으로 사고를 재구성하는
+주체로 성장해 나간다.
+AI사고력은 정보화 사회의 지식 소비자가 아닌, AI와 함께 지식을 재구성하고 가치를 창출하는 시민 역량을 키우는 핵심
+이다.
+AI교육 2.0에서 요구하는 인지수준 7단계
+AI교육 2.0에서 요구하는 인지수준 7단계는 AI사고력을 통해 신장되는 학습자의 인지 사고 발달 과정으로 학습의 난이도
+와 학습자의 성장에 따라 구분할 수 있다.
+먼저 하위 단계(1~3단계)인 인지(Perceive), 탐색(Explore), 이해(Comprehend)는 AI가 데이터를 입력받는 과정과 대응
+되며, 학습자가 정보를 감각적으로 인식하고 다양한 방식으로 체험하며, 이를 구조화해 개념적으로 이해하는 단계이다. 이 단계
+는 학습자가 외부 세계를 받아들이고 정보를 내면화하는 기초적 사고 과정을 포함한다.
+다음으로 중간 단계(4~5단계)인 추론(Reason)과 적용(Apply)은 AI가 정보를 처리하고 판단을 내리는 과정에 해당한다.
+학습자는 주어진 정보와 규칙을 바탕으로 의미 있는 논리적 추론을 수행하고, 이를 실제 문제 해결에 적용하는 능력을 발휘하게
+된다. 이 단계는 사고의 확장을 위한 중심축으로, AI와 함께 사고를 수행하는 데 핵심적인 역할을 한다.
+마지막으로 상위 단계(6~7단계)인 예측(Predict)과 성찰(Metacognize)은 AI가 출력값을 생성하고 이를 기반으로 자기를
+보정하는 과정과 맞닿아 있다. 학습자는 데이터나 경험을 바탕으로 미래 상황을 시뮬레이션하며 결과를 예측하고, AI의 판단
+과 자신의 사고를 비판적으로 되돌아보는 성찰 능력을 기르게 된다. 이는 단순 지식의 활용을 넘어, 고차적 인지와 윤리적 판단
+까지 아우르는 고도화된 사고 수준을 요구한다.
+46 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 48쪽</span><span>보고서 47쪽</span></div><pre>&lt;표&gt; AI교육 2.0을 위한 인지 수준 7단계
+단계 핵심 개념 AI적 대응 교육적 대응
+① 인지 데이터나 상황을 감각적으로 인식하고
+센서 입력, 데이터 감지 관찰, 감각적 포착
+(Perceive) 주의 집중
+② 탐색 다양한 상황을 조작하거나 시도하면서
+입력 다양화, 시뮬레이션 초기화 경험 중심 학습
+(Explore) 직접 체험
+③ 이해
+정보를 분류, 구조화하고 개념적으로 이해 특징 추출, 벡터화 개념 도식화, 분류 능력
+(Comprehend)
+④ 추론
+원리나 규칙을 도출하며 의미 관계를 파악 규칙 기반 판단, 조건 추론 논리적 사고, 원리 이해
+(Reason)
+⑤ 적용
+배운 지식을 새로운 문제에 활용함 모델 적용, 테스트 수행 문제 해결, 응용력
+(Apply)
+⑥ 예측
+패턴을 기반으로 미래 상황이나 결과 예상 딥러닝 예측, 출력값 도출 시뮬레이션, 예측적 사고
+(Predict)
+⑦ 성찰 자신의 판단, AI의 한계, 윤리성을 검토하
+피드백 루프, 자기 최적화 성찰, 윤리적 사고, 비판적 사고
+(Metacognize) 고 조정
+7.성찰
+자신의 판단, AI의 한계, 윤리성을 검토하고 조정
+6.예측
+패턴을 기반으로 미래 상황이나 결과를 예상
+5.적용
+배운 지식을 새로운 문제에 활용함
+4.추론
+원리나 규칙을 도출하며 의미 관계를 파악
+3.이해
+정보를 분류, 구조화하고 개념적으로 이해
+2.탐색
+다양한 상황을 조작하거나시도하면서 직접 체험
+1.인지
+데이터나 상황을 감각적으로 인식하고 주의 집중
+[그림] AI교육 2.0 인지 수준의 위계
+04. AI 교육 2.0 모델의 세부 내용 47</pre></article><article class="text-card"><div class="text-meta"><span>PDF 49쪽</span><span>보고서 48쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+AI교육 2.0의 학습자인지 수준에 따른 성취기준
+AI교육 2.0의 학습자의 인지 수준에 따른 성취기준은 초중고 공통의 핵심 역량을 반영하고, 점진적 발달을 유도할 수 있는
+행동 지표 중심으로 설계하였다.
+&lt;표&gt; 학습자 인지 수준에 따른 성취기준
+단계 성취기준
+인지
+학습자는 다양한 형태의 데이터를 관찰하고, AI가 이를 어떻게 감지하는지 이해할 수 있다.
+(Perceive)
+탐색
+학습자는 AI와 관련된 도구나 시뮬레이션을 직접 조작하여, 데이터의 입력 방식과 처리 흐름을 체험할 수 있다.
+(Explore)
+이해
+학습자는 데이터를 범주화하거나 시각화하여 AI가 분류에 사용하는 특징과 구조를 설명할 수 있다.
+(Comprehend)
+추론
+학습자는 AI의 판단 근거를 분석하고, 주어진 조건에서 어떤 결과가 도출될지를 논리적으로 설명할 수 있다.
+(Reason)
+적용
+학습자는 학습한 AI 원리나 도구를 활용하여 실제 문제 상황에 적용하고, 그 결과를 평가할 수 있다.
+(Apply)
+예측
+학습자는 데이터를 기반으로 AI가 예측할 수 있는 미래의 결과를 시뮬레이션하거나 설명할 수 있다.
+(Predict)
+성찰
+학습자는 AI의 결정 과정과 자신의 판단을 비교하며, 그 한계와 윤리적 문제를 비판적으로 성찰할 수 있다.
+(Metacognize)
+&lt;표&gt; 인지 수준 단계별 초중고 성취기준
+성취기준
+단계
+초등 중등 고등
+주변 사물이나 이미지에서 AI가 감지
+다양한 유형의 데이터를 AI가 어떻게 AI센서가 데이터를 감지하는 과정을 실제
+인지 할 수 있는 요소(색, 모양 등)를 찾아
+감지하는지 설명할 수 있다. 사례로 설명할 수 있다.
+말할 수 있다.
+시뮬레이션을 통해 AI입력값 변화가
+AI 체험 도구를 사용해 입력 데이터를 AI시스템에서 입력 설정을 조정하며 결과
+탐색 출력에 어떤 영향을 주는지 설명할
+조작해 본다. 를 예측하고 비교 분석할 수 있다.
+수 있다.
+AI가 어떤 기준(색, 크기 등)으로 분류 데이터에서 공통된 특징을 찾아 분류 AI가 특징 추출을 통해 데이터를 벡터화
+이해
+하는지 설명할 수 있다. 기준을 설명할 수 있다. 하는 개념을 이해하고 설명할 수 있다.
+48 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article></div></details>
+  <details class="more" style="--rgb:120, 105, 32"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-047.png" data-title="AI사고력으로 신장되는 학습자의 인지 수준 · PDF 47쪽"><img src="assets/report-pages/page-047.png" alt="AI사고력으로 신장되는 학습자의 인지 수준 PDF 47쪽" loading="lazy" /><span>PDF 47쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-048.png" data-title="AI사고력으로 신장되는 학습자의 인지 수준 · PDF 48쪽"><img src="assets/report-pages/page-048.png" alt="AI사고력으로 신장되는 학습자의 인지 수준 PDF 48쪽" loading="lazy" /><span>PDF 48쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-049.png" data-title="AI사고력으로 신장되는 학습자의 인지 수준 · PDF 49쪽"><img src="assets/report-pages/page-049.png" alt="AI사고력으로 신장되는 학습자의 인지 수준 PDF 49쪽" loading="lazy" /><span>PDF 49쪽</span></button></div></details>
+</article><article class="sub" id="ai-understanding-edu" style="--rgb:120, 105, 32">
+  <div class="sub-head">
+    <div><p class="sub-kicker">04 세부 내용</p><h3>AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가?</h3></div>
+    <div class="sub-range">PDF 50-52쪽 · 보고서 49쪽~보고서 51쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>성취기준 단계</p><p>초등 중등 고등</p><p>AI가 왜 그렇게 판단했는지 자신의 AI의 판단에 영향을 미친 조건이나 주어진 조건에서 AI의 의사결정 과정을 추론 생각을 말할 수 있다. 규칙을 설명할 수 있다. 논리적으로 설명하거나 반박할 수 있다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>3쪽</strong></div>
+      <div><span>범위</span><strong>PDF 50~52</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:120, 105, 32"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 50쪽</span><span>보고서 49쪽</span></div><pre>성취기준
+단계
+초등 중등 고등
+AI가 왜 그렇게 판단했는지 자신의 AI의 판단에 영향을 미친 조건이나 주어진 조건에서 AI의 의사결정 과정을
+추론
+생각을 말할 수 있다. 규칙을 설명할 수 있다. 논리적으로 설명하거나 반박할 수 있다.
+간단한 문제 상황에 AI 도구를 적용해 실생활 문제를 AI 도구를 통해 해결하고, 복합 문제 상황에서 AI 기법을 적절히
+적용
+해결해 본다. 적용 과정을 설명할 수 있다. 설계·적용하여 결과를 도출할 수 있다.
+주어진 데이터로 AI가 어떤 결과를 데이터의 변화에 따라 AI가 어떻게 모델의 학습 결과를 바탕으로 새로운 상황
+예측
+낼지 예상해본다. 반응할지 예측할 수 있다. 에서의 결과를 예측하고 평가할 수 있다.
+AI가 잘못 판단했을 때, 그 이유를 AI 결과의 타당성을 평가하고 개선 AI의 판단, 인간의 개입, 윤리 문제를
+성찰
+생각해본다. 방안을 말할 수 있다. 통합적으로 성찰할 수 있다.
+5 AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가?
+정의
+AI이해교육은 「AI는 무엇이고, 어떻게 작동하는가?」에 대한 과학적이고 구조적인 이해를 바탕으로, 디지터시(Digitacy)를
+기반으로 한 AI소양과 비판적 사고 능력을 기르는 교육이다.
+목표
+▶ 인공지능의 개념, 원리, 작동 메커니즘에 대한 이해
+▶ AI시스템의 구조와 논리를 파악하고 설명할 수 있는 능력 함양
+▶ AI기술의 한계와 오류를 인식하고 맹신을 줄이는 비판적 태도 형성
+▶ 향후 AI와의 협업과 소통을 위한 기초 역량 구축
+핵심 역량
+① 디지터시(Digitacy) 기반의 기술 이해력
+▶ 디지터시는 단순한 디지털 기기 활용을 넘어, 컴퓨터 과학적 원리와 컴퓨팅 사고를 바탕으로 실생활 문제를 해결하는 능력을
+의미한다.
+04. AI 교육 2.0 모델의 세부 내용 49</pre></article><article class="text-card"><div class="text-meta"><span>PDF 51쪽</span><span>보고서 50쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+▶ AI이해교육에서는 데이터, 알고리즘, 모델 등의 핵심 구성 요소를 정보로 이해하고 판단하는 기술적 식견을 기르는 데 중점을 둔다.
+② AI사고력 및 구조적 분석 능력
+▶ 인공지능은 과학, 통계, 수학, 논리 등 컴퓨터 과학의 원리를 바탕으로 작동한다.
+▶ 학습자는 원인과 결과의 인과관계, 조건과 결과의 반복 패턴, 복잡한 시스템 내의 정보 흐름 등을 구조적으로 분석하는 훈련을
+통해, AI 작동 방식과 성능을 스스로 모델링하고 설명할 수 있는 능력을 갖추게 된다.
+③ AI기술 수용에 대한 비판적 태도
+▶ AI가 내리는 판단이 언제나 옳은 것은 아니다. 데이터의 편향, 알고리즘의 오류, 설계자의 의도 등 다양한 요인에 따라 AI의
+결과는 한계와 문제점을 내포할 수 있다.
+▶ 학습자는 이러한 가능성을 인식하고, AI 결과를 무비판적으로 수용하기보다는 검토하고 질문하는 태도를 지녀야 한다.
+▶ 또한 AI 기술이 인간과 사회에 미치는 윤리적, 경제적, 문화적 영향을 스스로 판단하고 책임을 의식할 수 있는 시민성도
+함께 요구된다.
+적용 대상 및 예시
+▶ 초·중등 AI교육과정 : 기초 AI개념이해, 알고리즘 체험 활동, AI작동방식 시뮬레이션 등
+▶ 대학 및 고등학교 AI심화교육 : 신경망 원리 이해, 분류/군집 알고리즘 실습, 모델 설계 프로젝트 등
+▶ 일반 시민 대상 AI소양교육 : AI 기술 사례 분석, AI뉴스 읽기와 토론, AI오용 사례에 대한 인식 교육
+교육 내용(예시)
+교육 내용(예시) 주요 학습 요소
+- 인공지능 vs 일반 소프트웨어의 차이
+- AI의 역사 및 발전 단계
+① 인공지능 개념 이해
+- 협의(좁은) AI vs 일반(범용) AI
+- 약한 인공지능(ANI)과 강한 인공지능(AGI)의 구분
+- AI의 작동 원리 개요
+- 데이터 과학의 기초 개념
+② 데이터와 AI의 이해
+- AI와 컴퓨팅 시스템(하드웨어, 네트워크 등)의 연계
+- 코딩과 AI의 관계 및 역할 이해
+- 문제 해결과 탐색 알고리즘
+- 지식 표현과 추론 방식
+③ AI알고리즘 이해
+- 데이터 기반 학습: 분류, 회귀, 군집화
+- 딥러닝의 기본 구조
+50 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 52쪽</span><span>보고서 51쪽</span></div><pre>교육 내용(예시) 주요 학습 요소
+- 간단한 데이터 수집 및 전처리
+- 모델 설계 및 학습 과정 체험
+④ AI모델 개발과 실습
+- 실험 결과 해석과 성능 평가
+- 피드백을 통한 모델 개선 경험
+수업 활동(예시)
+인공지능은 어떻게 생각하고 판단할까?
+학습 목표 AI가 어떻게 입력받아 판단을 내리는지 기본 구조를 이해한다.
+도입 AI의 입력-처리-출력 구조 애니메이션 시청(또는 교사의 설명)
+전개 “AI의사 만들기” 역할극 (증상 → 진단 → 처방)
+정리 실제 AI모델 구조 간단 비교 (Rule-based vs Machine Learning 기반)
+자료 예시 분류기 시뮬레이션 사이트 사용: 엔트리, Teachable Machine 등
+인공지능은 어디에서 작동할까?
+학습 목표 AI가 컴퓨팅 시스템 위에서 작동하며, 컴퓨터 자원이 필요함을 이해한다.
+도입 “AI는 어디에서 작동할까?”(유튜브 추천, 스마트폰 얼굴 인식 등 실생활 AI 제시)
+- AI의 몸을 찾아라(AI가 작동하는 장소 추리, 각 장치에 들어있는 부품(연산, 저장)
+전개 - 컴퓨터가 AI를 실행하는 구조
+- AI를 실행하기 위한 최소 시스템 구성하기
+정리 “AI는 하늘에서 떨어지는 마법일까, 기계 속 계산일까?”
+인공지능은 어떻게 학습할까?
+학습 목표 지도학습, 비지도학습, 강화학습의 차이와 적용 방식을 이해한다.
+사례 분석 강아지/고양이 분류 문제 (지도학습) / 비슷한 색의 물건 묶기(비지도학습)
+탐구 게임 속 AI의 학습 구조 → 강화학습 원리 설명
+카드 게임 학습 방식 분류 퀴즈: 어떤 활동이 어떤 학습인지 구분하기
+나만의 AI를 만들어보자
+학습 목표 간단한 분류 AI를 직접 설계하고 학습시킨다.
+① 입력 데이터 수집 (손동작, 표정 등)
+개발 ② 훈련 시키기 (레이블 지정)
+③ 모델 테스트 (카메라 인식 반응)
+토의 결과가 틀린 이유 분석하기 → 데이터 부족? 분류 기준 애매?
+04. AI 교육 2.0 모델의 세부 내용 51</pre></article></div></details>
+  <details class="more" style="--rgb:120, 105, 32"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-050.png" data-title="AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가? · PDF 50쪽"><img src="assets/report-pages/page-050.png" alt="AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가? PDF 50쪽" loading="lazy" /><span>PDF 50쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-051.png" data-title="AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가? · PDF 51쪽"><img src="assets/report-pages/page-051.png" alt="AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가? PDF 51쪽" loading="lazy" /><span>PDF 51쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-052.png" data-title="AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가? · PDF 52쪽"><img src="assets/report-pages/page-052.png" alt="AI이해교육 : AI는 ‘무엇’이고, ‘어떻게’ 작동하는가? PDF 52쪽" loading="lazy" /><span>PDF 52쪽</span></button></div></details>
+</article><article class="sub" id="ai-collaboration-edu" style="--rgb:120, 105, 32">
+  <div class="sub-head">
+    <div><p class="sub-kicker">04 세부 내용</p><h3>AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가?</h3></div>
+    <div class="sub-range">PDF 53-58쪽 · 보고서 52쪽~보고서 57쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>04. AI교육 2.0 모델의 세부 내용 AI의 판단은 항상 맞는 것일까?</p><p>학습 목표 AI의 판단 정확도와 한계, 피드백 구조를 이해한다.</p><p>토의 AI번역기의 오류 사례 분석 (ex. 번역기 이상한 결과)</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>6쪽</strong></div>
+      <div><span>범위</span><strong>PDF 53~58</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:120, 105, 32" open><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 53쪽</span><span>보고서 52쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+AI의 판단은 항상 맞는 것일까?
+학습 목표 AI의 판단 정확도와 한계, 피드백 구조를 이해한다.
+토의 AI번역기의 오류 사례 분석 (ex. 번역기 이상한 결과)
+개념 과적합 vs 과소적합 설명 – “너무 외운 아이 vs 전혀 모르는 아이”
+게임 AI예측 정확도 높이기 게임 (입력-정답 조합 계속 제공 → 성능 향상 관찰)
+정리 AI도 지속적인 학습이 필요하다는 결론 도출
+6 AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가?
+정의
+AI협력교육은 「AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가?」를 탐구하는 교육으로, AI를 단순한 도구로 활용하
+는 수준을 넘어 인간과 AI가 협력적 파트너로서 문제를 함께 해결하는 경험을 중심에 두는 실천적 교육이다. 이는 인간 고유
+의 창의성과 감정, 직관을 AI의 데이터 기반 연산 능력과 융합하여, 공존과 상생의 협력적 사고를 기르는 것을 목표로 한다.
+목표
+▶ 인간 주도의 문제 인식과 AI와의 협력적 문제 해결 과정 체험
+▶ 인간의 창의성과 감정, 직관을 AI의 연산 능력, 속도, 정확성과 결합하는 학습
+▶ AI를 도구이자 협력자(파트너)로 체험하며 적절히 활용하고 구분할 수 있는 능력 기르기
+▶ “AI를 활용하는 나”에서 “AI와 함께 해결하는 우리”로의 사고 확장
+핵심 역량
+① 문제 해결 중심 협업 역량
+▶ 문제를 단독으로 해결하기보다, 인간과 AI가 각자의 강점을 살려 협력적으로 해결하는 경험을 갖도록 한다.
+▶ AI의 분석력과 계산력 + 인간의 감성과 창의력을 통합하여 복잡한 문제에 접근한다.
+② AI기반 창의적 설계 역량
+▶ AI기능을 활용하여 새로운 아이디어를 구체화하고 설계할 수 있는 능력을 갖춘다.
+52 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 54쪽</span><span>보고서 53쪽</span></div><pre>③ 인간-기계 협업에 대한 주체적 태도
+▶ AI를 맹신하거나 거부하는 태도 대신, AI와의 협업 가능성을 올바르게 이해하고 활용하려는 태도를 기른다.
+▶ 인간이 중심이 되어 기술을 선택하고 조율하는 주체성을 강조한다.
+적용 대상 및 예시
+▶ 초·중등 프로젝트 기반 AI협력수업 : AI와 함께 교통문제 해결, 기후 데이터 분석 프로젝트, 감정 인식 로봇 만들기
+▶ CCI(창의협력지능) 교육 실천 사례 : 인간-기계 협업 놀이, 감정 인식 AI와의 소통 체험, 디자인 사고 연계 수업
+▶ 대학/시민 대상 협업형 AI실습교육 : AI기반 협업 창작 워크숍, 협력형 문제해결 해커톤, 인공지능 조력자 활용 사례
+교육 내용(예시)
+교육 내용(예시) 주요 학습 요소
+- 인간의 강점(창의성, 직관, 가치 판단) vs AI의 강점(계산력, 속도, 데이터 분석)
+① 인간-AI 협력 개념 이해
+- AI와의 협력 개념 이해
+- 인간이 문제를 인식하고 AI가 보조하는 구조
+② 협력적 문제해결 과정과 설계
+- 문제 정의 → 역할 분담 → 협력 해결 과정 설계
+- 생성형 AI, 추천 시스템, 대화형 AI 등과의 실습
+③ 협력형 프로젝트 기반 학습
+- 인간 중심 설계(HCD) 관점에서의 AI 활용 프로젝트 진행
+- 단순 도구적 사용과 협력적 파트너로서의 차이 체험
+④ 도구로서의 AI vs 파트너로서의 AI
+- 협력 구조 속에서 주체로서 인간의 위치 명확히 하기
+- AI의 제안 결과에 대한 선택·거부·재해석 경험
+⑤ 인간 주도 AI 활용 의사결정 훈련
+- 협력 결과에 대한 평가와 반성적 사고(메타인지 활동) 포함
+수업 활동(예시)
+문제는 어디에 있을까? AI가 나를 도와줄 수 있을까?
+학습 목표 우리 주변의 문제를 인식하고, AI의 도움 가능성을 탐색한다.
+도입 “AI에게 부탁하고 싶은 일” 토의
+탐색 우리 학교/지역의 문제 찾기 (ex. 교내 쓰레기, 안전한 귀가, 교실 소음)
+문제를 해결하는 데 필요한 데이터는 무엇인가?
+기획
+사람이 할 일과 AI가 할 일 나누기
+핵심 변화 AI를 ‘도구’가 아닌 ‘문제 해결 동료’로 상상해보기
+04. AI 교육 2.0 모델의 세부 내용 53</pre></article><article class="text-card"><div class="text-meta"><span>PDF 55쪽</span><span>보고서 54쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+AI와 함께 해결할 방법을 설계해보자
+학습 목표 AI의 역할을 구체화하고, 협력 구조를 설계한다.
+분석 AI가 할 수 있는 일과 인간이 잘하는 일 구분 (표로 정리)
+계획 역할 분담 도식화 → AI(데이터 수집/분류), 나(기획/해석/판단)
+“AI와 함께 미세먼지 지도 만들기” 영상 시청
+사례
+→ 센서·분석은 AI, 해석과 캠페인은 사람
+보조자료 AI를 ‘도구’가 아닌 ‘문제 해결 동료’로 상상해보기
+함께 움직여 보자! AI와 공동 문제 해결
+학습 목표 AI도구와 협력하여 해결안을 실행해본다.
+“AI와 함께하는 교실 소음 분석”
+프로젝트 - AI : 소리 데이터를 받아 데시벨 측정 및 시각화
+- 사람 : 조용한 환경을 위한 규칙 제안 및 행동 실천
+보조자료 AI의 기능은 실행 도구지만, 사람이 방향을 정한다는 점 인식
+“AI가 나보다 더 잘하면 어떡하지?” (경쟁)
+학습 목표 AI와 인간의 차이와 공통점을 비교하고 감정적으로 이해한다.
+AI가 그림 그리는 영상/작문하는 예시 시청
+활동 역할극 토의 : “AI가 나를 대체할 수 있을까?”
+비교표 작성 : 인간 vs AI 능력의 한계와 가능성
+“AI, 도와줘!” (활용)
+학습 목표 AI를 효율적인 도구로 인식하고 활용해본다.
+텍스트 요약, 번역, 이미지 분류 등 실제 AI 도구 체험
+활동 [정리] “AI에게 맡기면 좋은 일 vs 사람이 해야 할 일” 분류 카드 만들기
+활용 윤리 이슈 간단 소개
+54 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 56쪽</span><span>보고서 55쪽</span></div><pre>“AI와 함께 문제를 해결하자” (협력)
+학습 목표 AI와 협력하여 공동의 문제를 해결하는 경험을 쌓는다.
+팀 구성 : AI도구를 사용하는 문제해결 프로젝트 설계 (예: 소음 지도 만들기, 환경 감시, 안전 경로 분석 등)
+활동 역할 분담 : AI역할/인간 역할 나눠 프로젝트 진행
+결과 공유 : “우리 팀은 어떻게 AI와 협력했는가?”
+“서로 강점을 살려야 진짜 팀이지” (상생)
+학습 목표 AI와 인간이 각각 잘하는 일을 이해하고 공존 전략을 고민한다.
+케이스 분석 : ‘AI면접’, ‘AI판사’, ‘AI채용’에서 발생한 윤리 문제 토의
+활동 보완 모델 만들기 : “사람 중심 AI란 어떤 모습일까?” 공동 설계
+나만의 인간-AI 공존 선언 만들기
+“AI와 공존하는 미래를 상상해보자” (공존)
+학습 목표 AI와 함께 살아갈 미래 사회의 모습을 설계하고 상상한다.
+미래 시나리오 워크숍 : “2050년, AI는 어떤 역할을 하고 있을까?”
+활동 Utopia vs Dystopia 상상 후, 내가 원하는 공존 모델 발표
+나의 다짐 : “AI와 공존하기 위한 인간으로서의 태도”
+04. AI 교육 2.0 모델의 세부 내용 55</pre></article><article class="text-card"><div class="text-meta"><span>PDF 57쪽</span><span>보고서 56쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+참고자료
+인간과 AI가 문제를 해결하는 5가지 유형
+인간과 AI가 문제를 해결하는 관계의 변화 과정을 살펴보면 5가지 유형으로 설명할 수 있다.
+1단계: 경쟁 (AI가 나를 대체할지도 모른다)
+AI와 인간이 마치 경쟁 관계에 놓인 것처럼 인식되는 단계이다. 이때 학생들은 인간과 AI를 비교하면서, AI가 인간을 능가하거나
+대체할 수 있다는 불안을 느낀다. 핵심 개념은 “인간 vs AI”, 비교, 불안이며, 이 단계에서의 교육 목적은 AI 기술이 인간에게 미치는
+영향을 비판적으로 성찰하고, 경쟁적 시각을 이해하는 데 있다.
+2단계: 활용 (AI는 나를 도와주는 도구야)
+AI는 나를 위협하는 존재가 아니라, 나의 일을 도와주는 도구로 인식되기 시작한다. 효율성을 높이고 자동화를 가능하게 하는 수단
+으로서 AI의 기능에 주목하게 된다. 이때 핵심 개념은 도구적 사용, 효율, 자동화이며, 수업에서는 AI의 수단적 가치와 활용 가능성
+에 대한 인식을 기른다.
+3단계: 협력 (AI와 함께 문제를 해결할 수 있어)
+AI는 도구를 넘어서 협력자(파트너)로 이해되며, 함께 문제를 해결하는 존재로 인식된다. 인간과 AI가 각자 역할을 나누어 문제
+를 해결하는 공동 기획과 협력이 중심이 되며, 핵심 개념은 역할 분담, 공동 기획, 문제 해결이다. 수업의 목적은 실천적이고 협업
+중심의 사고를 기르는 것이다.
+4단계: 상생(AI와는 서로 강점을 살려야 해)
+인간과 AI가 각자의 강점을 발휘해 상호 보완적으로 작동할 수 있음을 인식하는 단계이다. 인간은 창의성과 윤리적 판단, 맥락 이해
+에서 강점을 갖고, AI는 방대한 데이터 처리와 신속한 분석에서 강점을 발휘한다. 핵심 개념은 강점 보완, 역할 증강, 상호 보완적 협력
+이며, 이 단계의 수업 목적은 인간과 AI가 서로의 강점을 이해하고 이를 최대화하는 협력 전략을 기르는 데 있다.
+5단계: 공존 (AI와 함께 미래를 설계할 수 있어)
+최종적으로 AI는 인간과 함께 지속가능한 미래를 설계할 수 있는 동반자로 인식된다. AI의 자율성과 더불어 인간의 책임, 공진화
+개념이 강조되며, 핵심 개념은 AI의 자율성, 인간의 책임, 공진화이다. 수업에서는 인간과 AI가 함께 만드는 지속 가능한 미래를 그리는
+것이 핵심 목표이다.
+&lt;표&gt; 인간과 AI가 문제를 해결하는 5가지 유형
+단계 AI와의 관계 인식 핵심 개념 수업 목적
+경쟁 AI가 나를 대체할지도 모른다 인간 vs AI, 비교, 불안 경계와 이해
+활용 AI는 나를 도와주는 도구야 도구적 사용, 효율, 자동화 수단적 가치 인식
+협력 AI와 함께 문제를 해결할 수 있어 역할 분담, 공동 기획, 문제해결 실천적 협업
+상생 AI와 나는 서로 강점을 살려야 해 공존 전략, 윤리적 설계, 인간 중심기술, 역량 증강 상호보완 인식
+공존 AI와 함께 미래를 설계할 수 있어 AI의 자율성, 인간의 책임, 공진화 지속가능한 미래 구상
+56 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 58쪽</span><span>보고서 57쪽</span></div><pre>참고자료
+생성형AI로 촉발된 AI와의 협력
+생성형 인공지능(Generative AI)의 발전은 단순한 기술 진보를 넘어 인간과 AI 간의 협력 관계를 새롭게 정의하고 있다. 특히
+GenAI 2.0은 기존의 GenAI 1.0에서 보여주었던 도구 중심의 AI 활용 방식에서 벗어나, 인간과 AI가 공동 창작자이자 설계자로 함께
+사고하고 문제를 해결하는 협업 중심의 패러다임으로 전환을 이끌어내고 있다.
+GenAI 1.0은 주로 텍스트, 이미지, 코드 등을 생성하는 데 활용되었으며, 사용자는 프롬프트(명령어)를 입력하는 단순한 명령
+제공자에 머물렀다. 이 시기 AI는 정적인 응답을 즉각적으로 제공했지만, 반복 학습이 어려웠고 문맥에 따른 연속적인 상호작용이
+제한적이었다. 사용 방식 또한 1회성 요청(Prompt → Output) 중심으로 이루어졌기 때문에, 결과물에 대한 피드백이나 개선 과정
+이 부족했다.
+반면, GenAI 2.0은 협업 파트너로서의 AI를 강조한다. 사용자 역시 단순한 입력자가 아니라 AI와 함께 문제를 정의하고 해결해
+나가는 설계자이자 협력자로 변화한다. AI는 사용자의 요청을 단순히 처리하는 수준을 넘어서, 맥락을 이해하고 피드백을 수용하며,
+의미 있는 대화를 통해 사고를 확장해주는 존재로 발전한다. 이로 인해 사용 방식도 ‘Prompt → Feedback → Iteration’과 같은
+지속적 상호작용 모델로 변화하였으며, 응답 또한 문맥을 이해하고 의도를 파악하는 방향으로 고도화되었다.
+이러한 변화는 AI의 활용 영역 확대에도 영향을 미친다. 단순한 문서 작성, 번역을 넘어 전략 수립, 교육 기획, 협력 창작, 정책 개발
+등 고차원적 지식 활동과 창의적 업무까지 GenAI 2.0의 적용이 가능해졌다. 기술 중심이었던 초기 생성형 AI는 이제 사용자 중심
+의 UX(사용자 경험), 도구 활용의 편의성, 그리고 생산성 향상 등 인간과의 상호작용 품질을 더 중시하게 된 것이다.
+대표적인 서비스로는 GPT-4o, Claude 3, Gemini Advanced, Copilot+, 멀티모달 AI 서비스, MCP, Agent 모델 등이 있으며,
+이들은 모두 단순 생성 기능을 넘어 사용자의 피드백을 기반으로 지속적으로 진화하며 협력 가능한 AI 모델로 자리 잡고 있다.
+GenAI 2.0은 인간이 AI를 ‘활용’하는 것을 넘어서, AI와 함께 문제를 정의하고 해결하며 새로운 가치를 창출하는 시대의 문을
+열었다. 이제는 AI를 단순한 도구가 아닌, 지적 파트너로 받아들이는 새로운 교육과 사고의 전환을 맞이하게 되었다.
+&lt;표&gt; GenAI 1.0과 GenAI 2.0의 비교
+구분 GenAI 1.0 GenAI 2.0
+핵심 개념 콘텐츠 생성 도구로서의 AI 협업 파트너로서의 AI
+사용자 역할 프롬프트 입력자(명령 제공) 설계자·협력자(AI와 공동 창작)
+AI의 역할 단순 생성기(텍스트, 이미지, 코드 등 생성) 지식 파트너·창의 파트너(맥락 이해, 피드백, 대화형 협력)
+사용 방식 1회성 질의응답 기반(Prompt → Output) 대화형 지속적 상호작용(Prompt → Feedback → Iteration)
+응답 특성 정적, 즉각적, 반복 학습 없음 문맥 기반, 연속성 유지, 의도 파악
+응용 영역 문서 작성, 요약, 번역 등 자동화 전략 수립, 교육, 연구, 협력 창작 등 고차원 작업
+모델 중심성 기술 중심(모델 성능 강조) 사용자 중심(UX, 도구화, 생산성 강조)
+GPT-4o, Claude 3, Copilot+, Gemini Advanced 등
+예시 서비스 ChatGPT 초기 버전, DALL·E 1
+멀티모달, MCP, Agent,
+04. AI 교육 2.0 모델의 세부 내용 57</pre></article></div></details>
+  <details class="more" style="--rgb:120, 105, 32"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-053.png" data-title="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? · PDF 53쪽"><img src="assets/report-pages/page-053.png" alt="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? PDF 53쪽" loading="lazy" /><span>PDF 53쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-054.png" data-title="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? · PDF 54쪽"><img src="assets/report-pages/page-054.png" alt="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? PDF 54쪽" loading="lazy" /><span>PDF 54쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-055.png" data-title="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? · PDF 55쪽"><img src="assets/report-pages/page-055.png" alt="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? PDF 55쪽" loading="lazy" /><span>PDF 55쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-056.png" data-title="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? · PDF 56쪽"><img src="assets/report-pages/page-056.png" alt="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? PDF 56쪽" loading="lazy" /><span>PDF 56쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-057.png" data-title="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? · PDF 57쪽"><img src="assets/report-pages/page-057.png" alt="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? PDF 57쪽" loading="lazy" /><span>PDF 57쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-058.png" data-title="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? · PDF 58쪽"><img src="assets/report-pages/page-058.png" alt="AI협력교육 : AI와 우리는 ‘무엇을’, ‘어떻게’, ‘함께’ 할 수 있는가? PDF 58쪽" loading="lazy" /><span>PDF 58쪽</span></button></div></details>
+</article><article class="sub" id="ai-value-edu" style="--rgb:120, 105, 32">
+  <div class="sub-head">
+    <div><p class="sub-kicker">04 세부 내용</p><h3>AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가?</h3></div>
+    <div class="sub-range">PDF 59-61쪽 · 보고서 58쪽~보고서 60쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>04. AI교육 2.0 모델의 세부 내용 7 AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가?</p><p>정의</p><p>AI가치교육은 「인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가?」를 중심 질문으로 삼아, AI기술이 인간과 사회에 미치는 의미를 성찰하고, 기술 발전 속에서도 인간의 존엄성과 공동체 가치를 지켜나가는 방향을 모색하는 교육이다.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>3쪽</strong></div>
+      <div><span>범위</span><strong>PDF 59~61</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:120, 105, 32" open><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 59쪽</span><span>보고서 58쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+7 AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가?
+정의
+AI가치교육은 「인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가?」를 중심 질문으로 삼아, AI기술이 인간과 사회에 미치는
+의미를 성찰하고, 기술 발전 속에서도 인간의 존엄성과 공동체 가치를 지켜나가는 방향을 모색하는 교육이다.
+목표
+▶ AI를 단순한 유용한 수단이 아닌 윤리적·철학적 성찰 대상으로 인식
+▶ AI와 인간의 관계를 고찰하며 기술과 가치의 균형에 대한 사고 형성
+▶ 인간 중심 가치(존엄성, 공정성, 공공성 등)를 AI활용의 기준으로 삼는 태도 함양
+▶ AI기술이 사회적 선(Social Good)을 추구하도록 유도하는 비전 제시
+핵심 역량
+① 기술 윤리 및 철학적 사고력
+▶ 기술의 사회적 영향과 윤리적 쟁점에 대해 깊이 있게 사고할 수 있는 능력을 기른다.
+② 디지털 시민성과 책임 의식
+▶ AI를 사용하는 시민으로서 공동체에 대한 책임과 공감 능력을 갖춘다.
+③ 공익 지향적 기술 활용 능력
+▶ 기술이 사회적 가치를 증진하는 데 사용되도록 비판적으로 판단하고 활용하는 능력을 함양한다.
+적용 대상 및 예시
+▶ 초·중등 및 고등 윤리 기반 AI수업 : AI와 공정성, 개인정보와 AI, 알고리즘의 편향과 책임 등
+▶ 공공·시민교육: AI for Good, 착한 AI, 디지털 시민교육 등
+▶ 대학 교양 과목: 기술철학, AI윤리, 인간과 기계의 공존 등
+58 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 60쪽</span><span>보고서 59쪽</span></div><pre>교육 내용(예시)
+교육 내용(예시) 주요 학습 요소
+- 기술 발전의 목적에 대한 근본적 질문 제기
+① 기술과 인간의 관계 성찰 - AI가 인간의 삶에 미치는 영향 탐색
+- 인간 중심 기술철학 개념 도입
+- 알고리즘 윤리(편향, 책임성, 투명성 등) 개념
+② AI윤리 기초와 사회적 책임 이해 - 데이터 사용 윤리와 개인정보 보호
+- AI 결정에 대한 인간 책임 고찰
+- 공정성, 포용성, 공공성 등의 가치 이해
+③ 인간 존엄성과 공공선 중심 가치
+- AI활용 시 인간 존엄과 권리 보호의 필요성 인식
+- 기술적 선택 상황에서 가치 충돌 사례 분석
+④ 기술 선택과 가치 판단 훈련 - 윤리적 딜레마 시뮬레이션과 토의
+- 대안 제시 및 비판적 사고 활동 수행
+- 착한 AI사례(기후위기 대응, 장애인 보조 등) 탐구
+⑤ AI for Good 실천 경험 - 사회적 약자·소수자를 위한 AI 활용 구상
+- ‘AI와 함께하는 좋은 삶’ 설계하기
+수업 활동(예시)
+AI는 왜 ‘가치’를 갖는가?
+학습 목표 - 가치란 무엇인가? - 왜 인간과의 관계에서만 의미를 갖는가?
+활동 “가치는 누가 결정하는가?”에 대한 카드 토론(AI의 ‘유용성’ vs ‘사람의 필요’)
+정리 “AI 가치는 인간과 맺는 관계 안에서 생긴다”라는 정의 내리기
+AI의 수단적 가치는 무엇인가?
+AI로 이익을 얻는 다양한 사례 분석(산업 자동화, 추천 알고리즘, 물류 효율화 등)
+활동
+AI 기술이 ‘유용한 도구’로 작동하는 구조 이해
+비판적 시각 ‘이익을 위한 기술’이 가지는 한계와 문제점 짚기
+AI는 인간의 목적을 도울 수 있는가?
+자율주행차의 생명 우선 선택 시나리오(도덕적 딜레마) 분석
+활동
+&quot;AI가 스스로 판단할 수 있다면, 책임은 누구에게?&quot; 토의
+정리 기술의 사용은 도덕적 기준이 수반되어야 한다는 점 강조
+우리가 추구해야 할 AI의 가치란?
+‘AI 윤리 헌장’ 또는 ‘AI 가치 선언문’ 만들기
+활동
+발표: “AI는 인간에게 어떤 존재여야 하는가?”에 대한 개인 선언
+확장 자의식 생성, 자율적 판단 가능성에 대한 미래 사회 논의
+04. AI 교육 2.0 모델의 세부 내용 59</pre></article><article class="text-card"><div class="text-meta"><span>PDF 61쪽</span><span>보고서 60쪽</span></div><pre>04. AI교육 2.0 모델의 세부 내용
+참고자료
+AI윤리교육이 아닌 AI가치교육
+AI가치교육은 단순히 윤리 규범을 따르게 하거나, 기술 오남용을 방지하는 ‘윤리 교육’의 범주를 넘어서야 한다. AI를 잘못 쓰지
+않도록 예방하는 교육도 중요하지만, 그것만으로는 충분하지 않다. 우리가 지향해야 할 것은 AI를 왜, 어떻게 써야 하는지를 함께
+성찰하고, 인간과 사회가 함께 추구해야 할 방향성을 고민하는 ‘가치교육’이다.
+‘가치’란, 사물이나 기술 자체가 본질적으로 지니는 속성이 아니라, 그것이 인간과 맺는 관계 속에서 발생하는 중요성을 말한다.
+따라서 AI기술도 그것만으로는 선하지도 악하지도 않은 중립적 도구일 뿐이다. 중요한 것은 인간이 AI를 어떻게 다루고, 어떤 관계
+를 맺느냐이다. 동일한 기술도 사용하는 맥락과 목적에 따라 완전히 다른 결과와 의미를 만들어낼 수 있기 때문이다.
+AI가치교육은 이처럼 기술을 하나의 인간적 의미를 가진 대상으로 바라보도록 돕는 교육이며, 이를 위해 기술에 대한 ‘수단적 가치’
+와 ‘목적적 가치’를 구분할 필요가 있다. 수단적 가치는 AI를 도움이 되는 도구, 즉 더 빠르고 편리하게 문제를 해결하는 장치로 인식
+하는 관점이다. 반면, 목적적 가치는 AI가 인간 사회의 선(善)을 이루는 방향으로 작동되도록 설계하고 사용하는 태도를 의미한다.
+공정한 알고리즘 설계, 사회적 약자를 위한 활용, 지속가능성을 위한 데이터 이용 등은 모두 목적적 가치의 실천이다.
+이러한 관점에서 AI가치교육은 기술의 도구적 사용 능력만을 길러주는 것이 아니라, 기술을 통해 더 나은 사회를 함께 상상하고
+실현해나갈 수 있도록 하는 사고의 확장 교육이 되어야 한다. 이는 곧, 기술의 위험을 경고하는 것을 넘어서, 인간의 존엄성과 공동체
+가치(공정성, 공공성, 포용성 등)를 지켜나가기 위한 비판적 성찰과 실천을 길러주는 교육으로 확장되어야 한다는 것을 의미한다.
+AI가치교육은 기술의 윤리적 위험만을 관리하는 것이 아니라, 인간과 AI가 함께 만드는 가치로운 사회를 향한 비전 교육이며,
+이를 통해 우리는 “AI를 잘 쓰는 사람”이 아닌 “AI와 함께 잘 살아가는 사람”을 길러야 한다. 그러기 위해 AI가치교육은 기술의 수단적
+가치에서 출발하지만, 궁극적으로는 목적적 가치에 도달해야 한다.
+&lt;표&gt; 수단적 가치와 목적적 가치
+구분 설명
+수단적 기술이 효율, 속도, 편리함, 생산성 등을 제공하는 도구적 역할을 강조
+가치 예 : AI를 통해 생산비 절감, 소비자 맞춤형 추천 시스템
+목적적 기술의 사용이 인간의 존엄, 자유, 안전, 정의, 행복 등 내재적 목적을 지향하도록 해야 한다는 관점
+가치 예 : AI가 인간을 대체하는 것이 아니라 인간의 삶을 더 깊이 이해하고 존중하도록 돕는 역할
+60 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article></div></details>
+  <details class="more" style="--rgb:120, 105, 32"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-059.png" data-title="AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가? · PDF 59쪽"><img src="assets/report-pages/page-059.png" alt="AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가? PDF 59쪽" loading="lazy" /><span>PDF 59쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-060.png" data-title="AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가? · PDF 60쪽"><img src="assets/report-pages/page-060.png" alt="AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가? PDF 60쪽" loading="lazy" /><span>PDF 60쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-061.png" data-title="AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가? · PDF 61쪽"><img src="assets/report-pages/page-061.png" alt="AI가치교육 : 인간은 AI와 ‘어떻게’ 가치로운 사회로 나아가는가? PDF 61쪽" loading="lazy" /><span>PDF 61쪽</span></button></div></details>
+</article></div>
+</section><section class="section" id="references" style="--rgb:109, 83, 110">
+  <div class="section-head">
+    <div>
+      <p class="section-kicker">Ref</p>
+      <h2>참고문헌</h2>
+      <p class="section-desc">보고서의 이론적 기반과 인용 문헌, 발행 정보를 페이지 단위로 확인합니다.</p>
+      <div class="stats"><span>PDF 63-65쪽 · 보고서 62쪽~발행 정보</span><span>2개 절</span><span>원문 페이지 포함</span></div>
+    </div>
+    <div class="intro-pages"><button class="page" type="button" data-src="assets/report-pages/page-062.png" data-title="참고문헌 · PDF 62쪽"><label>PDF 62쪽</label><img src="assets/report-pages/page-062.png" alt="참고문헌 도입 페이지 62" loading="lazy" /></button></div>
+  </div>
+  <nav class="section-links"><a href="#reference-list">문헌 목록</a><a href="#colophon">발행 정보</a></nav>
+  <div class="section-nav"><article class="sub" id="reference-list" style="--rgb:109, 83, 110">
+  <div class="sub-head">
+    <div><p class="sub-kicker">참고문헌</p><h3>문헌 목록</h3></div>
+    <div class="sub-range">PDF 63-64쪽 · 보고서 62쪽~보고서 63쪽</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>· Bahar Mahmud et al.(2023). A Study of Human–AI Symbiosis for Creative Work: Recent Developments and Future Directions in Deep Learning. ACM Transactions on Multimedia Computing, Communications and Applications, Volume 20(2), 1-21.</p><p>· Daniels, Uet al.(2023). AICOMP-Future Skills in a World Increasingly Shaped By AI. Ubiquity Proceedings, 3(1): 230-239. https://doi.org/10.5334/uproc.91 · Daniel, Z. (2013). From Computational Thinking to AI Thinking. IEEE Intelligent Systems, 28(6), 2-4. DOI: 10.1109/mis.2013.141 · EU(2022). DigComp 2.2: The Digital Competence Framework for Citizens - With new examples of knowledge, skills and attitudes.</p><p>· European Commission (2017). DigComp 2.1: The Digital Competence Framework for Citizens with eight proficiency levels and examples of use. Luxembourg: Publications Office of the European Union.</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>2쪽</strong></div>
+      <div><span>범위</span><strong>PDF 63~64</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:109, 83, 110" open><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 63쪽</span><span>보고서 62쪽</span></div><pre>참고문헌
+· Bahar Mahmud et al.(2023). A Study of Human–AI Symbiosis for Creative Work: Recent Developments
+and Future Directions in Deep Learning. ACM Transactions on Multimedia Computing, Communications
+and Applications, Volume 20(2), 1-21.
+· Daniels, Uet al.(2023). AICOMP-Future Skills in a World Increasingly Shaped By AI. Ubiquity Proceedings,
+3(1): 230-239. https://doi.org/10.5334/uproc.91
+· Daniel, Z. (2013). From Computational Thinking to AI Thinking. IEEE Intelligent Systems, 28(6), 2-4. DOI:
+10.1109/mis.2013.141
+· EU(2022). DigComp 2.2: The Digital Competence Framework for Citizens - With new examples of
+knowledge, skills and attitudes.
+· European Commission (2017). DigComp 2.1: The Digital Competence Framework for Citizens with eight
+proficiency levels and examples of use. Luxembourg: Publications Office of the European Union.
+· JISC (2014). Developing digital literacies. Retrieved from https://www.jisc.ac.uk/full-guide/developing-
+digital-literacies
+· G. G. Lee et al. (2023). Multimodality of AI for Education: Towards Artificial General Intelligence.
+arXiv:2312.06037v2 [cs.AI].
+· Gilster, P.(1997). Digital literacy. New York: Wiley Computer Pub.
+· Latif et al.(2023). AGI: Artificial General Intelligence for Education. https://doi.org/10.48550/
+arXiv.2304.12479.
+· Nataliya Kosmyna et al.(2025). Your Brain on ChatGPT: Accumulation of Cognitive Debt when Using an AI
+Assistant for Essay Writing Task. https://doi.org/10.48550/arXiv.2506.08872
+· NCEE(2024). Framework for AI-Powered Learning Environments. Washington, DC: National Center on
+Education and the Economy.
+· OECD(2009). PIAAC Problem Solving in Technology-Rich Environments (PSTRE).
+· Paul, R., et al. (2018). AI Thinking for Cloud Education Platform with Personalized Learning. Proceedings
+of the 51st Hawaii International Conference on System Sciences, 3-12. DOI: 10.24251/HICSS.2018.003
+· Popstar et al.(2019). elating Artificial Intelligence to the Computational Thinking framework. The Third
+International Conference on Computational Thinking Education.
+· Popstar et al.(2019). elating Artificial Intelligence to the Computational Thinking framework. The Third
+International Conference on Computational Thinking Education.
+· Ruixun Dai et al. (2024). The roles of AI and educational leaders in AI-assisted administrative
+decision-making: a proposed framework for symbiotic collaboration. The Australian Educational Researcher
+52(3).
+· UNESCO (2018). A Global Framework of Reference on Digital Literacy Skills for Indicator 4.4.2. UNESCO
+Institute or Statistics, Information Paper No. 51.
+· UNESCO (2019). Recommendations on Assessment Tools for Monitoring Digital Literacy within UNESCO’s
+Digital Literacy Gollobal Framework. Information Paper No. 56.
+· UNESCO(2021). Recommendation on the Ethics of Artificial Intelligence. https://unesdoc.unesco.org/
+ark:/ 48223/ pf0000381137
+62 AI기본사회, 교육의 대전환 AI교육 2.0 미래를 설계하다</pre></article><article class="text-card"><div class="text-meta"><span>PDF 64쪽</span><span>보고서 63쪽</span></div><pre>· UNESCO(2024). AI competency framework for students.
+· Wanxin Yan et al.(2024). Benefits and Challenges of Collaboration between Students and Conversational
+Generative Artificial Intelligence in Programming Learning: An Empirical Case Study. Educ. Sci. 14(4), 433;
+https://doi.org/10.3390/educsci14040433.
+· Yijia Shao et al.(2025). Future ofWork with AI Agents:Auditing Automation and Augmentation Potential
+across the U.S.Workforce. https://doi.org/10.48550/arXiv.2506.06576
+· 교육부(2022). 실과(기술,가정)/정보과 교육과정.
+· 김수은(2025). 학문 목적 발표 수업에서의 AI 리터러시 강화 사례 연구 - 자기 수정 및 관리 역량을 중심으로 -. 한국어
+문학국제학술포럼, 68, 175-207.
+· 김태령, 류미영, 한선관(2020). 초중등 인공지능 교육을 위한 프레임워크 기초 연구. 한국인공지능교육학회지, 1(4),
+31-42.
+· 류미영, 천종필, 한선관(2025). AI윤리교육을 위한 ChatGPT의 윤리적 요인에 대한 고찰. 한국인공지능교육학회지,
+6(1), 37-46.
+· 류미영, 한선관(2022). 디지털 기반 창의협력지능 교수학습 모형의 개발과 적용. 교육논총, 42(2), 117-130.
+· 류미영, 한선관(2023). The Study on Test Standard for Measuring AI Literacy. 한국컴퓨터정보학회지, 28(7),
+39-46.
+· 최숙영(2024). 생성형 AI시대의 미래 인재를 위한 핵심역량 프레임워크와 교육 방안. 컴퓨터교육학회, 27(9), 23-33.
+· 최현종(2021). 컴퓨팅 사고력에 기반한 인공지능 사고력 교육에 관한 고찰. 컴퓨터교육학회지, 24(3), 57-65.
+· 한국교육과정평가원(2018) ‘교과교육에서의 디지털 리터러시 교육 실태 분석 및 개선 방안 연구’
+· 한국교육학술정보원(2023) ‘2023년 초·중학생 디지털 리터러시 수행형 평가도구 개선 및 수준 측정 연구’
+· 한국교육학술정보원(2023) ‘디지털 리터러시 구성 체계 및 교과별 성취기준 연계’ 보고서
+· 한국교육학술정보원(2023). 예비·현직 교원의 AI· 디지털 역량 측정 도구 개발
+· 한국정보교육학회(2023). AI디지털교과서 초등학교 정보과 교육과정(학년군별 34차시 기준).
+· 한선관, 류미영, 김태령(2021). AI사고를 위한 인공지능교육. 성안당.
+참고문헌 63</pre></article></div></details>
+  <details class="more" style="--rgb:109, 83, 110"><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-063.png" data-title="문헌 목록 · PDF 63쪽"><img src="assets/report-pages/page-063.png" alt="문헌 목록 PDF 63쪽" loading="lazy" /><span>PDF 63쪽</span></button><button class="page" type="button" data-src="assets/report-pages/page-064.png" data-title="문헌 목록 · PDF 64쪽"><img src="assets/report-pages/page-064.png" alt="문헌 목록 PDF 64쪽" loading="lazy" /><span>PDF 64쪽</span></button></div></details>
+</article><article class="sub" id="colophon" style="--rgb:109, 83, 110">
+  <div class="sub-head">
+    <div><p class="sub-kicker">참고문헌</p><h3>발행 정보</h3></div>
+    <div class="sub-range">PDF 65쪽 · 발행 정보</div>
+  </div>
+  <div class="lead">
+    <div class="lead-copy"><h4>핵심 원문 미리보기</h4><p>발행일 2025년 8월 개발진 한선관, 천종필, 류미영 검토진 이철현, 정종진, 서지훈, 홍수빈, 김태령, 김도용, 임새이, 김지혜, 김지현, 서지인, 김상현 발행처 한국인공지능교육학회 22851 인천광역시 서구 로봇랜드로 155-11, 1002호 Tel : 032) 540-1318 ㅣ Fax : 032) 540-0288 www.aied.or.kr 펴낸곳 (주)애드밸 Tel. 0507-1351-0965</p></div>
+    <div class="facts">
+      <div><span>페이지 수</span><strong>1쪽</strong></div>
+      <div><span>범위</span><strong>PDF 65</strong></div>
+      <div><span>안내</span><strong>전문 텍스트 + 원본 페이지 제공</strong></div>
+    </div>
+  </div>
+  <details class="more" style="--rgb:109, 83, 110"><summary>정제하지 않은 원문 텍스트 전문 보기</summary><div class="text-stack"><article class="text-card"><div class="text-meta"><span>PDF 65쪽</span><span>발행 정보</span></div><pre>한국AI교육학회 2025정책연구보고서
+AI기본사회, 교육의 대전환
+AI교육 2.0 미래를 설계하다
+발행일 2025년 8월
+개발진 한선관, 천종필, 류미영
+검토진 이철현, 정종진, 서지훈, 홍수빈, 김태령, 김도용, 임새이, 김지혜, 김지현, 서지인, 김상현
+발행처 한국인공지능교육학회
+22851 인천광역시 서구 로봇랜드로 155-11, 1002호
+Tel : 032) 540-1318 ㅣ Fax : 032) 540-0288
+www.aied.or.kr
+펴낸곳 (주)애드밸 Tel. 0507-1351-0965</pre></article></div></details>
+  <details class="more" style="--rgb:109, 83, 110" open><summary>페이지 원본 보기</summary><div class="page-grid"><button class="page" type="button" data-src="assets/report-pages/page-065.png" data-title="발행 정보 · PDF 65쪽"><img src="assets/report-pages/page-065.png" alt="발행 정보 PDF 65쪽" loading="lazy" /><span>PDF 65쪽</span></button></div></details>
+</article></div>
+</section>
+
+      <section class="footer-note">
+        <p><strong>완전한 읽기 경험을 위해</strong> 각 절의 <em>원문 텍스트 전문</em>과 <em>페이지 원본 보기</em>를 함께 열어보면, PDF 한 권을 직접 읽는 수준으로 내용을 따라갈 수 있습니다.</p>
+        <p>마지막 PDF 66쪽은 공란입니다. 원문 파일은 <a href="assets/report-source.pdf" target="_blank" rel="noreferrer"><strong>여기</strong></a>서 바로 열 수 있습니다.</p>
+      </section>
+    </main>
+  </div>
+
+  <div class="lightbox" aria-hidden="true">
+    <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="페이지 원본 크게 보기">
+      <div class="lightbox-top"><strong class="lightbox-title">페이지 보기</strong><button class="lightbox-close" type="button" aria-label="닫기">×</button></div>
+      <div class="lightbox-body"><img src="" alt="" /></div>
+    </div>
+  </div>
+
+  <script>
+    const body=document.body,menu=document.querySelector('.menu'),navLinks=[...document.querySelectorAll('.nav a')],sections=[...document.querySelectorAll('.section')],lightbox=document.querySelector('.lightbox'),lightboxImg=lightbox.querySelector('img'),lightboxTitle=lightbox.querySelector('.lightbox-title');
+    if(menu)menu.addEventListener('click',()=>body.classList.toggle('menu-open'));
+    navLinks.forEach(link=>link.addEventListener('click',()=>body.classList.remove('menu-open')));
+    document.querySelectorAll('.page').forEach(btn=>btn.addEventListener('click',()=>{const src=btn.dataset.src,title=btn.dataset.title||'페이지 원본';if(!src)return;lightboxImg.src=src;lightboxImg.alt=title;lightboxTitle.textContent=title;lightbox.classList.add('open');body.classList.add('modal-open');lightbox.setAttribute('aria-hidden','false');}));
+    const close=()=>{lightbox.classList.remove('open');body.classList.remove('modal-open');lightbox.setAttribute('aria-hidden','true');lightboxImg.removeAttribute('src');};
+    document.querySelector('.lightbox-close').addEventListener('click',close);
+    lightbox.addEventListener('click',e=>{if(e.target===lightbox)close();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lightbox.classList.contains('open'))close();});
+    new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;const id=entry.target.id;navLinks.forEach(link=>link.classList.toggle('active',link.getAttribute('href')===`#${id}`));});},{threshold:.42,rootMargin:'-20% 0px -45% 0px'}).observe(sections[0]); sections.slice(1).forEach(section=>new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;const id=entry.target.id;navLinks.forEach(link=>link.classList.toggle('active',link.getAttribute('href')===`#${id}`));});},{threshold:.42,rootMargin:'-20% 0px -45% 0px'}).observe(section));
+  </script>
+</body>
+</html>
