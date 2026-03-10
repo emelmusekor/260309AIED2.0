@@ -1,19 +1,19 @@
-﻿# Handoff
+# Handoff
 ## Fixes Completed
-- Lazy workbook editors now render on demand, workbook items with no editable pages are removed, and empty workbook sections no longer show up in the report UI.
-- Navigation now only includes normalized sections, so workbook-specific dead anchors disappear from the menu.
-- The mobile menu button now exposes aria-controls and aria-expanded, closes on nav click and Escape, and automatically clears menu-open when the viewport leaves the mobile breakpoint so desktop scrolling cannot get stuck.
-- Page and keyword modals now expose dialog semantics, move focus to the close button on open, restore focus to a sensible trigger on close, and let Escape close only the topmost open overlay.
-- Visible focus rings now cover links, buttons, summaries, and non-canvas inputs so keyboard navigation is easier to follow across the report UI.
-- The viewer now falls back safely when requestAnimationFrame or IntersectionObserver is missing and no longer depends on Object.fromEntries or URLSearchParams in the hot UI path.
+- Workbook source-page previews now lazy-render only when opened, which removes a large block of hidden thumbnail DOM from every report card and directly targets the scroll-freeze issue on long subpages.
+- Workbook sections now behave like a one-page-at-a-time interactive reader with previous/next controls and page chips instead of dumping the whole workbook into one long scroll.
+- Workbook source-page access is removed from the header PDF shortcut and per-workbook cards, and the workbook cover no longer opens the original page.
+- Shared workbook inputs for class/name are removed by filtering student_class and student_name fields before pages render.
+- Secondary workbook page 7 now includes six added boxes covering the improved-prompt rows plus the two lower reflection areas.
+- The earlier menu, modal, focus-ring, and runtime-fallback fixes remain in place.
 ## Tests Run
-- Static content checks previously confirmed zero workbook sections remain without editable pages after normalization.
-- Static navigation checks previously confirmed every nav entry in the English and Korean bundles still points at an existing section.
-- git diff --check passes aside from Git's LF-to-CRLF warning on aied-web/shared/viewer.css and aied-web/shared/viewer.js.
-- Attempted python build_report_site.py, but python and py are unavailable in this environment.
+- git diff --check passes aside from Git's LF-to-CRLF warnings on aied-web/shared/viewer.css and aied-web/shared/viewer.js.
+- Static inspection confirmed the workbook reader hooks, lazy page-preview shell, removed shared field keys, and added secondary page 7 overlays are present in the shared viewer.
+- Attempted python build_report_site.py previously, but python and py are unavailable in this environment.
 ## Remaining Issues
-- Browser-based verification is still needed for workbook mail/share behavior, the responsive menu reset, modal focus behavior, keyboard focus rings, topmost-Escape behavior, and the new compatibility fallbacks.
-- Search/filter interaction when workbook cards are hidden still lacks automated regression coverage.
+- Browser-based verification is still needed for the new workbook reader flow, page-switch behavior, long-scroll smoothness, and the exact fit of every workbook input overlay.
+- Additional workbook pages may still need manual overlay adjustments after visual review, especially in the elementary bundle and later secondary pages.
+- Search/filter interaction inside the new workbook reader still lacks automated regression coverage.
 ## Next Recommended Improvements
-1. Add a small regression script for search/filter visibility and the mobile menu breakpoint transition once a JS runtime is available.
-2. Verify dialog tab order, focus-ring behavior, and fallback paths in a real browser and tighten behavior only if those checks reveal gaps.
+1. Open both workbook bundles in a browser and visually audit page-by-page overlay fit, starting with elementary early pages and later secondary activity pages.
+2. Add a lightweight browser or JS-runtime regression check for workbook reader navigation plus search-filter visibility when tooling becomes available.

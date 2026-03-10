@@ -461,6 +461,9 @@ img {
   cursor: pointer;
   box-shadow: 0 24px 54px rgba(72, 54, 40, 0.16);
 }
+.cover-static {
+  cursor: default;
+}
 
 .section-block {
   padding: 30px;
@@ -551,10 +554,108 @@ img {
   contain-intrinsic-size: 560px;
 }
 
-.is-workbook-card .card-body {
-  grid-template-columns: minmax(0, 1.08fr) minmax(260px, 0.92fr);
+.is-workbook-card {
+  contain: layout paint;
 }
 
+.is-workbook-card .card-body {
+  grid-template-columns: 1fr;
+}
+
+.workbook-reader {
+  display: grid;
+  gap: 16px;
+}
+
+.workbook-reader-bar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid rgba(72, 54, 40, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.workbook-reader-status {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  text-align: center;
+}
+
+.workbook-reader-status strong {
+  font-size: 1rem;
+}
+
+.workbook-reader-status span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.workbook-reader-button {
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(var(--rgb, 197, 106, 77), 0.14);
+  color: rgb(var(--rgb, 197, 106, 77));
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.workbook-reader-button:disabled {
+  opacity: 0.44;
+  cursor: default;
+}
+
+.workbook-reader-jumps {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.workbook-reader-jumps::-webkit-scrollbar {
+  display: none;
+}
+
+.workbook-page-jump-chip {
+  border: 1px solid rgba(72, 54, 40, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--muted);
+  font-weight: 700;
+  padding: 10px 14px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.workbook-page-jump-chip.active {
+  background: rgba(var(--rgb, 197, 106, 77), 0.16);
+  border-color: rgba(var(--rgb, 197, 106, 77), 0.28);
+  color: rgb(var(--rgb, 197, 106, 77));
+}
+
+.workbook-card-grid {
+  grid-template-columns: 1fr;
+}
+
+.workbook-page-panel {
+  display: none;
+}
+
+.workbook-page-panel.is-active {
+  display: block;
+}
+
+.workbook-page-panel.search-hidden {
+  display: none;
+}
 .card-head {
   display: flex;
   gap: 14px;
@@ -1440,6 +1541,10 @@ mark.search-hit {
   .worksheet-page-grid {
     grid-template-columns: 1fr;
   }
+
+  .workbook-reader-bar {
+    padding: 12px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1451,6 +1556,13 @@ mark.search-hit {
     grid-template-columns: 1fr;
   }
 
+  .workbook-reader-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .workbook-reader-button {
+    width: 100%;
+  }
   .hero-actions {
     flex-direction: column;
     align-items: stretch;

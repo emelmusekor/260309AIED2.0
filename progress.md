@@ -1,4 +1,9 @@
-﻿# Progress
+# Progress
+- 2026-03-10: Reduced workbook scroll jank by lazy-rendering source page thumbnail grids only when a page-details panel opens instead of mounting every preview image up front.
+- 2026-03-10: Reworked workbook sections into a one-page-at-a-time reader with previous/next controls and page chips so users no longer scroll through the full workbook stack at once.
+- 2026-03-10: Removed workbook source-page access from the main header PDF button and from per-workbook cards, and made the workbook cover static instead of opening the original page.
+- 2026-03-10: Removed shared workbook inputs keyed as student_class and student_name across the elementary and secondary workbook flows.
+- 2026-03-10: Added six missing input boxes to secondary workbook page 7 so the improved-prompt rows and both reflection areas can be filled directly.
 - 2026-03-10: Lazy workbook editors now render on demand, workbook items without editable pages are filtered out, and empty workbook sections no longer render.
 - 2026-03-10: Navigation now only includes normalized sections so removed workbook sections no longer leave dead anchors in the menu.
 - 2026-03-10: The mobile menu button now exposes aria-controls and aria-expanded, closes on Escape, and automatically clears menu-open when the viewport leaves the mobile breakpoint so desktop scrolling cannot get stuck.

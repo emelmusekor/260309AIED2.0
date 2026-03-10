@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const data = window.REPORT_DATA;
   const mount = document.getElementById('app');
 
@@ -10,7 +10,12 @@
   const lang = pageLang.startsWith('ko') ? 'ko' : 'en';
   const isWorkbookReport = /workbook/i.test(String(data.sourcePdf?.href || ''));
   const onNextFrame = typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame.bind(window) : (callback) => window.setTimeout(callback, 16);
-
+  const workbookNavLabels = {
+    prev: lang === 'ko' ? '이전 페이지' : 'Previous page',
+    next: lang === 'ko' ? '다음 페이지' : 'Next page',
+  };
+  const workbookReportKeyMatch = String(data.sourcePdf?.href || '').match(/\/([^/]+)\/source\.pdf$/i);
+  const workbookReportKey = workbookReportKeyMatch ? workbookReportKeyMatch[1] : '';
   const UI_DEFAULTS = {
     ko: {
       menuLabel: '메뉴',
@@ -216,6 +221,21 @@
 
   const worksheetStore = new Map();
   let worksheetSeed = 0;
+  const pagePreviewStore = new Map();
+  let pagePreviewSeed = 0;
+  const WORKSHEET_REMOVED_KEYS = new Set(['student_class', 'student_name']);
+  const WORKSHEET_PAGE_OVERRIDES = {
+    'secondary-workbook': {
+      7: [
+        { kind: 'textarea', x: 0.2915, y: 0.235, w: 0.555, h: 0.045 },
+        { kind: 'textarea', x: 0.2915, y: 0.283, w: 0.555, h: 0.045 },
+        { kind: 'textarea', x: 0.2915, y: 0.331, w: 0.555, h: 0.045 },
+        { kind: 'textarea', x: 0.2915, y: 0.379, w: 0.555, h: 0.045 },
+        { kind: 'textarea', x: 0.152, y: 0.791, w: 0.694, h: 0.061 },
+        { kind: 'textarea', x: 0.152, y: 0.888, w: 0.694, h: 0.061 },
+      ],
+    },
+  };
 
   const registerWorksheet = (worksheet = {}) => {
     if (!worksheet.pages || !worksheet.pages.length) {
@@ -226,11 +246,50 @@
     return key;
   };
 
+  const registerPagePreview = (pages = []) => {
+    if (!pages.length) {
+      return '';
+    }
+    const key = `page-preview-${pagePreviewSeed++}`;
+    pagePreviewStore.set(key, pages);
+    return key;
+  };
+
+  const keepWorksheetField = (field = {}) => !WORKSHEET_REMOVED_KEYS.has(String(field.key || '').trim());
+
+  const normalizeWorksheetSharedFields = (fields = []) =>
+    fields
+      .filter(keepWorksheetField)
+      .map((field, fieldIndex) => ({
+        ...field,
+        key: field.key || `shared-${fieldIndex}`,
+        kind: field.kind || 'text',
+      }));
+
+  const normalizeWorksheetPage = (page = {}) => {
+    const filteredFields = (page.fields || []).filter(keepWorksheetField);
+    const overrideFields = (((WORKSHEET_PAGE_OVERRIDES[workbookReportKey] || {})[page.pageNumber]) || []).map((field, fieldIndex) => ({
+      ...field,
+      id: field.id || `p${page.pageNumber}-extra-${fieldIndex}`,
+      kind: field.kind || 'textarea',
+    }));
+    return {
+      ...page,
+      sharedFields: normalizeWorksheetSharedFields(page.sharedFields || []),
+      fields: filteredFields
+        .map((field, fieldIndex) => ({
+          ...field,
+          id: field.id || `p${page.pageNumber}-f${fieldIndex}`,
+          kind: field.kind || 'textarea',
+        }))
+        .concat(overrideFields),
+    };
+  };
+
   const workbookInputSummary = (page = {}) =>
     (page.fields || []).length
       ? data.ui.worksheetFieldsPattern.replace('{count}', String(page.fields.length))
       : data.ui.worksheetEmptyLabel;
-
   const normalizeSections = (sections = []) =>
     sections
       .map((section) => {
@@ -245,7 +304,8 @@
         }
 
       const items = (section.items || []).flatMap((item) => {
-        const worksheetPages = (item.worksheet?.pages || []).filter((page) => (page.fields || []).length);
+        const worksheetSharedFields = normalizeWorksheetSharedFields(item.worksheet?.sharedFields || []);
+        const worksheetPages = (item.worksheet?.pages || []).map((page) => normalizeWorksheetPage(page)).filter((page) => (page.fields || []).length);
         if (!worksheetPages.length) {
           return [];
         }
@@ -265,12 +325,11 @@
           pages: [pageRef(page, item.title)],
           worksheetKey: registerWorksheet({
             title: `${item.title} - ${page.label || `PDF ${page.pageNumber}`}`,
-            sharedFields: item.worksheet?.sharedFields || [],
+            sharedFields: page.sharedFields?.length ? page.sharedFields : worksheetSharedFields,
             pages: [page],
           }),
         }));
       });
-
       return {
         ...section,
         isWorkbookSection: true,
@@ -432,7 +491,23 @@
     `;
   };
 
-  const renderItem = (item, ui, rgb) => `
+  const renderPageDetails = (pages = [], ui, rgb, open = false) => {
+    if (!pages.length) {
+      return '';
+    }
+    const previewKey = registerPagePreview(pages);
+    if (!previewKey) {
+      return '';
+    }
+    return `
+      <details class="page-details" style="--rgb:${rgb}" data-preview-key="${esc(previewKey)}"${open ? ' open' : ''}>
+        <summary>${esc(ui.pagesLabel)}</summary>
+        <div class="thumb-grid" data-page-preview-shell></div>
+      </details>
+    `;
+  };
+
+  const renderItem = (item, ui, rgb, options = {}) => `
     <article class="content-card search-card${item.isWorkbookItem ? ' is-workbook-card' : ''}" style="--rgb:${rgb}" data-search="${esc(itemSearchBlob(item))}">
       <div class="card-head">
         <div>
@@ -454,14 +529,57 @@
         </div>
       </div>
       ${renderWorksheetShell(item.worksheetKey || '', ui)}
-      <details class="page-details" style="--rgb:${rgb}"${item.openPages ? ' open' : ''}>
-        <summary>${esc(ui.pagesLabel)}</summary>
-        <div class="thumb-grid">
-          ${renderThumbs(item.pages)}
-        </div>
-      </details>
+      ${options.hidePages ? '' : renderPageDetails(item.pages || [], ui, rgb, item.openPages)}
     </article>
   `;
+
+  const renderWorkbookSection = (section, ui) => {
+    const items = section.items || [];
+    const activeItem = items[0] || {};
+    const rgb = section.rgb || data.themeRgb;
+    return `
+      <section class="section-block section search-section is-workbook-section" id="${esc(section.id)}" style="--rgb:${rgb}" data-search="${esc(sectionSearchBlob(section))}">
+        <div class="section-intro">
+          <p class="kicker search-text">${esc(section.navLabel || section.title)}</p>
+          <h2 class="search-text">${esc(section.title)}</h2>
+          ${section.description ? `<p class="section-desc search-text">${esc(section.description)}</p>` : ''}
+          <div class="section-meta">
+            ${(section.meta || []).map((item) => `<span class="search-text">${esc(item)}</span>`).join('')}
+          </div>
+        </div>
+        <div class="workbook-reader" data-workbook-reader>
+          <div class="workbook-reader-bar">
+            <button class="workbook-reader-button" type="button" data-workbook-direction="-1" aria-label="${esc(workbookNavLabels.prev)}">&larr;</button>
+            <div class="workbook-reader-status" aria-live="polite">
+              <strong data-workbook-page-label>${esc(activeItem.pageLabel || activeItem.range || section.title)}</strong>
+              <span data-workbook-page-count>${items.length ? `1 / ${items.length}` : '0 / 0'}</span>
+            </div>
+            <button class="workbook-reader-button" type="button" data-workbook-direction="1" aria-label="${esc(workbookNavLabels.next)}">&rarr;</button>
+          </div>
+          <div class="workbook-reader-jumps">
+            ${items
+              .map(
+                (item, itemIndex) => `
+                  <button class="workbook-page-jump-chip${itemIndex === 0 ? ' active' : ''}" type="button" data-workbook-jump="${itemIndex}">${esc(item.pageLabel || item.range || String(itemIndex + 1))}</button>
+                `
+              )
+              .join('')}
+          </div>
+          <div class="card-grid workbook-card-grid">
+            ${items
+              .map(
+                (item, itemIndex) => `
+                  <div class="workbook-page-panel${itemIndex === 0 ? ' is-active' : ''}" data-workbook-page="${itemIndex}" data-workbook-label="${esc(item.pageLabel || item.range || item.title)}">
+                    ${renderItem(item, ui, rgb, { hidePages: true })}
+                  </div>
+                `
+              )
+              .join('')}
+          </div>
+        </div>
+      </section>
+    `;
+  };
 
   const renderContentSection = (section, ui) => `
     <section class="section-block section search-section${section.isWorkbookSection ? ' is-workbook-section' : ''}" id="${esc(section.id)}" style="--rgb:${section.rgb || data.themeRgb}" data-search="${esc(sectionSearchBlob(section))}">
@@ -505,9 +623,11 @@
     if (section.kind === 'credits') {
       return renderCreditSection(section);
     }
+    if (section.isWorkbookSection) {
+      return renderWorkbookSection(section, ui);
+    }
     return renderContentSection(section, ui);
   };
-
   const keywordButtons = (data.keywords || [])
     .map(
       (keyword) => `
@@ -534,7 +654,7 @@
             </div>
             ${(data.languageSwitches || []).length ? `<div class="switch-row lang-switch-row">${renderSwitchItems(data.languageSwitches || [])}</div>` : ''}
             ${data.infoLink ? `<a class="info-button" href="${esc(data.infoLink.href)}">${esc(data.infoLink.label)}</a>` : ''}
-            <a class="pdf-button" href="${esc(data.sourcePdf.href)}" target="_blank" rel="noreferrer">${esc(data.sourcePdf.label)}</a>
+            ${!isWorkbookReport && data.sourcePdf ? `<a class="pdf-button" href="${esc(data.sourcePdf.href)}" target="_blank" rel="noreferrer">${esc(data.sourcePdf.label)}</a>` : ''}
           </div>
         </div>
         <div class="search-row">
@@ -566,9 +686,9 @@
           </div>
           <aside class="cover-panel">
             <div class="cover-top"><span>${esc(data.hero.coverLabel)}</span><span>${esc(data.hero.coverPageLabel)}</span></div>
-            <button class="cover-button page-trigger" type="button" data-src="${esc(data.hero.cover.src)}" data-title="${esc(data.hero.cover.title)}">
-              <img src="${esc(data.hero.cover.src)}" alt="${esc(data.hero.cover.title)}" />
-            </button>
+            ${isWorkbookReport
+              ? `<div class="cover-button cover-static"><img src="${esc(data.hero.cover.src)}" alt="${esc(data.hero.cover.title)}" /></div>`
+              : `<button class="cover-button page-trigger" type="button" data-src="${esc(data.hero.cover.src)}" data-title="${esc(data.hero.cover.title)}"><img src="${esc(data.hero.cover.src)}" alt="${esc(data.hero.cover.title)}" /></button>`}
           </aside>
         </section>
 
@@ -685,15 +805,24 @@
     closeMenu();
   });
 
-  document.querySelectorAll('.page-trigger').forEach((button) => {
-    button.addEventListener('click', () => {
-      pageModalImg.src = button.dataset.src;
-      pageModalImg.alt = button.dataset.title || data.ui.pageModalTitle;
-      pageModal.querySelector('.modal-title').textContent = button.dataset.title || data.ui.pageModalTitle;
-      openModal(pageModal, button);
-    });
-  });
+  const openPageModal = (button) => {
+    pageModalImg.src = button.dataset.src;
+    pageModalImg.alt = button.dataset.title || data.ui.pageModalTitle;
+    pageModal.querySelector('.modal-title').textContent = button.dataset.title || data.ui.pageModalTitle;
+    openModal(pageModal, button);
+  };
 
+  const bindPageTriggers = (scope = document) => {
+    scope.querySelectorAll('.page-trigger').forEach((button) => {
+      if (button.dataset.pageTriggerBound) {
+        return;
+      }
+      button.dataset.pageTriggerBound = 'true';
+      button.addEventListener('click', () => openPageModal(button));
+    });
+  };
+
+  bindPageTriggers();
   document.querySelectorAll('.keyword-trigger').forEach((button) => {
     button.addEventListener('click', () => {
       const keyword = keywordMap[button.dataset.key];
@@ -715,14 +844,7 @@
       keywordModal.querySelector('.modal-title').textContent = keyword.term;
       openModal(keywordModal, button);
 
-      keywordBody.querySelectorAll('.page-trigger').forEach((pageButton) => {
-        pageButton.addEventListener('click', () => {
-          pageModalImg.src = pageButton.dataset.src;
-          pageModalImg.alt = pageButton.dataset.title || data.ui.pageModalTitle;
-          pageModal.querySelector('.modal-title').textContent = pageButton.dataset.title || data.ui.pageModalTitle;
-          openModal(pageModal, pageButton);
-        });
-      });
+      bindPageTriggers(keywordBody);
     });
   });
 
@@ -860,12 +982,128 @@
       }
     });
 
+    document.querySelectorAll('[data-workbook-reader]').forEach((reader) => syncWorkbookReader(reader));
     searchClear.hidden = !active;
     setSearchStatus(count, active);
   };
 
-  const worksheetImageCache = new Map();
+  const syncWorkbookReader = (reader, requestedPage = null) => {
+    if (!reader) {
+      return;
+    }
+    const panels = [...reader.querySelectorAll('.workbook-page-panel')];
+    panels.forEach((panel) => {
+      const card = panel.querySelector('.search-card');
+      panel.classList.toggle('search-hidden', !!card && card.classList.contains('search-hidden'));
+    });
+    const visiblePanels = panels.filter((panel) => !panel.classList.contains('search-hidden'));
+    const label = reader.querySelector('[data-workbook-page-label]');
+    const count = reader.querySelector('[data-workbook-page-count]');
+    const prevButton = reader.querySelector('[data-workbook-direction="-1"]');
+    const nextButton = reader.querySelector('[data-workbook-direction="1"]');
 
+    if (!visiblePanels.length) {
+      panels.forEach((panel) => panel.classList.remove('is-active'));
+      if (label) {
+        label.textContent = '';
+      }
+      if (count) {
+        count.textContent = '0 / 0';
+      }
+      if (prevButton) {
+        prevButton.disabled = true;
+      }
+      if (nextButton) {
+        nextButton.disabled = true;
+      }
+      reader.querySelectorAll('[data-workbook-jump]').forEach((button) => {
+        button.hidden = true;
+        button.classList.remove('active');
+      });
+      return;
+    }
+
+    let activePanel = requestedPage !== null ? visiblePanels.find((panel) => Number(panel.dataset.workbookPage || -1) === requestedPage) : null;
+    if (!activePanel) {
+      activePanel = visiblePanels.find((panel) => panel.classList.contains('is-active'));
+    }
+    if (!activePanel) {
+      activePanel = visiblePanels[0];
+    }
+
+    panels.forEach((panel) => panel.classList.toggle('is-active', panel === activePanel));
+    const activeIndex = visiblePanels.indexOf(activePanel);
+    if (label) {
+      label.textContent = activePanel.dataset.workbookLabel || '';
+    }
+    if (count) {
+      count.textContent = `${activeIndex + 1} / ${visiblePanels.length}`;
+    }
+    if (prevButton) {
+      prevButton.disabled = activeIndex <= 0;
+    }
+    if (nextButton) {
+      nextButton.disabled = activeIndex >= visiblePanels.length - 1;
+    }
+
+    reader.querySelectorAll('[data-workbook-jump]').forEach((button) => {
+      const panel = panels.find((item) => item.dataset.workbookPage === button.dataset.workbookJump);
+      const visible = !!panel && !panel.classList.contains('search-hidden');
+      button.hidden = !visible;
+      button.classList.toggle('active', visible && panel === activePanel);
+    });
+  };
+
+  document.querySelectorAll('[data-workbook-reader]').forEach((reader) => {
+    syncWorkbookReader(reader);
+    reader.addEventListener('click', (event) => {
+      const jumpButton = event.target.closest('[data-workbook-jump]');
+      if (jumpButton) {
+        syncWorkbookReader(reader, Number(jumpButton.dataset.workbookJump || 0));
+        return;
+      }
+
+      const navButton = event.target.closest('[data-workbook-direction]');
+      if (!navButton) {
+        return;
+      }
+      const visiblePanels = [...reader.querySelectorAll('.workbook-page-panel')].filter((panel) => !panel.classList.contains('search-hidden'));
+      if (!visiblePanels.length) {
+        return;
+      }
+      const activePanel = visiblePanels.find((panel) => panel.classList.contains('is-active')) || visiblePanels[0];
+      const activeIndex = visiblePanels.indexOf(activePanel);
+      const nextIndex = activeIndex + Number(navButton.dataset.workbookDirection || 0);
+      const targetPanel = visiblePanels[Math.min(visiblePanels.length - 1, Math.max(0, nextIndex))];
+      if (targetPanel) {
+        syncWorkbookReader(reader, Number(targetPanel.dataset.workbookPage || 0));
+      }
+    });
+  });
+
+  document.querySelectorAll('.page-details').forEach((details) => {
+    const renderPreview = () => {
+      if (!details.open) {
+        return;
+      }
+      const shell = details.querySelector('[data-page-preview-shell]');
+      const previewKey = details.dataset.previewKey || '';
+      if (!shell || !previewKey || shell.dataset.rendered) {
+        return;
+      }
+      const pages = pagePreviewStore.get(previewKey);
+      if (!pages || !pages.length) {
+        return;
+      }
+      shell.innerHTML = renderThumbs(pages);
+      shell.dataset.rendered = 'true';
+      bindPageTriggers(shell);
+    };
+    details.addEventListener('toggle', renderPreview);
+    renderPreview();
+  });
+
+  const worksheetImageCache = new Map();
   const loadWorksheetImage = (src) => {
     if (worksheetImageCache.has(src)) {
       return worksheetImageCache.get(src);
