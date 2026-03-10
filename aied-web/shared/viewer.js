@@ -526,7 +526,7 @@
               <span>${esc(data.brand.subtitle)}</span>
             </div>
           </a>
-          <button class="menu-button" type="button">${esc(data.ui.menuLabel)}</button>
+          <button class="menu-button" type="button" aria-controls="section-nav" aria-expanded="false">${esc(data.ui.menuLabel)}</button>
           <div class="header-tools">
             <div class="switch-row report-switch-row" id="report-switch">
               ${renderSwitchItems(data.reportSwitches || [])}
@@ -543,7 +543,7 @@
           <button class="search-clear" type="button" hidden>${esc(data.ui.searchClearLabel)}</button>
           <p class="search-status" aria-live="polite">${esc(data.ui.searchDefaultLabel)}</p>
         </div>
-        <nav class="section-nav">
+        <nav class="section-nav" id="section-nav">
           ${(data.nav || []).map((item) => `<a href="#${esc(item.target)}">${esc(item.label)}</a>`).join('')}
         </nav>
       </header>
@@ -577,20 +577,20 @@
       </main>
     </div>
 
-    <div class="modal page-modal" aria-hidden="true">
+    <div class="modal page-modal" role="dialog" aria-modal="true" aria-labelledby="page-modal-title" aria-hidden="true">
       <div class="modal-panel">
         <div class="modal-top">
-          <strong class="modal-title">${esc(data.ui.pageModalTitle)}</strong>
+          <strong class="modal-title" id="page-modal-title">${esc(data.ui.pageModalTitle)}</strong>
           <button class="modal-close" type="button" aria-label="${esc(data.ui.closeLabel)}">X</button>
         </div>
         <div class="modal-body"><img src="" alt="" /></div>
       </div>
     </div>
 
-    <div class="modal keyword-modal" aria-hidden="true">
+    <div class="modal keyword-modal" role="dialog" aria-modal="true" aria-labelledby="keyword-modal-title" aria-hidden="true">
       <div class="modal-panel">
         <div class="modal-top">
-          <strong class="modal-title">${esc(data.ui.keywordModalTitle)}</strong>
+          <strong class="modal-title" id="keyword-modal-title">${esc(data.ui.keywordModalTitle)}</strong>
           <button class="modal-close" type="button" aria-label="${esc(data.ui.closeLabel)}">X</button>
         </div>
         <div class="modal-body"></div>
@@ -608,13 +608,38 @@
     document.body.classList.toggle('modal-open', !!document.querySelector('.modal.open'));
   };
 
+  const modalFocusReturn = new WeakMap();
+
+  const openModal = (modal, trigger) => {
+    if (trigger && typeof trigger.focus === 'function') {
+      modalFocusReturn.set(modal, trigger);
+    }
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    syncModalState();
+    requestAnimationFrame(() => {
+      modal.querySelector('.modal-close')?.focus();
+    });
+  };
+
   const closeModal = (modal) => {
+    const wasOpen = modal.classList.contains('open');
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
     if (modal === pageModal) {
       pageModalImg.removeAttribute('src');
     }
     syncModalState();
+    if (!wasOpen) {
+      return;
+    }
+    const nextModal = document.querySelector('.modal.open');
+    if (nextModal && typeof nextModal.querySelector === 'function') {
+      nextModal.querySelector('.modal-close')?.focus();
+      return;
+    }
+    modalFocusReturn.get(modal)?.focus?.();
+    modalFocusReturn.delete(modal);
   };
 
   document.querySelectorAll('.modal-close').forEach((button) => {
@@ -633,6 +658,7 @@
     if (event.key === 'Escape') {
       closeModal(pageModal);
       closeModal(keywordModal);
+      closeMenu();
     }
   });
 
@@ -641,9 +667,7 @@
       pageModalImg.src = button.dataset.src;
       pageModalImg.alt = button.dataset.title || data.ui.pageModalTitle;
       pageModal.querySelector('.modal-title').textContent = button.dataset.title || data.ui.pageModalTitle;
-      pageModal.classList.add('open');
-      pageModal.setAttribute('aria-hidden', 'false');
-      syncModalState();
+      openModal(pageModal, button);
     });
   });
 
@@ -666,18 +690,14 @@
         </div>
       `;
       keywordModal.querySelector('.modal-title').textContent = keyword.term;
-      keywordModal.classList.add('open');
-      keywordModal.setAttribute('aria-hidden', 'false');
-      syncModalState();
+      openModal(keywordModal, button);
 
       keywordBody.querySelectorAll('.page-trigger').forEach((pageButton) => {
         pageButton.addEventListener('click', () => {
           pageModalImg.src = pageButton.dataset.src;
           pageModalImg.alt = pageButton.dataset.title || data.ui.pageModalTitle;
           pageModal.querySelector('.modal-title').textContent = pageButton.dataset.title || data.ui.pageModalTitle;
-          pageModal.classList.add('open');
-          pageModal.setAttribute('aria-hidden', 'false');
-          syncModalState();
+          openModal(pageModal, pageButton);
         });
       });
     });
@@ -685,19 +705,48 @@
 
   const menuButton = document.querySelector('.menu-button');
   const sectionNav = document.querySelector('.section-nav');
+  const compactMenuQuery = typeof window.matchMedia === 'function' ? window.matchMedia('(max-width: 900px)') : null;
+
+  const syncMenuState = () => {
+    if (!menuButton) {
+      return;
+    }
+    menuButton.setAttribute('aria-expanded', String(document.body.classList.contains('menu-open')));
+  };
+
+  const closeMenu = () => {
+    document.body.classList.remove('menu-open');
+    syncMenuState();
+  };
+
+  const syncMenuLayout = () => {
+    if (compactMenuQuery && !compactMenuQuery.matches) {
+      closeMenu();
+      return;
+    }
+    syncMenuState();
+  };
 
   if (menuButton && sectionNav) {
     menuButton.addEventListener('click', () => {
       document.body.classList.toggle('menu-open');
+      syncMenuState();
     });
   }
 
   document.querySelectorAll('.section-nav a').forEach((link) => {
-    link.addEventListener('click', () => {
-      document.body.classList.remove('menu-open');
-    });
+    link.addEventListener('click', closeMenu);
   });
 
+  if (compactMenuQuery) {
+    if (typeof compactMenuQuery.addEventListener === 'function') {
+      compactMenuQuery.addEventListener('change', syncMenuLayout);
+    } else if (typeof compactMenuQuery.addListener === 'function') {
+      compactMenuQuery.addListener(syncMenuLayout);
+    }
+  }
+
+  syncMenuLayout();
   const navLinks = [...document.querySelectorAll('.section-nav a')];
   const sections = [...document.querySelectorAll('.section')];
 

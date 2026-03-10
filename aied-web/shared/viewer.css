@@ -58,6 +58,15 @@ button {
   font: inherit;
 }
 
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:not(.worksheet-input):focus-visible,
+textarea:not(.worksheet-input):focus-visible {
+  outline: 2px solid rgba(197, 106, 77, 0.48);
+  outline-offset: 3px;
+}
+
 img {
   display: block;
   max-width: 100%;

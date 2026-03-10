@@ -1,7 +1,7 @@
 ﻿# Progress
-- 2026-03-10: Cached workbook viewer now only renders worksheet editors lazily and filters zero-input items to keep cards responsive.
-- 2026-03-10: Added section filter so workbook sections without editable pages no longer appear, and confirmed the normalization script reports zero dropped sections.
-
-- 2026-03-10: Filtered the navigation menu to match the normalized sections so empty workbook anchors disappear.
-- 2026-03-10: Documented assumption about the absence of npm/test commands within the current ied-web directory.
-- 2026-03-10: Added ria-expanded toggling to the menu button for clearer keyboard/assistive feedback.
+- 2026-03-10: Lazy workbook editors now render on demand, workbook items without editable pages are filtered out, and empty workbook sections no longer render.
+- 2026-03-10: Navigation now only includes normalized sections so removed workbook sections no longer leave dead anchors in the menu.
+- 2026-03-10: The mobile menu button now exposes aria-controls and aria-expanded, closes on Escape, and automatically clears menu-open when the viewport leaves the mobile breakpoint so desktop scrolling cannot get stuck.
+- 2026-03-10: Page and keyword modals now expose dialog semantics and restore keyboard focus to a sensible trigger when they close.
+- 2026-03-10: Added visible focus rings for links, buttons, summaries, and non-canvas inputs so keyboard navigation stays trackable outside the worksheet overlays.
+- 2026-03-10: Verification is limited to static checks because this environment currently has no working python, py, Node, Playwright, or browser harness.
