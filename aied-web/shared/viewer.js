@@ -9,6 +9,7 @@
   const pageLang = String(document.documentElement.lang || '').toLowerCase();
   const lang = pageLang.startsWith('ko') ? 'ko' : 'en';
   const isWorkbookReport = /workbook/i.test(String(data.sourcePdf?.href || ''));
+  const onNextFrame = typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame.bind(window) : (callback) => window.setTimeout(callback, 16);
 
   const UI_DEFAULTS = {
     ko: {
@@ -602,7 +603,12 @@
   const pageModalImg = pageModal.querySelector('img');
   const keywordModal = document.querySelector('.keyword-modal');
   const keywordBody = keywordModal.querySelector('.modal-body');
-  const keywordMap = Object.fromEntries(((data.keywordIndex || data.keywords || [])).map((item) => [item.id, item]));
+  const keywordMap = (data.keywordIndex || data.keywords || []).reduce((map, item) => {
+    if (item && item.id) {
+      map[item.id] = item;
+    }
+    return map;
+  }, {});
 
   const syncModalState = () => {
     document.body.classList.toggle('modal-open', !!document.querySelector('.modal.open'));
@@ -617,8 +623,11 @@
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
     syncModalState();
-    requestAnimationFrame(() => {
-      modal.querySelector('.modal-close')?.focus();
+    onNextFrame(() => {
+      const closeButton = modal.querySelector('.modal-close');
+      if (closeButton) {
+        closeButton.focus();
+      }
     });
   };
 
@@ -635,10 +644,17 @@
     }
     const nextModal = document.querySelector('.modal.open');
     if (nextModal && typeof nextModal.querySelector === 'function') {
-      nextModal.querySelector('.modal-close')?.focus();
+      const nextCloseButton = nextModal.querySelector('.modal-close');
+      if (nextCloseButton) {
+        nextCloseButton.focus();
+      }
+      modalFocusReturn.delete(modal);
       return;
     }
-    modalFocusReturn.get(modal)?.focus?.();
+    const restoreTarget = modalFocusReturn.get(modal);
+    if (restoreTarget && typeof restoreTarget.focus === 'function') {
+      restoreTarget.focus();
+    }
     modalFocusReturn.delete(modal);
   };
 
@@ -655,11 +671,18 @@
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      closeModal(pageModal);
-      closeModal(keywordModal);
-      closeMenu();
+    if (event.key !== 'Escape') {
+      return;
     }
+    if (pageModal.classList.contains('open')) {
+      closeModal(pageModal);
+      return;
+    }
+    if (keywordModal.classList.contains('open')) {
+      closeModal(keywordModal);
+      return;
+    }
+    closeMenu();
   });
 
   document.querySelectorAll('.page-trigger').forEach((button) => {
@@ -751,20 +774,26 @@
   const sections = [...document.querySelectorAll('.section')];
 
   if (sections.length) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const id = entry.target.id;
-          navLinks.forEach((link) => {
-            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+    if (typeof IntersectionObserver !== 'function') {
+      if (navLinks[0]) {
+        navLinks[0].classList.add('active');
+      }
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.id;
+            navLinks.forEach((link) => {
+              link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
           });
-        });
-      },
-      { threshold: 0.42, rootMargin: '-20% 0px -45% 0px' }
-    );
+        },
+        { threshold: 0.42, rootMargin: '-20% 0px -45% 0px' }
+      );
 
-    sections.forEach((section) => observer.observe(section));
+      sections.forEach((section) => observer.observe(section));
+    }
   }
 
   const searchInput = document.querySelector('.search-input');
@@ -997,9 +1026,12 @@
 
   const collectWorksheetPayload = (editor) => ({
     title: editor.dataset.worksheetTitle || data.ui.worksheetLabel,
-    shared: Object.fromEntries(
-      [...editor.querySelectorAll('[data-shared-key]')].map((input) => [input.dataset.sharedKey, input.value || ''])
-    ),
+    shared: [...editor.querySelectorAll('[data-shared-key]')].reduce((fields, input) => {
+      if (input.dataset.sharedKey) {
+        fields[input.dataset.sharedKey] = input.value || '';
+      }
+      return fields;
+    }, {}),
     teacherEmail: editor.querySelector('[data-teacher-email]')?.value.trim() || '',
     pages: [...editor.querySelectorAll('.worksheet-page')].map((pageEl) => ({
       pageNumber: Number(pageEl.dataset.pageNumber || 0),
@@ -1050,11 +1082,11 @@
     const subject = [payload.title || data.ui.worksheetLabel, payload.shared.student_name || '']
       .filter(Boolean)
       .join(' - ');
-    const query = new URLSearchParams({
-      subject,
-      body: buildWorksheetMailBody(payload, fileName),
-    });
-    return `mailto:${encodeURIComponent(payload.teacherEmail || '')}?${query.toString()}`;
+    const params = [
+      `subject=${encodeURIComponent(subject)}`,
+      `body=${encodeURIComponent(buildWorksheetMailBody(payload, fileName))}`,
+    ].join('&');
+    return `mailto:${encodeURIComponent(payload.teacherEmail || '')}?${params}`;
   };
 
   const buildWorksheetPdf = async (editor, button, busyLabel) => {
@@ -1126,7 +1158,7 @@
     });
     const active = editor.querySelector(`.worksheet-page-sheet[data-page-number="${target}"]`);
     active?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    requestAnimationFrame(() => refreshWorksheetTypography(active || editor));
+    onNextFrame(() => refreshWorksheetTypography(active || editor));
   };
 
   let customFieldCounter = 0;
@@ -1194,7 +1226,7 @@
     removeButton.textContent = '×';
     shell.append(removeButton, input);
     canvas.append(shell);
-    requestAnimationFrame(() => {
+    onNextFrame(() => {
       applyWorksheetTypography(input);
       input.focus();
     });
@@ -1307,7 +1339,7 @@
             other.open = false;
           }
         });
-        requestAnimationFrame(() => refreshWorksheetTypography(sheet));
+        onNextFrame(() => refreshWorksheetTypography(sheet));
       });
     });
 
@@ -1375,7 +1407,7 @@
           initializeWorksheetEditor(editor);
         }
       }
-      requestAnimationFrame(() => refreshWorksheetTypography(details));
+      onNextFrame(() => refreshWorksheetTypography(details));
     });
   });
 
