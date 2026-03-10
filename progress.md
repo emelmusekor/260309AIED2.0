@@ -1,4 +1,9 @@
 # Progress
+- 2026-03-11: Confirmed the GitHub Pages-friendly layout keeps the full static bundle inside docs/ rather than flattening HTML into the repository root, so existing relative asset paths keep working.
+- 2026-03-11: Renamed the publishable static site folder from aied-web to docs so GitHub Pages can deploy a conventional docs bundle without an extra nested site root.
+- 2026-03-11: Updated the Pages workflow to publish docs/ and trigger on master, main, and the current working branch used for this repo.
+- 2026-03-11: Added docs/.nojekyll and ignored __pycache__/ so GitHub Pages serves the static bundle more predictably and no Python cache files get redeployed.
+- 2026-03-11: Removed the tracked Python cache file from docs/__pycache__ and rechecked the site tree so only real publishable HTML entry points remain under docs/.
 - 2026-03-10: Reduced workbook scroll jank by lazy-rendering source page thumbnail grids only when a page-details panel opens instead of mounting every preview image up front.
 - 2026-03-10: Reworked workbook sections into a one-page-at-a-time reader with previous/next controls and page chips so users no longer scroll through the full workbook stack at once.
 - 2026-03-10: Removed workbook source-page access from the main header PDF button and from per-workbook cards, and made the workbook cover static instead of opening the original page.

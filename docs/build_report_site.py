@@ -325,9 +325,9 @@ def clean(path: Path) -> None:
 
 def archive_legacy() -> None:
     root = OLD_DIR / 'homepage-legacy'; root.mkdir(parents=True, exist_ok=True)
-    if (SITE_DIR / 'assets' / 'report-pages').exists() or (SITE_DIR / 'assets' / 'report-source.pdf').exists(): move_if_exists(SITE_DIR / 'assets', root / 'aied-web' / 'assets')
-    if (SITE_DIR / 'index.html').exists() and not (SITE_DIR / 'report.js').exists(): move_if_exists(SITE_DIR / 'index.html', root / 'aied-web' / 'index.html')
-    for name in LEGACY_SITE_ITEMS: move_if_exists(SITE_DIR / name, root / 'aied-web' / name)
+    if (SITE_DIR / 'assets' / 'report-pages').exists() or (SITE_DIR / 'assets' / 'report-source.pdf').exists(): move_if_exists(SITE_DIR / 'assets', root / 'docs' / 'assets')
+    if (SITE_DIR / 'index.html').exists() and not (SITE_DIR / 'report.js').exists(): move_if_exists(SITE_DIR / 'index.html', root / 'docs' / 'index.html')
+    for name in LEGACY_SITE_ITEMS: move_if_exists(SITE_DIR / name, root / 'docs' / name)
     for name in LEGACY_ROOT_ITEMS: move_if_exists(WORKSPACE_DIR / name, root / name)
 
 def normalize(text: str, lang: str) -> str:
