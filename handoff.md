@@ -1,5 +1,6 @@
 # Handoff
 ## Fixes Completed
+- Fixed the top-menu routing bug by deriving the three header links from each page's own `reportSwitches`, so the root archive pages and the nested report pages now point to valid relative URLs again.
 - Reordered the top menu to the requested three-guide structure and made guide/workbook hero actions cross-link the matching elementary or secondary companion page.
 - Removed the worksheet mail-send button and related copy, so workbook editing now stays focused on reset/download without teacher-email messaging.
 - Added memo-box, freehand draw, check-mark, and clear-mark tools to workbook pages and included those marks in exported PDFs.

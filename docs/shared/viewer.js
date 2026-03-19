@@ -127,10 +127,27 @@
 
   const reportGroup = /elementary/i.test(workbookReportKey) ? 'elementary' : /secondary/i.test(workbookReportKey) ? 'secondary' : '';
   const isGuideReport = /-main$/i.test(workbookReportKey);
+  const findReportSwitch = (patterns = []) =>
+    (data.reportSwitches || []).find((item) => patterns.some((pattern) => pattern.test(String(item?.label || ''))));
+  const aiArchiveSwitch = findReportSwitch([/AI교육\s*2\.0/i, /AI Ed/i, /AI Education/i]);
+  const elementaryGuideSwitch = findReportSwitch([/초등편 본문/i, /Elem Guide/i, /협력 가이드\(초등\)/i]);
+  const secondaryGuideSwitch = findReportSwitch([/중등편 본문/i, /Sec Guide/i, /협력 가이드\(중등\)/i]);
   const reportSwitchItems = [
-    { label: 'AI교육 2.0', href: '../../ko/index.html', active: false },
-    { label: '협력 가이드(초등)', href: '../elementary-main/index.html', active: reportGroup === 'elementary' },
-    { label: '협력 가이드(중등)', href: '../secondary-main/index.html', active: reportGroup === 'secondary' },
+    {
+      label: lang === 'ko' ? 'AI교육 2.0' : 'AI Education 2.0',
+      href: aiArchiveSwitch?.href || (lang === 'ko' ? 'index.html' : '../index.html'),
+      active: !reportGroup,
+    },
+    {
+      label: lang === 'ko' ? '협력 가이드(초등)' : 'Guide (Elementary)',
+      href: elementaryGuideSwitch?.href || '../elementary-main/index.html',
+      active: reportGroup === 'elementary',
+    },
+    {
+      label: lang === 'ko' ? '협력 가이드(중등)' : 'Guide (Secondary)',
+      href: secondaryGuideSwitch?.href || '../secondary-main/index.html',
+      active: reportGroup === 'secondary',
+    },
   ];
   const workbookShortcutHref = reportGroup ? `../${reportGroup}-workbook/index.html` : '';
   const guideShortcutHref = reportGroup ? `../${reportGroup}-main/index.html` : '';

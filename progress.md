@@ -1,4 +1,5 @@
 # Progress
+- 2026-03-19: Fixed the top-menu routing bug by rebuilding the three-item header menu from each page's existing `reportSwitches`, so root pages and report pages now reuse the correct relative paths instead of a single hard-coded path set.
 - 2026-03-19: Reordered the top navigation to `AI교육 2.0`, `협력 가이드(초등)`, `협력 가이드(중등)` and made guide/workbook hero actions cross-link the matching elementary or secondary companion page.
 - 2026-03-19: Removed the worksheet mail-send UI and related copy from the interactive workbook editor, leaving reset/download only so the workbook flow stays focused on in-browser editing and PDF export.
 - 2026-03-19: Added page-level worksheet tools for memo boxes, freehand drawing, check marks, and mark clearing, and included the ink layer in PDF export so drawing-heavy workbook pages can be completed directly on the page.
