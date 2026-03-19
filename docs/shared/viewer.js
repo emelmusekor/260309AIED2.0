@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const data = window.REPORT_DATA;
   const mount = document.getElementById('app');
 
@@ -20,13 +20,13 @@
     ko: {
       menuLabel: '메뉴',
       previewLabel: '핵심 요약',
-      pagesLabel: '페이지 원본 보기',
-      pageModalTitle: '페이지 원본',
+      pagesLabel: '페이지 보기',
+      pageModalTitle: '페이지',
       keywordModalTitle: '키워드',
       closeLabel: '닫기',
       keywordExcerptLabel: '원문 근거',
       keywordUsedLabel: '원문 사용 위치',
-      pagesFactLabel: '원본 범위',
+      pagesFactLabel: '페이지',
       coverageFactLabel: '분량',
       browseLabel: '목차부터 보기',
       jumpLabel: '본문 바로 보기',
@@ -38,39 +38,42 @@
       searchResultsPattern: '{count}개 결과',
       fallback: '이 구간은 원문 페이지에서 바로 확인할 수 있습니다.',
       worksheetLabel: '학생 입력 워크북',
-      worksheetOpenLabel: '직접 입력써보기',
+      worksheetOpenLabel: '직접 입력하기',
       worksheetSharedLabel: '공통 정보',
       worksheetPagesLabel: '페이지별 직접 입력',
-      worksheetTeacherLabel: '선생님 메일',
-      worksheetTeacherPlaceholder: 'teacher@example.com',
-      worksheetMailButtonLabel: '메일 보내기',
+      worksheetTeacherLabel: '',
+      worksheetTeacherPlaceholder: '',
+      worksheetMailButtonLabel: '',
       worksheetDownloadLabel: '입력한 내용으로 PDF 내려받기',
       worksheetResetLabel: '입력 지우기',
       worksheetEmptyLabel: '이 페이지는 입력칸이 없습니다.',
-      worksheetFieldsPattern: '입력칸 {count}개',
+      worksheetFieldsPattern: '',
       worksheetNotice: '워크북은 페이지별로 따로 열어 입력하고, 입력 내용은 브라우저 안에서만 처리됩니다.',
-      worksheetMailHint: '메일 보내기는 지원 브라우저에서는 PDF 첨부 공유를 시도하고, 그렇지 않으면 PDF를 내려받은 뒤 메일 초안을 엽니다.',
+      worksheetMailHint: '',
       worksheetDownloadBusyLabel: 'PDF 만드는 중...',
-      worksheetMailBusyLabel: '메일 준비 중...',
-      worksheetMailFallbackLabel: '이 브라우저에서는 메일 첨부 공유를 바로 지원하지 않아 PDF를 먼저 내려받고 메일 초안을 엽니다.',
-      worksheetAddTextLabel: '한 줄 칸 추가',
+      worksheetMailBusyLabel: '',
+      worksheetMailFallbackLabel: '',
+      worksheetAddTextLabel: '',
       worksheetAddNoteLabel: '메모 칸 추가',
-      worksheetDrawHint: '빈칸이 안 잡히면 버튼을 누른 뒤 페이지 위를 드래그해서 직접 입력칸을 만드세요.',
+      worksheetDrawHint: '메모 칸은 드래그해서 만들고, 그리기·체크는 페이지 위에 바로 표시할 수 있습니다.',
       worksheetRemoveFieldLabel: '직접 만든 입력칸 삭제',
       worksheetActivityFactLabel: '활동',
-      worksheetInputFactLabel: '입력 상태',
+      worksheetInputFactLabel: '',
       worksheetPageTitlePattern: '{page} 입력',
+      worksheetDrawLabel: '그리기',
+      worksheetCheckLabel: '체크 표시',
+      worksheetClearInkLabel: '표시 지우기',
     },
     en: {
       menuLabel: 'Menu',
       previewLabel: 'Core Summary',
-      pagesLabel: 'Source Pages',
-      pageModalTitle: 'Source Page',
+      pagesLabel: 'Pages',
+      pageModalTitle: 'Page',
       keywordModalTitle: 'Keyword',
       closeLabel: 'Close',
       keywordExcerptLabel: 'Source Evidence',
       keywordUsedLabel: 'Used in source',
-      pagesFactLabel: 'Source pages',
+      pagesFactLabel: 'Pages',
       coverageFactLabel: 'Coverage',
       browseLabel: 'Browse sections',
       jumpLabel: 'Jump to content',
@@ -82,35 +85,38 @@
       searchResultsPattern: '{count} results',
       fallback: 'Open the source pages for the original wording and layout.',
       worksheetLabel: 'Student workbook',
-      worksheetOpenLabel: 'Try typing directly',
+      worksheetOpenLabel: 'Direct input',
       worksheetSharedLabel: 'Shared info',
       worksheetPagesLabel: 'Page-by-page input',
-      worksheetTeacherLabel: 'Teacher email',
-      worksheetTeacherPlaceholder: 'teacher@example.com',
-      worksheetMailButtonLabel: 'Send by email',
+      worksheetTeacherLabel: '',
+      worksheetTeacherPlaceholder: '',
+      worksheetMailButtonLabel: '',
       worksheetDownloadLabel: 'Download filled PDF',
       worksheetResetLabel: 'Clear inputs',
       worksheetEmptyLabel: 'This page has no editable area.',
-      worksheetFieldsPattern: '{count} fields',
+      worksheetFieldsPattern: '',
       worksheetNotice: 'Open each workbook page separately and keep input work inside the browser until export.',
-      worksheetMailHint: 'When supported, email sharing will try to attach the PDF directly. Otherwise it downloads the PDF first and opens a mail draft.',
+      worksheetMailHint: '',
       worksheetDownloadBusyLabel: 'Building PDF...',
-      worksheetMailBusyLabel: 'Preparing email...',
-      worksheetMailFallbackLabel: 'Direct mail sharing is not available in this browser, so the PDF will download first and a mail draft will open.',
-      worksheetAddTextLabel: 'Add text box',
+      worksheetMailBusyLabel: '',
+      worksheetMailFallbackLabel: '',
+      worksheetAddTextLabel: '',
       worksheetAddNoteLabel: 'Add note box',
-      worksheetDrawHint: 'If a blank area was missed, choose a button and drag on the page to place your own input box.',
+      worksheetDrawHint: 'Drag to place note boxes, or draw and drop check marks directly on the page.',
       worksheetRemoveFieldLabel: 'Remove custom input box',
       worksheetActivityFactLabel: 'Activity',
-      worksheetInputFactLabel: 'Input status',
+      worksheetInputFactLabel: '',
       worksheetPageTitlePattern: '{page} input',
+      worksheetDrawLabel: 'Draw',
+      worksheetCheckLabel: 'Check mark',
+      worksheetClearInkLabel: 'Clear marks',
     },
   };
 
   const normalizeUi = (ui = {}) => {
     const defaults = UI_DEFAULTS[lang];
     const merged = { ...defaults, ...(ui || {}) };
-    const legacyOpenLabels = new Set(['학생 입력 열기', 'Open workbook input']);
+    const legacyOpenLabels = new Set(['학생 입력 열기', '직접 입력써보기', 'Open workbook input', 'Try typing directly']);
     if (!merged.worksheetOpenLabel || legacyOpenLabels.has(merged.worksheetOpenLabel)) {
       merged.worksheetOpenLabel = defaults.worksheetOpenLabel;
     }
@@ -118,6 +124,32 @@
   };
 
   data.ui = normalizeUi(data.ui);
+
+  const reportGroup = /elementary/i.test(workbookReportKey) ? 'elementary' : /secondary/i.test(workbookReportKey) ? 'secondary' : '';
+  const isGuideReport = /-main$/i.test(workbookReportKey);
+  const reportSwitchItems = [
+    { label: 'AI교육 2.0', href: '../../ko/index.html', active: false },
+    { label: '협력 가이드(초등)', href: '../elementary-main/index.html', active: reportGroup === 'elementary' },
+    { label: '협력 가이드(중등)', href: '../secondary-main/index.html', active: reportGroup === 'secondary' },
+  ];
+  const workbookShortcutHref = reportGroup ? `../${reportGroup}-workbook/index.html` : '';
+  const guideShortcutHref = reportGroup ? `../${reportGroup}-main/index.html` : '';
+  const heroActions = (() => {
+    const actions = [...(data.hero?.actions || [])];
+    const items = [];
+    if (actions[0]) {
+      items.push(actions[0]);
+    }
+    if (actions[1]) {
+      items.push(actions[1]);
+    }
+    if (isGuideReport && workbookShortcutHref) {
+      items.push({ href: workbookShortcutHref, label: lang === 'ko' ? '워크북 바로 가기' : 'Open workbook' });
+    } else if (!isGuideReport && guideShortcutHref) {
+      items.push({ href: guideShortcutHref, label: lang === 'ko' ? (reportGroup === 'elementary' ? '협력 가이드(초등)' : '협력 가이드(중등)') : 'Open guide' });
+    }
+    return items;
+  })();
 
   const esc = (value = '') =>
     String(value)
@@ -224,16 +256,219 @@
   const pagePreviewStore = new Map();
   let pagePreviewSeed = 0;
   const WORKSHEET_REMOVED_KEYS = new Set(['student_class', 'student_name']);
+  const worksheetRowFields = (rows = [], x = 0, w = 0.6, h = 0.04, kind = 'textarea') =>
+    rows.map((y) => ({ kind, x, y, w, h }));
+  const worksheetPairFields = (rows = [], left = {}, right = {}) =>
+    rows.flatMap((row) => [
+      { kind: left.kind || 'text', x: left.x, y: row.y, w: left.w, h: row.h || left.h },
+      { kind: right.kind || 'textarea', x: right.x, y: row.y, w: right.w, h: row.h || right.h },
+    ]);
   const WORKSHEET_PAGE_OVERRIDES = {
     'secondary-workbook': {
-      7: [
-        { kind: 'textarea', x: 0.2915, y: 0.235, w: 0.555, h: 0.045 },
-        { kind: 'textarea', x: 0.2915, y: 0.283, w: 0.555, h: 0.045 },
-        { kind: 'textarea', x: 0.2915, y: 0.331, w: 0.555, h: 0.045 },
-        { kind: 'textarea', x: 0.2915, y: 0.379, w: 0.555, h: 0.045 },
-        { kind: 'textarea', x: 0.152, y: 0.791, w: 0.694, h: 0.061 },
-        { kind: 'textarea', x: 0.152, y: 0.888, w: 0.694, h: 0.061 },
-      ],
+      7: {
+        append: [
+          { kind: 'textarea', x: 0.2915, y: 0.235, w: 0.555, h: 0.045 },
+          { kind: 'textarea', x: 0.2915, y: 0.283, w: 0.555, h: 0.045 },
+          { kind: 'textarea', x: 0.2915, y: 0.331, w: 0.555, h: 0.045 },
+          { kind: 'textarea', x: 0.2915, y: 0.379, w: 0.555, h: 0.045 },
+          { kind: 'textarea', x: 0.152, y: 0.791, w: 0.694, h: 0.061 },
+          { kind: 'textarea', x: 0.152, y: 0.888, w: 0.694, h: 0.061 },
+        ],
+      },
+      8: {
+        replace: [0.249, 0.291, 0.333, 0.375, 0.417].map((y) => ({ kind: 'choice', x: 0.565, y, w: 0.26, h: 0.028, options: ['1', '2', '3'] })),
+      },
+      10: {
+        replace: [
+          { kind: 'text', x: 0.162, y: 0.205, w: 0.69, h: 0.042 },
+          { kind: 'textarea', x: 0.162, y: 0.319, w: 0.69, h: 0.055 },
+          { kind: 'textarea', x: 0.163, y: 0.486, w: 0.28, h: 0.165 },
+          { kind: 'textarea', x: 0.162, y: 0.848, w: 0.69, h: 0.052 },
+        ],
+      },
+      17: {
+        replace: [0.241, 0.281, 0.321, 0.361, 0.401, 0.61, 0.65, 0.69, 0.73, 0.77].map((y) => ({ kind: 'choice', x: 0.457, y, w: 0.38, h: 0.027, options: ['1', '2', '3', '4', '5'] })),
+      },
+      22: {
+        replace: [
+          { kind: 'text', x: 0.309, y: 0.246, w: 0.23, h: 0.022 },
+          { kind: 'text', x: 0.309, y: 0.283, w: 0.23, h: 0.022 },
+          { kind: 'text', x: 0.309, y: 0.32, w: 0.23, h: 0.022 },
+          { kind: 'textarea', x: 0.152, y: 0.419, w: 0.695, h: 0.145 },
+        ],
+      },
+      24: {
+        replace: worksheetRowFields([0.274, 0.319, 0.364, 0.409, 0.454, 0.499, 0.544, 0.589], 0.328, 0.515, 0.03, 'text').concat([
+          { kind: 'textarea', x: 0.266, y: 0.71, w: 0.58, h: 0.066 },
+          { kind: 'textarea', x: 0.266, y: 0.841, w: 0.58, h: 0.066 },
+        ]),
+      },
+      35: {
+        replace: [
+          { kind: 'textarea', x: 0.252, y: 0.161, w: 0.595, h: 0.12 },
+          { kind: 'textarea', x: 0.286, y: 0.472, w: 0.56, h: 0.09 },
+          { kind: 'textarea', x: 0.286, y: 0.583, w: 0.56, h: 0.09 },
+          { kind: 'textarea', x: 0.286, y: 0.694, w: 0.56, h: 0.09 },
+        ],
+      },
+      42: {
+        replace: [
+          { kind: 'text', x: 0.267, y: 0.198, w: 0.58, h: 0.033 },
+          { kind: 'text', x: 0.267, y: 0.253, w: 0.58, h: 0.033 },
+          { kind: 'text', x: 0.267, y: 0.356, w: 0.58, h: 0.027 },
+          { kind: 'text', x: 0.267, y: 0.408, w: 0.58, h: 0.027 },
+          { kind: 'text', x: 0.267, y: 0.459, w: 0.58, h: 0.027 },
+          { kind: 'textarea', x: 0.267, y: 0.577, w: 0.58, h: 0.094 },
+          { kind: 'choice', x: 0.271, y: 0.763, w: 0.024, h: 0.024, options: ['O'] },
+          { kind: 'choice', x: 0.271, y: 0.802, w: 0.024, h: 0.024, options: ['O'] },
+          { kind: 'textarea', x: 0.267, y: 0.827, w: 0.58, h: 0.05 },
+          { kind: 'textarea', x: 0.267, y: 0.902, w: 0.58, h: 0.05 },
+        ],
+      },
+      44: {
+        replace: [
+          { kind: 'text', x: 0.15, y: 0.316, w: 0.695, h: 0.034 },
+          { kind: 'text', x: 0.152, y: 0.475, w: 0.695, h: 0.042 },
+          { kind: 'textarea', x: 0.152, y: 0.564, w: 0.695, h: 0.151 },
+          { kind: 'textarea', x: 0.152, y: 0.831, w: 0.695, h: 0.067 },
+        ],
+      },
+      45: {
+        replace: [
+          { kind: 'text', x: 0.266, y: 0.191, w: 0.58, h: 0.033 },
+          { kind: 'text', x: 0.266, y: 0.295, w: 0.58, h: 0.033 },
+          { kind: 'text', x: 0.266, y: 0.399, w: 0.58, h: 0.033 },
+          { kind: 'text', x: 0.266, y: 0.504, w: 0.58, h: 0.033 },
+          { kind: 'textarea', x: 0.152, y: 0.648, w: 0.695, h: 0.276 },
+        ],
+      },
+      77: {
+        replace: [
+          { kind: 'text', x: 0.595, y: 0.171, w: 0.25, h: 0.033 },
+          ...worksheetPairFields(
+            [
+              { y: 0.315, h: 0.053 },
+              { y: 0.379, h: 0.053 },
+              { y: 0.443, h: 0.053 },
+            ],
+            { x: 0.167, w: 0.147, kind: 'text' },
+            { x: 0.324, w: 0.522, kind: 'textarea' }
+          ),
+          ...worksheetPairFields(
+            [
+              { y: 0.575, h: 0.053 },
+              { y: 0.639, h: 0.053 },
+              { y: 0.703, h: 0.053 },
+              { y: 0.767, h: 0.053 },
+            ],
+            { x: 0.167, w: 0.147, kind: 'text' },
+            { x: 0.324, w: 0.522, kind: 'textarea' }
+          ),
+          { kind: 'text', x: 0.321, y: 0.854, w: 0.524, h: 0.041 },
+        ],
+      },
+      82: {
+        replace: worksheetPairFields(
+          [
+            { y: 0.247, h: 0.123 },
+            { y: 0.383, h: 0.123 },
+            { y: 0.565, h: 0.123 },
+            { y: 0.746, h: 0.123 },
+          ],
+          { x: 0.152, w: 0.102, kind: 'text' },
+          { x: 0.271, w: 0.575, kind: 'textarea' }
+        ),
+      },
+      108: {
+        replace: [
+          { kind: 'text', x: 0.267, y: 0.265, w: 0.577, h: 0.03 },
+          { kind: 'text', x: 0.267, y: 0.306, w: 0.577, h: 0.03 },
+          { kind: 'textarea', x: 0.271, y: 0.401, w: 0.574, h: 0.048 },
+          { kind: 'text', x: 0.152, y: 0.532, w: 0.313, h: 0.037 },
+          { kind: 'text', x: 0.466, y: 0.532, w: 0.379, h: 0.037 },
+          { kind: 'textarea', x: 0.152, y: 0.693, w: 0.313, h: 0.139 },
+          { kind: 'textarea', x: 0.466, y: 0.693, w: 0.379, h: 0.139 },
+        ],
+      },
+    },
+    'elementary-workbook': {
+      17: {
+        replace: [
+          { kind: 'choice', x: 0.214, y: 0.304, w: 0.42, h: 0.034, options: ['1', '2', '3', '4', '5'] },
+          ...worksheetRowFields([0.445, 0.499, 0.552, 0.606, 0.659, 0.712, 0.765, 0.818], 0.375, 0.468, 0.028, 'text'),
+        ],
+      },
+      19: {
+        replace: [
+          { kind: 'textarea', x: 0.152, y: 0.214, w: 0.695, h: 0.505 },
+          { kind: 'choice', x: 0.214, y: 0.852, w: 0.42, h: 0.038, options: ['1', '2', '3', '4', '5'] },
+        ],
+      },
+      20: {
+        replace: worksheetRowFields([0.168, 0.25, 0.332, 0.414, 0.496, 0.578, 0.66, 0.742, 0.824], 0.268, 0.578, 0.032, 'text'),
+      },
+      21: {
+        replace: [
+          { kind: 'choice', x: 0.214, y: 0.849, w: 0.42, h: 0.038, options: ['1', '2', '3', '4', '5'] },
+        ],
+      },
+      24: {
+        replace: worksheetRowFields([0.164, 0.248, 0.332, 0.416], 0.267, 0.578, 0.034, 'text'),
+      },
+      43: {
+        replace: [
+          { kind: 'text', x: 0.323, y: 0.315, w: 0.522, h: 0.028 },
+          { kind: 'text', x: 0.323, y: 0.358, w: 0.522, h: 0.028 },
+          ...worksheetRowFields([0.41, 0.455, 0.5], 0.548, 0.298, 0.026, 'text'),
+          { kind: 'textarea', x: 0.151, y: 0.634, w: 0.438, h: 0.077 },
+          { kind: 'choice', x: 0.591, y: 0.634, w: 0.115, h: 0.03, options: ['타당하다', '믿을 수 있다'] },
+          { kind: 'textarea', x: 0.151, y: 0.71, w: 0.438, h: 0.077 },
+          { kind: 'choice', x: 0.591, y: 0.71, w: 0.115, h: 0.03, options: ['타당하다', '믿을 수 있다'] },
+          { kind: 'textarea', x: 0.151, y: 0.842, w: 0.347, h: 0.088 },
+          { kind: 'textarea', x: 0.5, y: 0.842, w: 0.347, h: 0.088 },
+        ],
+      },
+      44: {
+        replace: [
+          ...[0.304, 0.333, 0.362].map((y) => ({ kind: 'choice', x: 0.291, y, w: 0.03, h: 0.022, options: ['O'] })),
+          { kind: 'textarea', x: 0.293, y: 0.44, w: 0.553, h: 0.11 },
+          { kind: 'textarea', x: 0.293, y: 0.584, w: 0.553, h: 0.11 },
+          ...[0.634, 0.687, 0.74].flatMap((y) =>
+            [0.555, 0.617, 0.679, 0.741, 0.803].map((x) => ({ kind: 'choice', x, y, w: 0.03, h: 0.028, options: ['O'] }))
+          ),
+          { kind: 'textarea', x: 0.383, y: 0.824, w: 0.463, h: 0.135 },
+        ],
+      },
+      48: {
+        replace: [
+          { kind: 'textarea', x: 0.152, y: 0.315, w: 0.695, h: 0.116 },
+          { kind: 'textarea', x: 0.152, y: 0.514, w: 0.695, h: 0.11 },
+          ...[0.739, 0.774, 0.808, 0.842, 0.876].map((y) => ({ kind: 'choice', x: 0.782, y, w: 0.04, h: 0.022, options: ['O'] })),
+        ],
+      },
+      55: {
+        replace: [
+          ...[0.419, 0.454, 0.49, 0.603, 0.638, 0.674].map((y) => ({ kind: 'choice', x: 0.214, y, w: 0.03, h: 0.024, options: ['O'] })),
+          { kind: 'textarea', x: 0.151, y: 0.75, w: 0.347, h: 0.11 },
+          { kind: 'textarea', x: 0.5, y: 0.75, w: 0.347, h: 0.11 },
+          { kind: 'textarea', x: 0.151, y: 0.901, w: 0.228, h: 0.078 },
+          { kind: 'textarea', x: 0.381, y: 0.901, w: 0.227, h: 0.078 },
+          { kind: 'textarea', x: 0.61, y: 0.901, w: 0.236, h: 0.078 },
+        ],
+      },
+      62: {
+        replace: worksheetPairFields(
+          [
+            { y: 0.236, h: 0.118 },
+            { y: 0.38, h: 0.118 },
+            { y: 0.523, h: 0.118 },
+            { y: 0.667, h: 0.118 },
+            { y: 0.811, h: 0.118 },
+          ],
+          { x: 0.152, w: 0.314, kind: 'textarea' },
+          { x: 0.467, w: 0.379, kind: 'textarea' }
+        ),
+      },
     },
   };
 
@@ -268,28 +503,29 @@
 
   const normalizeWorksheetPage = (page = {}) => {
     const filteredFields = (page.fields || []).filter(keepWorksheetField);
-    const overrideFields = (((WORKSHEET_PAGE_OVERRIDES[workbookReportKey] || {})[page.pageNumber]) || []).map((field, fieldIndex) => ({
+    const pageOverride = ((WORKSHEET_PAGE_OVERRIDES[workbookReportKey] || {})[page.pageNumber]) || {};
+    const replaceFields = (pageOverride.replace || []).map((field, fieldIndex) => ({
+      ...field,
+      id: field.id || `p${page.pageNumber}-replace-${fieldIndex}`,
+      kind: field.kind || 'textarea',
+    }));
+    const overrideFields = (pageOverride.append || []).map((field, fieldIndex) => ({
       ...field,
       id: field.id || `p${page.pageNumber}-extra-${fieldIndex}`,
+      kind: field.kind || 'textarea',
+    }));
+    const baseFields = (pageOverride.replace ? replaceFields : filteredFields).map((field, fieldIndex) => ({
+      ...field,
+      id: field.id || `p${page.pageNumber}-f${fieldIndex}`,
       kind: field.kind || 'textarea',
     }));
     return {
       ...page,
       sharedFields: normalizeWorksheetSharedFields(page.sharedFields || []),
-      fields: filteredFields
-        .map((field, fieldIndex) => ({
-          ...field,
-          id: field.id || `p${page.pageNumber}-f${fieldIndex}`,
-          kind: field.kind || 'textarea',
-        }))
-        .concat(overrideFields),
+      fields: baseFields.concat(pageOverride.replace ? [] : overrideFields),
     };
   };
 
-  const workbookInputSummary = (page = {}) =>
-    (page.fields || []).length
-      ? data.ui.worksheetFieldsPattern.replace('{count}', String(page.fields.length))
-      : data.ui.worksheetEmptyLabel;
   const normalizeSections = (sections = []) =>
     sections
       .map((section) => {
@@ -319,8 +555,6 @@
           tags: enrichTags({ ...item, pageLabel: page.label || `PDF ${page.pageNumber}` }, section),
           facts: [
             { label: data.ui.worksheetActivityFactLabel, value: item.title },
-            { label: data.ui.pagesFactLabel, value: page.label || `PDF ${page.pageNumber}` },
-            { label: data.ui.worksheetInputFactLabel, value: workbookInputSummary(page) },
           ],
           pages: [pageRef(page, item.title)],
           worksheetKey: registerWorksheet({
@@ -375,22 +609,43 @@
 
   const renderWorksheetField = (field = {}, page = {}, pageIndex = 0, fieldIndex = 0) => {
     const style = `--x:${(field.x || 0) * 100}%; --y:${(field.y || 0) * 100}%; --w:${(field.w || 0) * 100}%; --h:${(field.h || 0) * 100}%;`;
-    const attrs = [
-      `class="worksheet-input ${field.kind === 'textarea' ? 'is-textarea' : 'is-text'}"`,
-      `style="${style}"`,
+    const fieldKind = field.kind || 'text';
+    const fieldLabel = field.label || `${page.label || 'Page'} input ${fieldIndex + 1}`;
+    const baseAttrs = [
       `data-field-id="${esc(field.id || `p${pageIndex}-f${fieldIndex}`)}"`,
       `data-field-label="${esc(field.label || '')}"`,
       `data-field-key="${esc(field.key || '')}"`,
-      `data-field-kind="${esc(field.kind || 'text')}"`,
+      `data-field-kind="${esc(fieldKind)}"`,
       `data-x="${esc(field.x || 0)}"`,
       `data-y="${esc(field.y || 0)}"`,
       `data-w="${esc(field.w || 0)}"`,
       `data-h="${esc(field.h || 0)}"`,
       `data-page-number="${esc(page.pageNumber || '')}"`,
+      `aria-label="${esc(fieldLabel)}"`,
+    ];
+    if (fieldKind === 'choice') {
+      const options = (field.options || []).map((option) => String(option));
+      return `
+        <div class="worksheet-choice-shell" data-choice-count="${options.length}" style="${style}">
+          <input class="worksheet-input is-choice-value" style="--x:0%; --y:0%; --w:100%; --h:100%;" ${baseAttrs.join(' ')} type="text" readonly />
+          <div class="worksheet-choice${options.length === 1 ? ' is-single' : ''}" role="group" aria-label="${esc(fieldLabel)}">
+            ${options
+              .map(
+                (option) =>
+                  `<button class="worksheet-choice-option${options.length === 1 ? ' is-single' : ''}" type="button" data-choice-value="${esc(option)}" aria-pressed="false">${esc(option)}</button>`
+              )
+              .join('')}
+          </div>
+        </div>
+      `;
+    }
+    const attrs = [
+      `class="worksheet-input ${fieldKind === 'textarea' ? 'is-textarea' : 'is-text'}"`,
+      `style="${style}"`,
+      ...baseAttrs,
       `placeholder="${esc(field.label || '')}"`,
-      `aria-label="${esc(field.label || `${page.label || 'Page'} input ${fieldIndex + 1}`)}"`,
     ].join(' ');
-    if (field.kind === 'textarea') {
+    if (fieldKind === 'textarea') {
       return `<textarea ${attrs}></textarea>`;
     }
     return `<input ${attrs} type="text" />`;
@@ -401,39 +656,40 @@
       return '';
     }
     const openIndex = Math.max(0, worksheet.pages.findIndex((page) => (page.fields || []).length));
+    const sharedFields = worksheet.sharedFields || [];
     return `
       <div class="worksheet-editor" data-worksheet-title="${esc(worksheet.title || ui.worksheetLabel)}">
         <div class="worksheet-toolbar">
           <div class="worksheet-copy">
             <strong>${esc(ui.worksheetLabel)}</strong>
             <p>${esc(ui.worksheetNotice)}</p>
-            <p class="worksheet-hint">${esc(ui.worksheetMailHint)}</p>
           </div>
           <div class="worksheet-toolbar-actions">
             <button class="worksheet-reset" type="button">${esc(ui.worksheetResetLabel)}</button>
-            <button class="worksheet-mail" type="button">${esc(ui.worksheetMailButtonLabel)}</button>
             <button class="worksheet-download" type="button">${esc(ui.worksheetDownloadLabel)}</button>
           </div>
         </div>
-        <section class="worksheet-shared-panel">
-          <div class="worksheet-panel-title">${esc(ui.worksheetSharedLabel)}</div>
-          <div class="worksheet-shared-grid">
-            ${(worksheet.sharedFields || [])
-              .map(
-                (field) => `
-                  <label class="worksheet-shared-field">
-                    <span>${esc(field.label)}</span>
-                    <input type="text" data-shared-key="${esc(field.key)}" data-shared-label="${esc(field.label)}" />
-                  </label>
-                `
-              )
-              .join('')}
-            <label class="worksheet-shared-field is-email">
-              <span>${esc(ui.worksheetTeacherLabel)}</span>
-              <input type="email" data-teacher-email placeholder="${esc(ui.worksheetTeacherPlaceholder || '')}" />
-            </label>
-          </div>
-        </section>
+        ${
+          sharedFields.length
+            ? `
+              <section class="worksheet-shared-panel">
+                <div class="worksheet-panel-title">${esc(ui.worksheetSharedLabel)}</div>
+                <div class="worksheet-shared-grid">
+                  ${sharedFields
+                    .map(
+                      (field) => `
+                        <label class="worksheet-shared-field">
+                          <span>${esc(field.label)}</span>
+                          <input type="text" data-shared-key="${esc(field.key)}" data-shared-label="${esc(field.label)}" />
+                        </label>
+                      `
+                    )
+                    .join('')}
+                </div>
+              </section>
+            `
+            : ''
+        }
         <section class="worksheet-pages-panel">
           <div class="worksheet-panel-head">
             <div class="worksheet-panel-title">${esc(ui.worksheetPagesLabel)}</div>
@@ -454,18 +710,20 @@
                   <details class="worksheet-page-sheet" data-page-number="${esc(page.pageNumber)}"${pageIndex === openIndex ? ' open' : ''}>
                     <summary class="worksheet-page-summary">
                       <strong>${esc(page.label || `PDF ${page.pageNumber}`)}</strong>
-                      <span>${page.fields?.length ? esc(ui.worksheetFieldsPattern.replace('{count}', page.fields.length)) : esc(ui.worksheetEmptyLabel)}</span>
                     </summary>
                     <article class="worksheet-page" data-page-number="${esc(page.pageNumber)}" data-page-width="${esc(page.width)}" data-page-height="${esc(page.height)}" data-page-src="${esc(page.src)}" data-page-label="${esc(page.label || `PDF ${page.pageNumber}`)}">
                       <div class="worksheet-page-tools">
                         <div class="worksheet-page-actions">
-                          <button class="worksheet-field-add" type="button" data-field-kind="text">${esc(ui.worksheetAddTextLabel)}</button>
                           <button class="worksheet-field-add" type="button" data-field-kind="textarea">${esc(ui.worksheetAddNoteLabel)}</button>
+                          <button class="worksheet-tool-toggle" type="button" data-tool-kind="draw">${esc(ui.worksheetDrawLabel)}</button>
+                          <button class="worksheet-tool-toggle" type="button" data-tool-kind="check">${esc(ui.worksheetCheckLabel)}</button>
+                          <button class="worksheet-tool-clear" type="button">${esc(ui.worksheetClearInkLabel)}</button>
                         </div>
                         <p class="worksheet-page-hint">${esc(ui.worksheetDrawHint)}</p>
                       </div>
                       <div class="worksheet-canvas" style="--page-ratio:${esc(page.width)} / ${esc(page.height)};">
                         <img src="${esc(page.src)}" alt="${esc(page.label || `PDF ${page.pageNumber}`)}" loading="lazy" />
+                        <canvas class="worksheet-ink-layer" aria-hidden="true"></canvas>
                         ${(page.fields || []).map((field, fieldIndex) => renderWorksheetField(field, page, pageIndex, fieldIndex)).join('')}
                       </div>
                     </article>
@@ -507,7 +765,9 @@
     `;
   };
 
-  const renderItem = (item, ui, rgb, options = {}) => `
+  const renderItem = (item, ui, rgb, options = {}) => {
+    const visibleFacts = (item.facts || []).filter((fact) => fact.label !== data.ui.pagesFactLabel && fact.label !== data.ui.worksheetInputFactLabel);
+    return `
     <article class="content-card search-card${item.isWorkbookItem ? ' is-workbook-card' : ''}" style="--rgb:${rgb}" data-search="${esc(itemSearchBlob(item))}">
       <div class="card-head">
         <div>
@@ -525,13 +785,14 @@
           ${(item.tags || []).length ? `<div class="card-tags">${renderTagButtons(item.tags)}</div>` : ''}
         </div>
         <div class="fact-panel">
-          ${(item.facts || []).map((fact) => `<article><span>${esc(fact.label)}</span><strong>${esc(fact.value)}</strong></article>`).join('')}
+          ${visibleFacts.map((fact) => `<article><span>${esc(fact.label)}</span><strong>${esc(fact.value)}</strong></article>`).join('')}
         </div>
       </div>
       ${renderWorksheetShell(item.worksheetKey || '', ui)}
       ${options.hidePages ? '' : renderPageDetails(item.pages || [], ui, rgb, item.openPages)}
     </article>
   `;
+  };
 
   const renderWorkbookSection = (section, ui) => {
     const items = section.items || [];
@@ -650,7 +911,7 @@
           <button class="menu-button" type="button" aria-controls="section-nav" aria-expanded="false">${esc(data.ui.menuLabel)}</button>
           <div class="header-tools">
             <div class="switch-row report-switch-row" id="report-switch">
-              ${renderSwitchItems(data.reportSwitches || [])}
+              ${renderSwitchItems(reportSwitchItems)}
             </div>
             ${(data.languageSwitches || []).length ? `<div class="switch-row lang-switch-row">${renderSwitchItems(data.languageSwitches || [])}</div>` : ''}
             ${data.infoLink ? `<a class="info-button" href="${esc(data.infoLink.href)}">${esc(data.infoLink.label)}</a>` : ''}
@@ -679,7 +940,7 @@
             ${(data.hero.stats || []).length ? `<div class="hero-stats">${(data.hero.stats || []).map((stat) => `<article><span>${esc(stat.label)}</span><strong>${esc(stat.value)}</strong></article>`).join('')}</div>` : ''}
             ${keywordButtons ? `<div class="keyword-bar">${keywordButtons}</div>` : ''}
             <div class="hero-actions">
-              ${(data.hero.actions || [])
+              ${heroActions
                 .map((action, idx) => `<a href="${esc(action.href)}" class="${idx === 0 ? 'primary' : ''}">${esc(action.label)}</a>`)
                 .join('')}
             </div>
@@ -1182,6 +1443,31 @@
     return { size: minSize, lines: multiline ? wrapCanvasText(ctx, value, width) : [String(value || '')], family };
   };
 
+  const syncChoiceFieldUi = (fieldEl) => {
+    const shell = fieldEl.closest('.worksheet-choice-shell');
+    if (!shell) {
+      return;
+    }
+    const value = String(fieldEl.value || '');
+    shell.querySelectorAll('.worksheet-choice-option').forEach((button) => {
+      const active = button.dataset.choiceValue === value;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  };
+
+  const getWorksheetFieldValue = (fieldEl) => String(fieldEl?.value || '');
+
+  const setWorksheetFieldValue = (fieldEl, value = '') => {
+    if (!fieldEl) {
+      return;
+    }
+    fieldEl.value = value;
+    if (fieldEl.dataset.fieldKind === 'choice') {
+      syncChoiceFieldUi(fieldEl);
+    }
+  };
+
   const applyWorksheetTypography = (fieldEl) => {
     const multiline = fieldEl.dataset.fieldKind === 'textarea';
     const width = Math.max(24, fieldEl.clientWidth - 16);
@@ -1198,6 +1484,10 @@
         applyWorksheetTypography(fieldEl);
       }
     });
+  };
+
+  const refreshWorksheetInk = (scope = document) => {
+    scope.querySelectorAll('.worksheet-page').forEach((pageEl) => redrawInkLayer(pageEl));
   };
 
   const drawFieldToCanvas = (ctx, value, fieldEl, canvasWidth, canvasHeight) => {
@@ -1245,8 +1535,9 @@
     const ctx = canvas.getContext('2d');
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     pageEl.querySelectorAll('.worksheet-input').forEach((fieldEl) => {
-      drawFieldToCanvas(ctx, fieldEl.value, fieldEl, canvas.width, canvas.height);
+      drawFieldToCanvas(ctx, getWorksheetFieldValue(fieldEl), fieldEl, canvas.width, canvas.height);
     });
+    getInkOperations(pageEl).forEach((operation) => paintInkOperation(ctx, operation, canvas.width, canvas.height));
     return { canvas, pdfWidth, pdfHeight };
   };
 
@@ -1258,7 +1549,7 @@
       if (input === source) {
         return;
       }
-      input.value = value;
+      setWorksheetFieldValue(input, value);
     });
   };
 
@@ -1270,7 +1561,6 @@
       }
       return fields;
     }, {}),
-    teacherEmail: editor.querySelector('[data-teacher-email]')?.value.trim() || '',
     pages: [...editor.querySelectorAll('.worksheet-page')].map((pageEl) => ({
       pageNumber: Number(pageEl.dataset.pageNumber || 0),
       fields: [...pageEl.querySelectorAll('.worksheet-input')]
@@ -1278,16 +1568,18 @@
           id: input.dataset.fieldId,
           key: input.dataset.fieldKey || '',
           label: input.dataset.fieldLabel || '',
-          value: input.value || '',
+          value: getWorksheetFieldValue(input),
         }))
         .filter((field) => field.value.trim()),
     })),
   });
 
   const buildWorksheetFilename = (payload) => {
-    const studentBits = [payload.shared.student_class, payload.shared.student_number, payload.shared.student_name]
-      .map((value) => slugify(value || ''))
+    const studentBits = Object.entries(payload.shared || {})
+      .filter(([key, value]) => !['student_class', 'student_name'].includes(key) && String(value || '').trim())
+      .map(([, value]) => slugify(value || ''))
       .filter(Boolean)
+      .slice(0, 3)
       .join('-');
     return `${slugify(payload.title || 'worksheet')}${studentBits ? `-${studentBits}` : ''}.pdf`;
   };
@@ -1298,33 +1590,6 @@
     link.download = fileName;
     link.click();
     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-  };
-
-  const buildWorksheetMailBody = (payload, fileName) => {
-    const studentInfo = [payload.shared.student_class, payload.shared.student_number, payload.shared.student_name]
-      .filter(Boolean)
-      .join(' / ');
-    const filledPages = payload.pages.filter((page) => page.fields.length).length;
-    return [
-      payload.title || data.ui.worksheetLabel,
-      studentInfo ? `학생 정보: ${studentInfo}` : '',
-      `입력한 페이지 수: ${filledPages}`,
-      '',
-      `${fileName} 파일을 첨부해서 확인해 주세요.`,
-    ]
-      .filter(Boolean)
-      .join('\n');
-  };
-
-  const buildWorksheetMailto = (payload, fileName) => {
-    const subject = [payload.title || data.ui.worksheetLabel, payload.shared.student_name || '']
-      .filter(Boolean)
-      .join(' - ');
-    const params = [
-      `subject=${encodeURIComponent(subject)}`,
-      `body=${encodeURIComponent(buildWorksheetMailBody(payload, fileName))}`,
-    ].join('&');
-    return `mailto:${encodeURIComponent(payload.teacherEmail || '')}?${params}`;
   };
 
   const buildWorksheetPdf = async (editor, button, busyLabel) => {
@@ -1362,30 +1627,6 @@
     downloadBlobFile(blob, fileName);
   };
 
-  const shareWorksheetByEmail = async (editor, button) => {
-    const { blob, payload, fileName } = await buildWorksheetPdf(editor, button, data.ui.worksheetMailBusyLabel);
-    const mailBody = buildWorksheetMailBody(payload, fileName);
-    try {
-      const file = new File([blob], fileName, { type: 'application/pdf' });
-      if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: payload.title || data.ui.worksheetLabel,
-          text: mailBody,
-        });
-        return;
-      }
-    } catch (error) {
-      if (error?.name === 'AbortError') {
-        return;
-      }
-      console.error(error);
-    }
-    window.alert(data.ui.worksheetMailFallbackLabel);
-    downloadBlobFile(blob, fileName);
-    window.location.href = buildWorksheetMailto(payload, fileName);
-  };
-
   const openWorksheetPage = (editor, pageNumber) => {
     const target = String(pageNumber || '');
     if (!target) {
@@ -1396,7 +1637,73 @@
     });
     const active = editor.querySelector(`.worksheet-page-sheet[data-page-number="${target}"]`);
     active?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    onNextFrame(() => refreshWorksheetTypography(active || editor));
+    onNextFrame(() => {
+      refreshWorksheetTypography(active || editor);
+      refreshWorksheetInk(active || editor);
+    });
+  };
+
+  const getInkLayer = (pageEl) => pageEl?.querySelector('.worksheet-ink-layer');
+  const getInkOperations = (pageEl) => {
+    if (!pageEl._inkOperations) {
+      pageEl._inkOperations = [];
+    }
+    return pageEl._inkOperations;
+  };
+  const drawInkCheck = (ctx, x, y, size = 16) => {
+    ctx.beginPath();
+    ctx.moveTo(x - size * 0.4, y);
+    ctx.lineTo(x - size * 0.12, y + size * 0.32);
+    ctx.lineTo(x + size * 0.44, y - size * 0.4);
+    ctx.stroke();
+  };
+  const paintInkOperation = (ctx, op, width, height) => {
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = 'rgba(41, 78, 111, 0.92)';
+    ctx.lineWidth = Math.max(2, Math.min(width, height) * 0.0045);
+    if (op.type === 'path' && op.points?.length) {
+      ctx.beginPath();
+      op.points.forEach((point, index) => {
+        const x = point.x * width;
+        const y = point.y * height;
+        if (!index) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      });
+      ctx.stroke();
+    }
+    if (op.type === 'check') {
+      drawInkCheck(ctx, op.x * width, op.y * height, Math.max(14, Math.min(width, height) * 0.03));
+    }
+    ctx.restore();
+  };
+  const redrawInkLayer = (pageEl, draftOperation = null) => {
+    const inkLayer = getInkLayer(pageEl);
+    if (!inkLayer) {
+      return;
+    }
+    const bounds = inkLayer.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const nextWidth = Math.max(1, Math.round(bounds.width * dpr));
+    const nextHeight = Math.max(1, Math.round(bounds.height * dpr));
+    if (inkLayer.width !== nextWidth || inkLayer.height !== nextHeight) {
+      inkLayer.width = nextWidth;
+      inkLayer.height = nextHeight;
+    }
+    const ctx = inkLayer.getContext('2d');
+    ctx.clearRect(0, 0, inkLayer.width, inkLayer.height);
+    getInkOperations(pageEl).forEach((operation) => paintInkOperation(ctx, operation, inkLayer.width, inkLayer.height));
+    if (draftOperation) {
+      paintInkOperation(ctx, draftOperation, inkLayer.width, inkLayer.height);
+    }
+  };
+  const clearInkLayer = (pageEl) => {
+    pageEl._inkOperations = [];
+    redrawInkLayer(pageEl);
   };
 
   let customFieldCounter = 0;
@@ -1428,9 +1735,16 @@
   const setDrawMode = (pageEl, kind = '') => {
     pageEl.dataset.drawKind = kind;
     const canvas = pageEl.querySelector('.worksheet-canvas');
-    canvas?.classList.toggle('is-drawing', Boolean(kind));
+    canvas?.classList.toggle('is-drawing', kind === 'textarea');
+    canvas?.classList.toggle('is-inking', kind === 'draw');
+    canvas?.classList.toggle('is-checking', kind === 'check');
     pageEl.querySelectorAll('.worksheet-field-add').forEach((button) => {
       const active = button.dataset.fieldKind === kind;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    pageEl.querySelectorAll('.worksheet-tool-toggle').forEach((button) => {
+      const active = button.dataset.toolKind === kind;
       button.classList.toggle('active', active);
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
@@ -1504,6 +1818,8 @@
 
   const initializeWorksheetEditor = (editor) => {
     refreshWorksheetTypography(editor);
+    refreshWorksheetInk(editor);
+    editor.querySelectorAll('.worksheet-input[data-field-kind="choice"]').forEach((input) => syncChoiceFieldUi(input));
 
     editor.addEventListener('input', (event) => {
       const target = event.target;
@@ -1512,11 +1828,23 @@
       }
       const sharedKey = target.dataset.sharedKey || target.dataset.fieldKey || '';
       if (sharedKey) {
-        syncWorksheetValue(editor, sharedKey, target.value, target);
+        syncWorksheetValue(editor, sharedKey, getWorksheetFieldValue(target), target);
       }
     });
 
     editor.addEventListener('click', (event) => {
+      const choiceButton = event.target.closest('.worksheet-choice-option');
+      if (choiceButton) {
+        const shell = choiceButton.closest('.worksheet-choice-shell');
+        const input = shell?.querySelector('.worksheet-input[data-field-kind="choice"]');
+        if (input) {
+          const nextValue = getWorksheetFieldValue(input) === choiceButton.dataset.choiceValue ? '' : choiceButton.dataset.choiceValue || '';
+          setWorksheetFieldValue(input, nextValue);
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        return;
+      }
+
       const addButton = event.target.closest('.worksheet-field-add');
       if (addButton) {
         const pageEl = addButton.closest('.worksheet-page');
@@ -1528,6 +1856,28 @@
         return;
       }
 
+      const toolButton = event.target.closest('.worksheet-tool-toggle');
+      if (toolButton) {
+        const pageEl = toolButton.closest('.worksheet-page');
+        if (!pageEl) {
+          return;
+        }
+        const nextKind = pageEl.dataset.drawKind === toolButton.dataset.toolKind ? '' : toolButton.dataset.toolKind || '';
+        setDrawMode(pageEl, nextKind);
+        return;
+      }
+
+      const clearButton = event.target.closest('.worksheet-tool-clear');
+      if (clearButton) {
+        const pageEl = clearButton.closest('.worksheet-page');
+        if (!pageEl) {
+          return;
+        }
+        clearInkLayer(pageEl);
+        setDrawMode(pageEl, '');
+        return;
+      }
+
       const removeButton = event.target.closest('.worksheet-custom-remove');
       if (removeButton) {
         removeButton.closest('.worksheet-custom-field')?.remove();
@@ -1535,23 +1885,19 @@
     });
 
     const resetButton = editor.querySelector('.worksheet-reset');
-    const mailButton = editor.querySelector('.worksheet-mail');
     const downloadButton = editor.querySelector('.worksheet-download');
 
     resetButton?.addEventListener('click', () => {
       editor.querySelectorAll('input, textarea').forEach((input) => {
-        input.value = '';
+        setWorksheetFieldValue(input, '');
+      });
+      editor.querySelectorAll('.worksheet-custom-field').forEach((field) => field.remove());
+      editor.querySelectorAll('.worksheet-page').forEach((pageEl) => {
+        clearInkLayer(pageEl);
+        setDrawMode(pageEl, '');
       });
       refreshWorksheetTypography(editor);
-    });
-
-    mailButton?.addEventListener('click', async () => {
-      try {
-        await shareWorksheetByEmail(editor, mailButton);
-      } catch (error) {
-        console.error(error);
-        window.alert(error?.message || 'Mail sharing failed.');
-      }
+      refreshWorksheetInk(editor);
     });
 
     downloadButton?.addEventListener('click', async () => {
@@ -1577,7 +1923,10 @@
             other.open = false;
           }
         });
-        onNextFrame(() => refreshWorksheetTypography(sheet));
+        onNextFrame(() => {
+          refreshWorksheetTypography(sheet);
+          refreshWorksheetInk(sheet);
+        });
       });
     });
 
@@ -1592,12 +1941,63 @@
         if (!kind || event.button !== 0) {
           return;
         }
-        if (event.target.closest('.worksheet-input, .worksheet-custom-remove')) {
+        if (event.target.closest('.worksheet-input, .worksheet-custom-remove, .worksheet-choice-option')) {
           return;
         }
 
         event.preventDefault();
         const start = canvasPoint(canvas, event);
+
+        if (kind === 'check') {
+          getInkOperations(pageEl).push({ type: 'check', x: start.x, y: start.y });
+          redrawInkLayer(pageEl);
+          setDrawMode(pageEl, '');
+          return;
+        }
+
+        if (kind === 'draw') {
+          const draft = { type: 'path', points: [start] };
+          redrawInkLayer(pageEl, draft);
+          let finished = false;
+
+          const handleMove = (moveEvent) => {
+            draft.points.push(canvasPoint(canvas, moveEvent));
+            redrawInkLayer(pageEl, draft);
+          };
+
+          const finishDraw = () => {
+            if (finished) {
+              return;
+            }
+            finished = true;
+            window.removeEventListener('pointermove', handleMove);
+            if (draft.points.length > 1) {
+              getInkOperations(pageEl).push({
+                type: 'path',
+                points: draft.points.map((point) => ({ x: clamp(point.x), y: clamp(point.y) })),
+              });
+            }
+            redrawInkLayer(pageEl);
+          };
+
+          window.addEventListener('pointermove', handleMove);
+          window.addEventListener(
+            'pointerup',
+            () => {
+              finishDraw();
+            },
+            { once: true }
+          );
+          window.addEventListener(
+            'pointercancel',
+            () => {
+              finishDraw();
+            },
+            { once: true }
+          );
+          return;
+        }
+
         const draft = document.createElement('div');
         draft.className = 'worksheet-draw-preview';
         canvas.append(draft);
@@ -1649,7 +2049,10 @@
     });
   });
 
-  window.addEventListener('resize', () => refreshWorksheetTypography());
+  window.addEventListener('resize', () => {
+    refreshWorksheetTypography();
+    refreshWorksheetInk();
+  });
 
   if (searchInput && searchClear) {
     searchInput.addEventListener('input', () => runSearch(searchInput.value));
@@ -1660,11 +2063,6 @@
     });
   }
 })();
-
-
-
-
-
 
 
 

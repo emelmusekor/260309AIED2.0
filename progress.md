@@ -1,4 +1,12 @@
 # Progress
+- 2026-03-19: Reordered the top navigation to `AI교육 2.0`, `협력 가이드(초등)`, `협력 가이드(중등)` and made guide/workbook hero actions cross-link the matching elementary or secondary companion page.
+- 2026-03-19: Removed the worksheet mail-send UI and related copy from the interactive workbook editor, leaving reset/download only so the workbook flow stays focused on in-browser editing and PDF export.
+- 2026-03-19: Added page-level worksheet tools for memo boxes, freehand drawing, check marks, and mark clearing, and included the ink layer in PDF export so drawing-heavy workbook pages can be completed directly on the page.
+- 2026-03-19: Expanded elementary workbook overlay coverage again after another page audit, adding missing inputs for pages 43, 44, and 55 to cover debate tables, reflection ratings, and follow-up reflection grids.
+- 2026-03-11: Verified the previously failing GitHub Pages deploy rerun now completes successfully on `master`, so the earlier outage was no longer blocking after the branch protection/default-branch cleanup.
+- 2026-03-11: Added checkbox/rating choice controls to workbook overlays and styled them as compact inline selectors so 1-5 scales and tip check marks no longer require free-text entry.
+- 2026-03-11: Expanded workbook overlay coverage for key elementary/secondary pages after rechecking the original page art, including checkbox rows on secondary page 42 and split row boxes on secondary page 77.
+- 2026-03-11: Reduced overlay obstruction by lightening worksheet field chrome and hiding the choice field backing input, so the original workbook labels remain readable under the input UI.
 - 2026-03-11: Confirmed the GitHub Pages-friendly layout keeps the full static bundle inside docs/ rather than flattening HTML into the repository root, so existing relative asset paths keep working.
 - 2026-03-11: Renamed the publishable static site folder from aied-web to docs so GitHub Pages can deploy a conventional docs bundle without an extra nested site root.
 - 2026-03-11: Updated the Pages workflow to publish docs/ and trigger on master, main, and the current working branch used for this repo.

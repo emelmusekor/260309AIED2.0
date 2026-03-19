@@ -1,22 +1,24 @@
 # Handoff
 ## Fixes Completed
-- Renamed the publishable site folder from aied-web to docs so GitHub Pages can deploy the static archive from a conventional docs root.
-- Updated .github/workflows/static.yml to upload docs/ instead of aied-web/ and to trigger on master, main, and the current working branch.
-- Added docs/.nojekyll and stopped tracking Python __pycache__ output so deployment artifacts stay focused on the actual static site.
-- Workbook source-page previews now lazy-render only when opened, which removes a large block of hidden thumbnail DOM from every report card and directly targets the scroll-freeze issue on long subpages.
-- Workbook sections now behave like a one-page-at-a-time interactive reader with previous/next controls and page chips instead of dumping the whole workbook into one long scroll.
-- Workbook source-page access is removed from the header PDF shortcut and per-workbook cards, and the workbook cover no longer opens the original page.
-- Shared workbook inputs for class/name are removed by filtering student_class and student_name fields before pages render.
-- Secondary workbook page 7 now includes six added boxes covering the improved-prompt rows plus the two lower reflection areas.
+- Reordered the top menu to the requested three-guide structure and made guide/workbook hero actions cross-link the matching elementary or secondary companion page.
+- Removed the worksheet mail-send button and related copy, so workbook editing now stays focused on reset/download without teacher-email messaging.
+- Added memo-box, freehand draw, check-mark, and clear-mark tools to workbook pages and included those marks in exported PDFs.
+- Expanded elementary workbook overlays for pages 43, 44, and 55 after another visual audit so the debate worksheet, rating table, and follow-up reflection tables no longer miss core answer areas.
+- Confirmed the GitHub Pages workflow rerun on `master` now finishes successfully, so the earlier Pages failure is no longer active after the branch policy/default-branch cleanup.
+- Added compact choice-based workbook controls for 1-5 ratings and checkbox-style marks, so score tables and yes/no style checks stop forcing free-text input.
+- Expanded secondary workbook overlays again after another visual pass, including the checkbox row on PDF 42 and separate row-by-row inputs on PDF 77.
+- Lightened worksheet box borders/backgrounds and moved the choice UI into transparent shells so overlay boxes hide less of the original workbook prompts.
+- Kept the earlier one-page-at-a-time workbook reader and no-class/no-name filtering intact while layering the new input controls on top.
 ## Tests Run
-- git diff --check passes aside from Git's LF-to-CRLF warnings on docs/shared/viewer.css, docs/shared/viewer.js, and the updated text files.
-- Static inspection confirmed the site entry HTML files now live under docs/ and the Pages workflow artifact path also points at docs/.
-- Attempted python build_report_site.py previously, but python and py are unavailable in this environment.
+- `gh run list --workflow "Deploy static content to Pages" --limit 5` shows the `master` Pages workflow completed successfully after rerun.
+- `git diff --check` passes.
+- Repeated visual checks against original workbook page images for secondary pages 8, 10, 17, 22, 24, 42, 44, 77, 82, 108 and elementary pages 17, 19, 20, 21, 43, 44, 48, 55, 62.
+- Browser/build verification is still blocked here because `python`, `py`, Node, and browser automation tools are unavailable in this environment.
 ## Remaining Issues
-- GitHub repository Pages settings may still need to point at GitHub Actions or the docs folder, depending on how the repository is configured today.
-- Browser-based verification is still needed for the new workbook reader flow, page-switch behavior, long-scroll smoothness, and the exact fit of every workbook input overlay.
-- Additional workbook pages may still need manual overlay adjustments after visual review, especially in the elementary bundle and later secondary pages.
-- Search/filter interaction inside the new workbook reader still lacks automated regression coverage.
+- A real browser pass is still needed to confirm exact overlay placement, memo-box sizing, and tap comfort after the new memo/draw/check tooling changes.
+- Some later workbook pages may still need page-specific overlay tuning if visual review in-browser reveals any remaining missing boxes, oversized boxes, or drawing-heavy pages that need more presets.
+- Search/filter interaction inside the workbook reader still lacks automated regression coverage.
 ## Next Recommended Improvements
-1. Push this docs-based restructure and verify the live Pages URL resolves docs/index.html at the repository root.
-2. Open both workbook bundles in a browser and visually audit page-by-page overlay fit, starting with elementary early pages and later secondary activity pages.
+1. Open both workbook bundles in a browser and do a page-by-page overlay fit check, starting with the newly updated elementary pages 43, 44, and 55 plus the secondary rating/check pages.
+2. Add a few more page-specific overrides if any remaining workbook pages still miss answer areas or need better default note-box placement.
+3. Once a runtime is available, run the static build/test flow and then push the verified fixes on `master`.

@@ -1013,10 +1013,6 @@ button.graph-node:hover {
   line-height: 1.7;
 }
 
-.worksheet-hint {
-  font-size: 0.92rem;
-}
-
 .worksheet-toolbar-actions {
   display: flex;
   gap: 10px;
@@ -1035,11 +1031,6 @@ button.graph-node:hover {
 
 .worksheet-reset {
   background: rgba(var(--rgb, 197, 106, 77), 0.12);
-  color: rgb(var(--rgb, 197, 106, 77));
-}
-
-.worksheet-mail {
-  background: rgba(var(--rgb, 197, 106, 77), 0.16);
   color: rgb(var(--rgb, 197, 106, 77));
 }
 
@@ -1105,7 +1096,9 @@ button.graph-node:hover {
   flex-wrap: wrap;
 }
 
-.worksheet-field-add {
+.worksheet-field-add,
+.worksheet-tool-toggle,
+.worksheet-tool-clear {
   border: 1px solid rgba(var(--rgb, 197, 106, 77), 0.2);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.9);
@@ -1115,7 +1108,8 @@ button.graph-node:hover {
   cursor: pointer;
 }
 
-.worksheet-field-add.active {
+.worksheet-field-add.active,
+.worksheet-tool-toggle.active {
   background: rgba(var(--rgb, 197, 106, 77), 0.16);
   color: rgb(var(--rgb, 197, 106, 77));
   border-color: rgba(var(--rgb, 197, 106, 77), 0.32);
@@ -1159,12 +1153,24 @@ button.graph-node:hover {
   object-fit: cover;
 }
 
-.worksheet-canvas.is-drawing {
+.worksheet-canvas.is-drawing,
+.worksheet-canvas.is-inking,
+.worksheet-canvas.is-checking {
   cursor: crosshair;
 }
 
+.worksheet-ink-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
 .worksheet-draw-preview,
-.worksheet-custom-field {
+.worksheet-custom-field,
+.worksheet-choice-shell {
   position: absolute;
   left: var(--x);
   top: var(--y);
@@ -1180,11 +1186,13 @@ button.graph-node:hover {
   z-index: 4;
 }
 
-.worksheet-custom-field {
+.worksheet-custom-field,
+.worksheet-choice-shell {
   z-index: 3;
 }
 
-.worksheet-custom-field .worksheet-input {
+.worksheet-custom-field .worksheet-input,
+.worksheet-choice-shell .worksheet-input {
   position: absolute;
   inset: 0;
 }
@@ -1210,12 +1218,12 @@ button.graph-node:hover {
   top: var(--y);
   width: var(--w);
   height: var(--h);
-  border: 1px solid rgba(var(--rgb, 197, 106, 77), 0.34);
+  border: 1px solid rgba(var(--rgb, 197, 106, 77), 0.22);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.74);
   color: #1f1b17;
   padding: 6px 8px;
-  box-shadow: 0 8px 20px rgba(72, 54, 40, 0.08);
+  box-shadow: 0 4px 10px rgba(72, 54, 40, 0.06);
   resize: none;
   font-family: 'Noto Sans KR', sans-serif;
   overflow: hidden;
@@ -1228,6 +1236,82 @@ button.graph-node:hover {
 .worksheet-input.is-textarea {
   font-size: clamp(0.64rem, 0.92vw, 0.82rem);
   line-height: 1.35;
+}
+
+.worksheet-choice-shell .worksheet-input {
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.worksheet-choice {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 4px;
+}
+
+.worksheet-choice.is-single {
+  justify-content: flex-start;
+}
+
+.worksheet-choice-option {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  border: 1px solid rgba(var(--rgb, 197, 106, 77), 0.24);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  color: #5b4637;
+  padding: 0 4px;
+  font: 600 clamp(0.58rem, 0.88vw, 0.8rem)/1 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.worksheet-choice-option:hover {
+  border-color: rgba(var(--rgb, 197, 106, 77), 0.46);
+}
+
+.worksheet-choice-option.active {
+  border-color: rgba(var(--rgb, 197, 106, 77), 0.92);
+  background: rgba(var(--rgb, 197, 106, 77), 0.86);
+  box-shadow: 0 4px 10px rgba(72, 54, 40, 0.12);
+  color: #fff;
+}
+
+.worksheet-choice-option.is-single {
+  flex: 0 0 auto;
+  width: min(100%, 24px);
+  padding: 0;
+  color: transparent;
+  position: relative;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.worksheet-choice-option.is-single::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 2px solid rgba(var(--rgb, 197, 106, 77), 0.44);
+  border-radius: 4px;
+  background: transparent;
+}
+
+.worksheet-choice-option.is-single.active::after {
+  border-color: rgba(var(--rgb, 197, 106, 77), 0.88);
+  background: rgba(var(--rgb, 197, 106, 77), 0.88);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.88);
+}
+
+.worksheet-choice-option:focus-visible {
+  outline: 2px solid rgba(var(--rgb, 197, 106, 77), 0.38);
+  outline-offset: 1px;
 }
 
 .worksheet-input:focus,
@@ -1627,6 +1711,4 @@ mark.search-hit {
     width: 100%;
   }
 }
-
-
 
