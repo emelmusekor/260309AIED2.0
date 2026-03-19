@@ -330,6 +330,12 @@ img {
   overflow: hidden;
 }
 
+.page-shell.is-detail-report .hero-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .hero-panel::before {
   content: '';
   position: absolute;
@@ -360,6 +366,12 @@ img {
   line-height: 1.04;
 }
 
+.page-shell.is-detail-report .hero-title {
+  font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+  line-height: 1.08;
+  max-width: 12ch;
+}
+
 .hero-title span {
   display: block;
   color: var(--accent);
@@ -377,6 +389,11 @@ img {
   max-width: 56ch;
   color: var(--muted);
   line-height: 1.8;
+}
+
+.page-shell.is-detail-report .hero-description {
+  max-width: 42rem;
+  margin-top: 6px;
 }
 
 .hero-stats {
@@ -1359,6 +1376,10 @@ button.graph-node:hover {
   gap: 14px;
 }
 
+.info-grid + .credit-grid {
+  margin-top: 18px;
+}
+
 .credit-card {
   padding: 20px;
   border-radius: 18px;
@@ -1423,6 +1444,40 @@ button.graph-node:hover {
 
 .modal-title {
   font-weight: 800;
+}
+
+.page-modal-heading {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.page-modal-status {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.page-modal-nav {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.page-modal-step {
+  min-width: 48px;
+  height: 42px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(197, 106, 77, 0.12);
+  color: #7b3b29;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.page-modal-step:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .modal-close {
@@ -1644,6 +1699,10 @@ mark.search-hit {
     padding: 24px;
   }
 
+  .page-shell.is-detail-report .hero-title {
+    max-width: none;
+  }
+
   .card-head {
     flex-direction: column;
   }
@@ -1667,6 +1726,10 @@ mark.search-hit {
     font-size: 2.4rem;
   }
 
+  .page-shell.is-detail-report .hero-title {
+    font-size: 2rem;
+  }
+
   .thumb-grid {
     grid-template-columns: 1fr;
   }
@@ -1677,6 +1740,16 @@ mark.search-hit {
 
   .workbook-reader-button {
     width: 100%;
+  }
+
+  .page-modal .modal-top {
+    flex-wrap: wrap;
+  }
+
+  .page-modal-nav {
+    width: 100%;
+    justify-content: flex-start;
+    order: 3;
   }
   .hero-actions {
     flex-direction: column;

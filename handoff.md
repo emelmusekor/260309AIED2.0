@@ -31,3 +31,5 @@
 3. Once a runtime is available, run the static build/test flow and then push the verified fixes on `master`.
 - Redirected the old report-specific info entry points to the shared Korean info page so duplicate stale info screens no longer remain reachable from old deep links.
 - The new redirect-only legacy reports/*/info/ pages still need a live GitHub Pages/browser pass to confirm the shared info page opens immediately without cache artifacts.
+- Added contributor and author info back to the shared info pages, tightened the guide/workbook hero title scale, and moved a short user-facing introduction directly under those titles.
+- Added previous/next controls to the page modal and constrained them to the currently opened page set so a card covering PDF 11-12 can move only between those pages.

@@ -22,6 +22,9 @@
       previewLabel: '핵심 요약',
       pagesLabel: '페이지 보기',
       pageModalTitle: '페이지',
+      pagePrevLabel: '이전 쪽',
+      pageNextLabel: '다음 쪽',
+      pagePositionPattern: '{current} / {total}',
       keywordModalTitle: '키워드',
       closeLabel: '닫기',
       keywordExcerptLabel: '원문 근거',
@@ -70,6 +73,9 @@
       previewLabel: 'Core Summary',
       pagesLabel: 'Pages',
       pageModalTitle: 'Page',
+      pagePrevLabel: 'Previous page',
+      pageNextLabel: 'Next page',
+      pagePositionPattern: '{current} / {total}',
       keywordModalTitle: 'Keyword',
       closeLabel: 'Close',
       keywordExcerptLabel: 'Source Evidence',
@@ -157,6 +163,7 @@
         brandSubtitle: '미래 교육의 새로운 패러다임',
         heroTitle: '미래 교육의 새로운 패러다임',
         heroSubtitle: 'AI교육 2.0',
+        heroDescription: '',
       },
       en: {
         eyebrow: 'AI Education 2.0',
@@ -164,6 +171,7 @@
         brandSubtitle: 'A New Paradigm for Future Education',
         heroTitle: 'A New Paradigm for Future Education',
         heroSubtitle: 'AI Education 2.0',
+        heroDescription: '',
       },
     },
     'elementary-main': {
@@ -173,6 +181,7 @@
         brandSubtitle: '미래 교육의 새로운 패러다임',
         heroTitle: '미래 교육의 새로운 패러다임',
         heroSubtitle: '생성형 AI, 교실 속 협력 파트너(초등)',
+        heroDescription: '초등 수업에서 생성형 AI를 협력 파트너로 활용하는 흐름을 이론, 활동, 사례 중심으로 살펴볼 수 있습니다.',
       },
       en: {
         eyebrow: 'Guide (Elementary)',
@@ -180,6 +189,7 @@
         brandSubtitle: 'A New Paradigm for Future Education',
         heroTitle: 'A New Paradigm for Future Education',
         heroSubtitle: 'Generative AI, a Collaborative Partner in the Classroom (Elementary)',
+        heroDescription: 'Explore how generative AI can work as a classroom partner in elementary teaching through theory, activities, and lesson examples.',
       },
     },
     'elementary-workbook': {
@@ -189,6 +199,7 @@
         brandSubtitle: '미래 교육의 새로운 패러다임',
         heroTitle: '미래 교육의 새로운 패러다임',
         heroSubtitle: '생성형 AI, 교실 속 협력 파트너(초등 워크북)',
+        heroDescription: '초등 활동지를 한 페이지씩 넘기며 바로 입력하고, 메모와 그리기, 체크 표시까지 함께 정리할 수 있습니다.',
       },
       en: {
         eyebrow: 'Workbook (Elementary)',
@@ -196,6 +207,7 @@
         brandSubtitle: 'A New Paradigm for Future Education',
         heroTitle: 'A New Paradigm for Future Education',
         heroSubtitle: 'Generative AI, a Collaborative Partner in the Classroom (Elementary Workbook)',
+        heroDescription: 'Move through the elementary workbook one page at a time and complete notes, drawing, and check marks directly in place.',
       },
     },
     'secondary-main': {
@@ -205,6 +217,7 @@
         brandSubtitle: '미래 교육의 새로운 패러다임',
         heroTitle: '미래 교육의 새로운 패러다임',
         heroSubtitle: '생성형 AI, 교실 속 협력 파트너(중등)',
+        heroDescription: '중등 수업에서 생성형 AI를 협력 파트너로 활용하는 흐름을 이론, 활동, 사례 중심으로 살펴볼 수 있습니다.',
       },
       en: {
         eyebrow: 'Guide (Secondary)',
@@ -212,6 +225,7 @@
         brandSubtitle: 'A New Paradigm for Future Education',
         heroTitle: 'A New Paradigm for Future Education',
         heroSubtitle: 'Generative AI, a Collaborative Partner in the Classroom (Secondary)',
+        heroDescription: 'Explore how generative AI can work as a classroom partner in secondary teaching through theory, activities, and lesson examples.',
       },
     },
     'secondary-workbook': {
@@ -221,6 +235,7 @@
         brandSubtitle: '미래 교육의 새로운 패러다임',
         heroTitle: '미래 교육의 새로운 패러다임',
         heroSubtitle: '생성형 AI, 교실 속 협력 파트너(중등 워크북)',
+        heroDescription: '중등 활동지를 한 페이지씩 넘기며 바로 입력하고, 메모와 그리기, 체크 표시까지 함께 정리할 수 있습니다.',
       },
       en: {
         eyebrow: 'Workbook (Secondary)',
@@ -228,6 +243,7 @@
         brandSubtitle: 'A New Paradigm for Future Education',
         heroTitle: 'A New Paradigm for Future Education',
         heroSubtitle: 'Generative AI, a Collaborative Partner in the Classroom (Secondary Workbook)',
+        heroDescription: 'Move through the secondary workbook one page at a time and complete notes, drawing, and check marks directly in place.',
       },
     },
   };
@@ -254,6 +270,16 @@
     return text;
   };
   const cleanLeadList = (list = []) => list.map((entry) => sanitizeLead(entry)).filter(Boolean);
+  const serializePageSet = (pages = []) =>
+    encodeURIComponent(
+      JSON.stringify(
+        (pages || []).map((page) => ({
+          src: page.src || '',
+          title: page.title || page.label || '',
+          label: page.label || '',
+        }))
+      )
+    );
   const findReportSwitch = (patterns = []) =>
     (data.reportSwitches || []).find((item) => patterns.some((pattern) => pattern.test(String(item?.label || ''))));
   const aiArchiveSwitch = findReportSwitch([/AI교육\s*2\.0/i, /AI Ed/i, /AI Education/i]);
@@ -292,7 +318,7 @@
     title: reportTitlePreset.heroTitle,
     subtitle: reportTitlePreset.heroSubtitle,
     strapline: '',
-    description: '',
+    description: reportTitlePreset.heroDescription || '',
   };
   data.infoLink = {
     href: globalInfoHref,
@@ -342,8 +368,8 @@
   const renderThumbs = (pages = []) =>
     pages
       .map(
-        (page) => `
-          <button class="thumb-button page-trigger" type="button" data-src="${esc(page.src)}" data-title="${esc(page.title || page.label)}">
+        (page, index, list) => `
+          <button class="thumb-button page-trigger" type="button" data-src="${esc(page.src)}" data-title="${esc(page.title || page.label)}" data-page-set="${esc(serializePageSet(list))}" data-page-index="${index}">
             <img src="${esc(page.src)}" alt="${esc(page.title || page.label)}" loading="lazy" />
             <span>${esc(page.label)}</span>
           </button>
@@ -1070,7 +1096,7 @@
     .join('');
 
   mount.innerHTML = `
-    <div class="page-shell${isWorkbookReport ? ' is-workbook-report' : ''}">
+    <div class="page-shell${isWorkbookReport ? ' is-workbook-report' : ''}${reportKind !== 'root' ? ' is-detail-report' : ''}${isGuideReport ? ' is-guide-report' : ''}">
       <header class="site-header">
         <div class="header-top">
           <a class="brand" href="#top">
@@ -1121,7 +1147,7 @@
             <div class="cover-top"><span>${esc(data.hero.coverLabel)}</span><span>${esc(data.hero.coverPageLabel)}</span></div>
             ${isWorkbookReport
               ? `<div class="cover-button cover-static"><img src="${esc(data.hero.cover.src)}" alt="${esc(data.hero.cover.title)}" /></div>`
-              : `<button class="cover-button page-trigger" type="button" data-src="${esc(data.hero.cover.src)}" data-title="${esc(data.hero.cover.title)}"><img src="${esc(data.hero.cover.src)}" alt="${esc(data.hero.cover.title)}" /></button>`}
+              : `<button class="cover-button page-trigger" type="button" data-src="${esc(data.hero.cover.src)}" data-title="${esc(data.hero.cover.title)}" data-page-set="${esc(serializePageSet([data.hero.cover]))}" data-page-index="0"><img src="${esc(data.hero.cover.src)}" alt="${esc(data.hero.cover.title)}" /></button>`}
           </aside>
         </section>
 
@@ -1134,7 +1160,14 @@
     <div class="modal page-modal" role="dialog" aria-modal="true" aria-labelledby="page-modal-title" aria-hidden="true">
       <div class="modal-panel">
         <div class="modal-top">
-          <strong class="modal-title" id="page-modal-title">${esc(data.ui.pageModalTitle)}</strong>
+          <div class="page-modal-heading">
+            <strong class="modal-title" id="page-modal-title">${esc(data.ui.pageModalTitle)}</strong>
+            <span class="page-modal-status" hidden></span>
+          </div>
+          <div class="page-modal-nav" hidden>
+            <button class="page-modal-step" type="button" data-page-step="-1" aria-label="${esc(data.ui.pagePrevLabel)}">&larr;</button>
+            <button class="page-modal-step" type="button" data-page-step="1" aria-label="${esc(data.ui.pageNextLabel)}">&rarr;</button>
+          </div>
           <button class="modal-close" type="button" aria-label="${esc(data.ui.closeLabel)}">X</button>
         </div>
         <div class="modal-body"><img src="" alt="" /></div>
@@ -1154,8 +1187,14 @@
 
   const pageModal = document.querySelector('.page-modal');
   const pageModalImg = pageModal.querySelector('img');
+  const pageModalTitle = pageModal.querySelector('.modal-title');
+  const pageModalStatus = pageModal.querySelector('.page-modal-status');
+  const pageModalNav = pageModal.querySelector('.page-modal-nav');
+  const pageModalSteps = Array.from(pageModal.querySelectorAll('.page-modal-step'));
   const keywordModal = document.querySelector('.keyword-modal');
   const keywordBody = keywordModal.querySelector('.modal-body');
+  let pageModalPages = [];
+  let pageModalIndex = 0;
   const keywordMap = (data.keywordIndex || data.keywords || []).reduce((map, item) => {
     if (item && item.id) {
       map[item.id] = item;
@@ -1190,6 +1229,12 @@
     modal.setAttribute('aria-hidden', 'true');
     if (modal === pageModal) {
       pageModalImg.removeAttribute('src');
+      pageModalImg.removeAttribute('alt');
+      pageModalPages = [];
+      pageModalIndex = 0;
+      pageModalNav.hidden = true;
+      pageModalStatus.hidden = true;
+      pageModalStatus.textContent = '';
     }
     syncModalState();
     if (!wasOpen) {
@@ -1224,6 +1269,26 @@
   });
 
   document.addEventListener('keydown', (event) => {
+    if (pageModal.classList.contains('open') && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+      const delta = event.key === 'ArrowLeft' ? -1 : 1;
+      const nextIndex = pageModalIndex + delta;
+      if (nextIndex >= 0 && nextIndex < pageModalPages.length) {
+        pageModalIndex = nextIndex;
+        const activePage = pageModalPages[pageModalIndex];
+        pageModalImg.src = activePage.src;
+        pageModalImg.alt = activePage.title || data.ui.pageModalTitle;
+        pageModalTitle.textContent = activePage.title || data.ui.pageModalTitle;
+        pageModalStatus.textContent = data.ui.pagePositionPattern.replace('{current}', String(pageModalIndex + 1)).replace('{total}', String(pageModalPages.length));
+        pageModalStatus.hidden = pageModalPages.length <= 1;
+        pageModalNav.hidden = pageModalPages.length <= 1;
+        pageModalSteps.forEach((button) => {
+          const step = Number(button.dataset.pageStep || 0);
+          const targetIndex = pageModalIndex + step;
+          button.disabled = targetIndex < 0 || targetIndex >= pageModalPages.length;
+        });
+      }
+      return;
+    }
     if (event.key !== 'Escape') {
       return;
     }
@@ -1238,10 +1303,50 @@
     closeMenu();
   });
 
+  const syncPageModal = () => {
+    const activePage = pageModalPages[pageModalIndex] || {};
+    pageModalImg.src = activePage.src || '';
+    pageModalImg.alt = activePage.title || data.ui.pageModalTitle;
+    pageModalTitle.textContent = activePage.title || data.ui.pageModalTitle;
+    pageModalStatus.textContent = data.ui.pagePositionPattern.replace('{current}', String(pageModalIndex + 1)).replace('{total}', String(pageModalPages.length || 1));
+    pageModalStatus.hidden = pageModalPages.length <= 1;
+    pageModalNav.hidden = pageModalPages.length <= 1;
+    pageModalSteps.forEach((button) => {
+      const step = Number(button.dataset.pageStep || 0);
+      const targetIndex = pageModalIndex + step;
+      button.disabled = targetIndex < 0 || targetIndex >= pageModalPages.length;
+    });
+  };
+
+  pageModalSteps.forEach((button) => {
+    button.addEventListener('click', () => {
+      const step = Number(button.dataset.pageStep || 0);
+      const nextIndex = pageModalIndex + step;
+      if (nextIndex < 0 || nextIndex >= pageModalPages.length) {
+        return;
+      }
+      pageModalIndex = nextIndex;
+      syncPageModal();
+    });
+  });
+
   const openPageModal = (button) => {
-    pageModalImg.src = button.dataset.src;
-    pageModalImg.alt = button.dataset.title || data.ui.pageModalTitle;
-    pageModal.querySelector('.modal-title').textContent = button.dataset.title || data.ui.pageModalTitle;
+    try {
+      pageModalPages = JSON.parse(decodeURIComponent(button.dataset.pageSet || '')) || [];
+    } catch (error) {
+      pageModalPages = [];
+    }
+    if (!pageModalPages.length) {
+      pageModalPages = [
+        {
+          src: button.dataset.src || '',
+          title: button.dataset.title || data.ui.pageModalTitle,
+          label: '',
+        },
+      ];
+    }
+    pageModalIndex = clamp(Number(button.dataset.pageIndex || 0), 0, Math.max(pageModalPages.length - 1, 0));
+    syncPageModal();
     openModal(pageModal, button);
   };
 
@@ -1271,7 +1376,12 @@
         </div>
         ${(keyword.occurrences || []).length ? `<div class="keyword-occurrences"><h4>${esc(data.ui.keywordUsedLabel)}</h4>${(keyword.occurrences || []).map((occurrence) => `<article><span>${esc(occurrence.page)}</span><p>${esc(occurrence.text)}</p></article>`).join('')}</div>` : ''}
         <div class="keyword-pages">
-          ${(keyword.pages || []).map((page) => `<button class="page-trigger keyword-page" type="button" data-src="${esc(page.src)}" data-title="${esc(page.title || page.label)}">${esc(page.label)}</button>`).join('')}
+          ${(keyword.pages || [])
+            .map(
+              (page, index, list) =>
+                `<button class="page-trigger keyword-page" type="button" data-src="${esc(page.src)}" data-title="${esc(page.title || page.label)}" data-page-set="${esc(serializePageSet(list))}" data-page-index="${index}">${esc(page.label)}</button>`
+            )
+            .join('')}
         </div>
       `;
       keywordModal.querySelector('.modal-title').textContent = keyword.term;

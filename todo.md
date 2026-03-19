@@ -6,3 +6,4 @@
 - Check whether any additional workbook pages still need page-specific overlay tuning beyond the latest elementary 43/44/55 and the previously tuned secondary pages.
 - Add regression coverage for search/filter interaction when workbook sections hide nonmatching pages inside the reader.
 - Confirm the legacy per-report info URLs now redirect cleanly to /ko/info/ after GitHub Pages deployment.
+- Confirm the new page-modal previous/next controls feel right in a live browser and stay limited to each card's own page range on GitHub Pages.

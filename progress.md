@@ -31,3 +31,5 @@
 - 2026-03-10: Reduced runtime fragility by adding requestAnimationFrame and IntersectionObserver fallbacks and by replacing Object.fromEntries and URLSearchParams usage in the viewer path.
 - 2026-03-10: Verification is limited to static checks because this environment currently has no working python, py, Node, Playwright, or browser harness.
 - 2026-03-19: Replaced the old per-report info entry pages with redirects to the single shared Korean info page so stale deep links no longer open duplicate info screens.
+- 2026-03-19: Added bounded previous/next navigation inside the page modal so source-page browsing stays within the currently opened page set instead of leaking into unrelated pages.
+- 2026-03-19: Added contributor/author blocks back into the shared English and Korean info pages, reduced guide/workbook hero title size, and moved a short user-facing introduction under those titles.
