@@ -1097,6 +1097,7 @@ button.graph-node:hover {
 }
 
 .worksheet-field-add,
+.worksheet-layout-toggle,
 .worksheet-tool-toggle,
 .worksheet-tool-clear {
   border: 1px solid rgba(var(--rgb, 197, 106, 77), 0.2);
@@ -1109,6 +1110,7 @@ button.graph-node:hover {
 }
 
 .worksheet-field-add.active,
+.worksheet-layout-toggle.active,
 .worksheet-tool-toggle.active {
   background: rgba(var(--rgb, 197, 106, 77), 0.16);
   color: rgb(var(--rgb, 197, 106, 77));
@@ -1197,12 +1199,19 @@ button.graph-node:hover {
   inset: 0;
 }
 
+.worksheet-page.is-layout-edit .worksheet-custom-field .worksheet-input {
+  pointer-events: none;
+}
+
+.worksheet-page.is-layout-edit .worksheet-custom-field {
+  outline: 2px dashed rgba(var(--rgb, 197, 106, 77), 0.48);
+  outline-offset: 2px;
+}
+
+.worksheet-custom-move,
 .worksheet-custom-remove {
   position: absolute;
   top: 6px;
-  right: 6px;
-  width: 24px;
-  height: 24px;
   border: none;
   border-radius: 999px;
   background: rgba(29, 26, 23, 0.84);
@@ -1210,6 +1219,28 @@ button.graph-node:hover {
   font-weight: 800;
   cursor: pointer;
   z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease;
+}
+
+.worksheet-custom-move {
+  left: 6px;
+  padding: 0 10px;
+  height: 24px;
+  font-size: 0.72rem;
+}
+
+.worksheet-custom-remove {
+  right: 6px;
+  width: 24px;
+  height: 24px;
+}
+
+.worksheet-page.is-layout-edit .worksheet-custom-move,
+.worksheet-page.is-layout-edit .worksheet-custom-remove {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .worksheet-input {

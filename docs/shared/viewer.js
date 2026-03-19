@@ -55,6 +55,7 @@
       worksheetMailFallbackLabel: '',
       worksheetAddTextLabel: '',
       worksheetAddNoteLabel: '메모 칸 추가',
+      worksheetArrangeLabel: '메모칸 조정',
       worksheetDrawHint: '메모 칸은 드래그해서 만들고, 그리기·체크는 페이지 위에 바로 표시할 수 있습니다.',
       worksheetRemoveFieldLabel: '직접 만든 입력칸 삭제',
       worksheetActivityFactLabel: '활동',
@@ -102,6 +103,7 @@
       worksheetMailFallbackLabel: '',
       worksheetAddTextLabel: '',
       worksheetAddNoteLabel: 'Add note box',
+      worksheetArrangeLabel: 'Arrange note boxes',
       worksheetDrawHint: 'Drag to place note boxes, or draw and drop check marks directly on the page.',
       worksheetRemoveFieldLabel: 'Remove custom input box',
       worksheetActivityFactLabel: 'Activity',
@@ -120,6 +122,21 @@
     if (!merged.worksheetOpenLabel || legacyOpenLabels.has(merged.worksheetOpenLabel)) {
       merged.worksheetOpenLabel = defaults.worksheetOpenLabel;
     }
+    if (['페이지 원본 보기', 'Source Pages'].includes(merged.pagesLabel)) {
+      merged.pagesLabel = defaults.pagesLabel;
+    }
+    if (['페이지 원본', 'Source Page'].includes(merged.pageModalTitle)) {
+      merged.pageModalTitle = defaults.pageModalTitle;
+    }
+    if (['원본 범위', 'Source pages'].includes(merged.pagesFactLabel)) {
+      merged.pagesFactLabel = defaults.pagesFactLabel;
+    }
+    if (['입력칸 {count}개', '{count} fields'].includes(merged.worksheetFieldsPattern)) {
+      merged.worksheetFieldsPattern = defaults.worksheetFieldsPattern;
+    }
+    if (merged.worksheetMailHint) {
+      merged.worksheetMailHint = '';
+    }
     return merged;
   };
 
@@ -127,11 +144,123 @@
 
   const reportGroup = /elementary/i.test(workbookReportKey) ? 'elementary' : /secondary/i.test(workbookReportKey) ? 'secondary' : '';
   const isGuideReport = /-main$/i.test(workbookReportKey);
+  const reportKind = workbookReportKey || 'root';
+  const reportLabels = {
+    elementary: lang === 'ko' ? '초등' : 'Elementary',
+    secondary: lang === 'ko' ? '중등' : 'Secondary',
+  };
+  const TITLE_PRESETS = {
+    root: {
+      ko: {
+        eyebrow: 'AI교육 2.0',
+        brandTitle: 'AI교육 2.0',
+        brandSubtitle: '미래 교육의 새로운 패러다임',
+        heroTitle: '미래 교육의 새로운 패러다임',
+        heroSubtitle: 'AI교육 2.0',
+      },
+      en: {
+        eyebrow: 'AI Education 2.0',
+        brandTitle: 'AI Education 2.0',
+        brandSubtitle: 'A New Paradigm for Future Education',
+        heroTitle: 'A New Paradigm for Future Education',
+        heroSubtitle: 'AI Education 2.0',
+      },
+    },
+    'elementary-main': {
+      ko: {
+        eyebrow: '협력 가이드(초등)',
+        brandTitle: '생성형 AI, 교실 속 협력 파트너(초등)',
+        brandSubtitle: '미래 교육의 새로운 패러다임',
+        heroTitle: '미래 교육의 새로운 패러다임',
+        heroSubtitle: '생성형 AI, 교실 속 협력 파트너(초등)',
+      },
+      en: {
+        eyebrow: 'Guide (Elementary)',
+        brandTitle: 'Generative AI, a Collaborative Partner in the Classroom (Elementary)',
+        brandSubtitle: 'A New Paradigm for Future Education',
+        heroTitle: 'A New Paradigm for Future Education',
+        heroSubtitle: 'Generative AI, a Collaborative Partner in the Classroom (Elementary)',
+      },
+    },
+    'elementary-workbook': {
+      ko: {
+        eyebrow: '협력 워크북(초등)',
+        brandTitle: '생성형 AI, 교실 속 협력 파트너(초등 워크북)',
+        brandSubtitle: '미래 교육의 새로운 패러다임',
+        heroTitle: '미래 교육의 새로운 패러다임',
+        heroSubtitle: '생성형 AI, 교실 속 협력 파트너(초등 워크북)',
+      },
+      en: {
+        eyebrow: 'Workbook (Elementary)',
+        brandTitle: 'Generative AI, a Collaborative Partner in the Classroom (Elementary Workbook)',
+        brandSubtitle: 'A New Paradigm for Future Education',
+        heroTitle: 'A New Paradigm for Future Education',
+        heroSubtitle: 'Generative AI, a Collaborative Partner in the Classroom (Elementary Workbook)',
+      },
+    },
+    'secondary-main': {
+      ko: {
+        eyebrow: '협력 가이드(중등)',
+        brandTitle: '생성형 AI, 교실 속 협력 파트너(중등)',
+        brandSubtitle: '미래 교육의 새로운 패러다임',
+        heroTitle: '미래 교육의 새로운 패러다임',
+        heroSubtitle: '생성형 AI, 교실 속 협력 파트너(중등)',
+      },
+      en: {
+        eyebrow: 'Guide (Secondary)',
+        brandTitle: 'Generative AI, a Collaborative Partner in the Classroom (Secondary)',
+        brandSubtitle: 'A New Paradigm for Future Education',
+        heroTitle: 'A New Paradigm for Future Education',
+        heroSubtitle: 'Generative AI, a Collaborative Partner in the Classroom (Secondary)',
+      },
+    },
+    'secondary-workbook': {
+      ko: {
+        eyebrow: '협력 워크북(중등)',
+        brandTitle: '생성형 AI, 교실 속 협력 파트너(중등 워크북)',
+        brandSubtitle: '미래 교육의 새로운 패러다임',
+        heroTitle: '미래 교육의 새로운 패러다임',
+        heroSubtitle: '생성형 AI, 교실 속 협력 파트너(중등 워크북)',
+      },
+      en: {
+        eyebrow: 'Workbook (Secondary)',
+        brandTitle: 'Generative AI, a Collaborative Partner in the Classroom (Secondary Workbook)',
+        brandSubtitle: 'A New Paradigm for Future Education',
+        heroTitle: 'A New Paradigm for Future Education',
+        heroSubtitle: 'Generative AI, a Collaborative Partner in the Classroom (Secondary Workbook)',
+      },
+    },
+  };
+  const sanitizeLead = (value = '') => {
+    const text = String(value || '').trim();
+    if (!text) {
+      return '';
+    }
+    const generatedPatterns = [
+      /압축해 설명합니다/,
+      /^focuses on\b/i,
+      /to explain the main claim/i,
+      /섹션별로 다시 잘라/,
+      /다시 묶었/,
+      /reconstructs the translated report/i,
+      /원문 페이지를 그대로 붙여/i,
+      /whole report can be reviewed/i,
+      /개발자/i,
+      /프롬프트 흔적/i,
+    ];
+    if (generatedPatterns.some((pattern) => pattern.test(text))) {
+      return '';
+    }
+    return text;
+  };
+  const cleanLeadList = (list = []) => list.map((entry) => sanitizeLead(entry)).filter(Boolean);
   const findReportSwitch = (patterns = []) =>
     (data.reportSwitches || []).find((item) => patterns.some((pattern) => pattern.test(String(item?.label || ''))));
   const aiArchiveSwitch = findReportSwitch([/AI교육\s*2\.0/i, /AI Ed/i, /AI Education/i]);
   const elementaryGuideSwitch = findReportSwitch([/초등편 본문/i, /Elem Guide/i, /협력 가이드\(초등\)/i]);
   const secondaryGuideSwitch = findReportSwitch([/중등편 본문/i, /Sec Guide/i, /협력 가이드\(중등\)/i]);
+  const archiveHref = aiArchiveSwitch?.href || 'index.html';
+  const globalInfoHref = /index\.html$/i.test(archiveHref) ? archiveHref.replace(/index\.html$/i, 'info/index.html') : data.infoLink?.href || 'info/index.html';
   const reportSwitchItems = [
     {
       label: lang === 'ko' ? 'AI교육 2.0' : 'AI Education 2.0',
@@ -151,21 +280,42 @@
   ];
   const workbookShortcutHref = reportGroup ? `../${reportGroup}-workbook/index.html` : '';
   const guideShortcutHref = reportGroup ? `../${reportGroup}-main/index.html` : '';
+  const reportTitlePreset = TITLE_PRESETS[reportKind]?.[lang] || TITLE_PRESETS.root[lang];
+  data.brand = {
+    ...(data.brand || {}),
+    title: reportTitlePreset.brandTitle,
+    subtitle: reportTitlePreset.brandSubtitle,
+  };
+  data.hero = {
+    ...(data.hero || {}),
+    eyebrow: reportTitlePreset.eyebrow,
+    title: reportTitlePreset.heroTitle,
+    subtitle: reportTitlePreset.heroSubtitle,
+    strapline: '',
+    description: '',
+  };
+  data.infoLink = {
+    href: globalInfoHref,
+    label: data.ui.infoLabel,
+  };
+  data.footer = '';
   const heroActions = (() => {
-    const actions = [...(data.hero?.actions || [])];
-    const items = [];
-    if (actions[0]) {
-      items.push(actions[0]);
-    }
-    if (actions[1]) {
-      items.push(actions[1]);
-    }
+    const firstTarget = (data.nav || [])[0]?.target;
+    const items = firstTarget ? [{ href: `#${firstTarget}`, label: data.ui.browseLabel }] : [];
     if (isGuideReport && workbookShortcutHref) {
-      items.push({ href: workbookShortcutHref, label: lang === 'ko' ? '워크북 바로 가기' : 'Open workbook' });
-    } else if (!isGuideReport && guideShortcutHref) {
-      items.push({ href: guideShortcutHref, label: lang === 'ko' ? (reportGroup === 'elementary' ? '협력 가이드(초등)' : '협력 가이드(중등)') : 'Open guide' });
+      items.push({
+        href: workbookShortcutHref,
+        label: lang === 'ko' ? `협력 워크북(${reportLabels[reportGroup]})` : `Workbook (${reportLabels[reportGroup]})`,
+      });
+    } else if (reportGroup && guideShortcutHref) {
+      items.push({
+        href: guideShortcutHref,
+        label: lang === 'ko' ? `협력 가이드(${reportLabels[reportGroup]})` : `Guide (${reportLabels[reportGroup]})`,
+      });
+    } else if (globalInfoHref) {
+      items.push({ href: globalInfoHref, label: data.ui.infoLabel });
     }
-    return items;
+    return items.slice(0, 2);
   })();
 
   const esc = (value = '') =>
@@ -549,8 +699,10 @@
         if (!isWorkbookReport) {
           return {
             ...section,
+            description: '',
             items: (section.items || []).map((item) => ({
               ...item,
+              lead: cleanLeadList(item.lead || []),
               tags: enrichTags(item, section),
             })),
           };
@@ -566,6 +718,7 @@
         return worksheetPages.map((page) => ({
           ...item,
           title: item.title,
+          lead: cleanLeadList(item.lead || []),
           pageLabel: page.label || `PDF ${page.pageNumber}`,
           range: page.label || `PDF ${page.pageNumber}`,
           isWorkbookItem: true,
@@ -583,9 +736,9 @@
       });
       return {
         ...section,
+        description: '',
         isWorkbookSection: true,
         meta: [
-          lang === 'ko' ? `${items.length}개 페이지` : `${items.length} pages`,
           ...(section.meta || []).slice(1, 2),
         ].filter(Boolean),
         items,
@@ -731,9 +884,10 @@
                     <article class="worksheet-page" data-page-number="${esc(page.pageNumber)}" data-page-width="${esc(page.width)}" data-page-height="${esc(page.height)}" data-page-src="${esc(page.src)}" data-page-label="${esc(page.label || `PDF ${page.pageNumber}`)}">
                       <div class="worksheet-page-tools">
                         <div class="worksheet-page-actions">
-                          <button class="worksheet-field-add" type="button" data-field-kind="textarea">${esc(ui.worksheetAddNoteLabel)}</button>
-                          <button class="worksheet-tool-toggle" type="button" data-tool-kind="draw">${esc(ui.worksheetDrawLabel)}</button>
-                          <button class="worksheet-tool-toggle" type="button" data-tool-kind="check">${esc(ui.worksheetCheckLabel)}</button>
+                          <button class="worksheet-field-add" type="button" data-field-kind="textarea" aria-pressed="false">${esc(ui.worksheetAddNoteLabel)}</button>
+                          <button class="worksheet-layout-toggle" type="button" aria-pressed="false">${esc(ui.worksheetArrangeLabel)}</button>
+                          <button class="worksheet-tool-toggle" type="button" data-tool-kind="draw" aria-pressed="false">${esc(ui.worksheetDrawLabel)}</button>
+                          <button class="worksheet-tool-toggle" type="button" data-tool-kind="check" aria-pressed="false">${esc(ui.worksheetCheckLabel)}</button>
                           <button class="worksheet-tool-clear" type="button">${esc(ui.worksheetClearInkLabel)}</button>
                         </div>
                         <p class="worksheet-page-hint">${esc(ui.worksheetDrawHint)}</p>
@@ -784,6 +938,8 @@
 
   const renderItem = (item, ui, rgb, options = {}) => {
     const visibleFacts = (item.facts || []).filter((fact) => fact.label !== data.ui.pagesFactLabel && fact.label !== data.ui.worksheetInputFactLabel);
+    const leadItems = (item.lead || []).filter(Boolean);
+    const tagItems = item.tags || [];
     return `
     <article class="content-card search-card${item.isWorkbookItem ? ' is-workbook-card' : ''}" style="--rgb:${rgb}" data-search="${esc(itemSearchBlob(item))}">
       <div class="card-head">
@@ -794,13 +950,15 @@
         <div class="range-pill">${esc(item.range)}</div>
       </div>
       <div class="card-body">
-        <div class="lead-panel">
-          <h4>${esc(ui.previewLabel)}</h4>
-          <ul class="summary-list">
-            ${(item.lead || []).map((para) => `<li class="search-text">${esc(para)}</li>`).join('')}
-          </ul>
-          ${(item.tags || []).length ? `<div class="card-tags">${renderTagButtons(item.tags)}</div>` : ''}
-        </div>
+        ${
+          leadItems.length || tagItems.length
+            ? `<div class="lead-panel">
+                ${leadItems.length ? `<h4>${esc(ui.previewLabel)}</h4>` : ''}
+                ${leadItems.length ? `<ul class="summary-list">${leadItems.map((para) => `<li class="search-text">${esc(para)}</li>`).join('')}</ul>` : ''}
+                ${tagItems.length ? `<div class="card-tags">${renderTagButtons(tagItems)}</div>` : ''}
+              </div>`
+            : ''
+        }
         <div class="fact-panel">
           ${visibleFacts.map((fact) => `<article><span>${esc(fact.label)}</span><strong>${esc(fact.value)}</strong></article>`).join('')}
         </div>
@@ -815,15 +973,14 @@
     const items = section.items || [];
     const activeItem = items[0] || {};
     const rgb = section.rgb || data.themeRgb;
+    const sectionMeta = (section.meta || []).filter(Boolean);
     return `
       <section class="section-block section search-section is-workbook-section" id="${esc(section.id)}" style="--rgb:${rgb}" data-search="${esc(sectionSearchBlob(section))}">
         <div class="section-intro">
           <p class="kicker search-text">${esc(section.navLabel || section.title)}</p>
           <h2 class="search-text">${esc(section.title)}</h2>
           ${section.description ? `<p class="section-desc search-text">${esc(section.description)}</p>` : ''}
-          <div class="section-meta">
-            ${(section.meta || []).map((item) => `<span class="search-text">${esc(item)}</span>`).join('')}
-          </div>
+          ${sectionMeta.length ? `<div class="section-meta">${sectionMeta.map((item) => `<span class="search-text">${esc(item)}</span>`).join('')}</div>` : ''}
         </div>
         <div class="workbook-reader" data-workbook-reader>
           <div class="workbook-reader-bar">
@@ -865,9 +1022,7 @@
         <p class="kicker search-text">${esc(section.navLabel || section.title)}</p>
         <h2 class="search-text">${esc(section.title)}</h2>
         ${section.description ? `<p class="section-desc search-text">${esc(section.description)}</p>` : ''}
-        <div class="section-meta">
-          ${(section.meta || []).map((item) => `<span class="search-text">${esc(item)}</span>`).join('')}
-        </div>
+        ${(section.meta || []).filter(Boolean).length ? `<div class="section-meta">${(section.meta || []).filter(Boolean).map((item) => `<span class="search-text">${esc(item)}</span>`).join('')}</div>` : ''}
       </div>
       <div class="card-grid">
         ${(section.items || []).map((item) => renderItem(item, ui, section.rgb || data.themeRgb)).join('')}
@@ -952,8 +1107,8 @@
           <div class="hero-panel">
             <div class="eyebrow">${esc(data.hero.eyebrow)}</div>
             <h1 class="hero-title">${esc(data.hero.title)}<span>${esc(data.hero.subtitle)}</span></h1>
-            <p class="hero-subtitle">${esc(data.hero.strapline)}</p>
-            <p class="hero-description">${esc(data.hero.description)}</p>
+            ${data.hero.strapline ? `<p class="hero-subtitle">${esc(data.hero.strapline)}</p>` : ''}
+            ${data.hero.description ? `<p class="hero-description">${esc(data.hero.description)}</p>` : ''}
             ${(data.hero.stats || []).length ? `<div class="hero-stats">${(data.hero.stats || []).map((stat) => `<article><span>${esc(stat.label)}</span><strong>${esc(stat.value)}</strong></article>`).join('')}</div>` : ''}
             ${keywordButtons ? `<div class="keyword-bar">${keywordButtons}</div>` : ''}
             <div class="hero-actions">
@@ -1766,6 +1921,29 @@
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
   };
+  const setLayoutEditMode = (pageEl, active = false) => {
+    pageEl.classList.toggle('is-layout-edit', active);
+    pageEl.querySelectorAll('.worksheet-layout-toggle').forEach((button) => {
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    if (active) {
+      setDrawMode(pageEl, '');
+    }
+  };
+  const updateCustomFieldRect = (shell, rect) => {
+    shell.style.setProperty('--x', `${rect.x * 100}%`);
+    shell.style.setProperty('--y', `${rect.y * 100}%`);
+    shell.style.setProperty('--w', `${rect.w * 100}%`);
+    shell.style.setProperty('--h', `${rect.h * 100}%`);
+    const input = shell.querySelector('.worksheet-input');
+    if (input) {
+      input.dataset.x = String(rect.x);
+      input.dataset.y = String(rect.y);
+      input.dataset.w = String(rect.w);
+      input.dataset.h = String(rect.h);
+    }
+  };
 
   const appendCustomField = (pageEl, field) => {
     const canvas = pageEl.querySelector('.worksheet-canvas');
@@ -1788,12 +1966,17 @@
     shell.style.setProperty('--y', `${(field.y || 0) * 100}%`);
     shell.style.setProperty('--w', `${(field.w || 0) * 100}%`);
     shell.style.setProperty('--h', `${(field.h || 0) * 100}%`);
+    shell.dataset.customField = 'true';
     const removeButton = document.createElement('button');
     removeButton.type = 'button';
     removeButton.className = 'worksheet-custom-remove';
     removeButton.setAttribute('aria-label', data.ui.worksheetRemoveFieldLabel);
     removeButton.textContent = '×';
-    shell.append(removeButton, input);
+    const moveHandle = document.createElement('button');
+    moveHandle.type = 'button';
+    moveHandle.className = 'worksheet-custom-move';
+    moveHandle.textContent = lang === 'ko' ? '이동' : 'Move';
+    shell.append(moveHandle, removeButton, input);
     canvas.append(shell);
     onNextFrame(() => {
       applyWorksheetTypography(input);
@@ -1868,8 +2051,19 @@
         if (!pageEl) {
           return;
         }
+        setLayoutEditMode(pageEl, false);
         const nextKind = pageEl.dataset.drawKind === addButton.dataset.fieldKind ? '' : addButton.dataset.fieldKind || '';
         setDrawMode(pageEl, nextKind);
+        return;
+      }
+
+      const layoutButton = event.target.closest('.worksheet-layout-toggle');
+      if (layoutButton) {
+        const pageEl = layoutButton.closest('.worksheet-page');
+        if (!pageEl) {
+          return;
+        }
+        setLayoutEditMode(pageEl, !pageEl.classList.contains('is-layout-edit'));
         return;
       }
 
@@ -1879,6 +2073,7 @@
         if (!pageEl) {
           return;
         }
+        setLayoutEditMode(pageEl, false);
         const nextKind = pageEl.dataset.drawKind === toolButton.dataset.toolKind ? '' : toolButton.dataset.toolKind || '';
         setDrawMode(pageEl, nextKind);
         return;
@@ -1897,8 +2092,57 @@
 
       const removeButton = event.target.closest('.worksheet-custom-remove');
       if (removeButton) {
-        removeButton.closest('.worksheet-custom-field')?.remove();
+        const shell = removeButton.closest('.worksheet-custom-field');
+        if (!shell) {
+          return;
+        }
+        const confirmed = window.confirm(lang === 'ko' ? '이 메모칸을 삭제할까요?' : 'Delete this note box?');
+        if (confirmed) {
+          shell.remove();
+        }
       }
+    });
+
+    editor.addEventListener('pointerdown', (event) => {
+      const moveHandle = event.target.closest('.worksheet-custom-move');
+      if (!moveHandle) {
+        return;
+      }
+      const shell = moveHandle.closest('.worksheet-custom-field');
+      const pageEl = moveHandle.closest('.worksheet-page');
+      const canvas = pageEl?.querySelector('.worksheet-canvas');
+      if (!shell || !pageEl || !canvas || !pageEl.classList.contains('is-layout-edit')) {
+        return;
+      }
+
+      event.preventDefault();
+      const start = canvasPoint(canvas, event);
+      const startRect = {
+        x: Number(shell.querySelector('.worksheet-input')?.dataset.x || 0),
+        y: Number(shell.querySelector('.worksheet-input')?.dataset.y || 0),
+        w: Number(shell.querySelector('.worksheet-input')?.dataset.w || 0),
+        h: Number(shell.querySelector('.worksheet-input')?.dataset.h || 0),
+      };
+
+      const handleMove = (moveEvent) => {
+        const point = canvasPoint(canvas, moveEvent);
+        updateCustomFieldRect(shell, {
+          x: clamp(startRect.x + (point.x - start.x), 0, 1 - startRect.w),
+          y: clamp(startRect.y + (point.y - start.y), 0, 1 - startRect.h),
+          w: startRect.w,
+          h: startRect.h,
+        });
+      };
+
+      const stopMove = () => {
+        window.removeEventListener('pointermove', handleMove);
+        window.removeEventListener('pointerup', stopMove);
+        window.removeEventListener('pointercancel', stopMove);
+      };
+
+      window.addEventListener('pointermove', handleMove);
+      window.addEventListener('pointerup', stopMove, { once: true });
+      window.addEventListener('pointercancel', stopMove, { once: true });
     });
 
     const resetButton = editor.querySelector('.worksheet-reset');
@@ -1912,6 +2156,7 @@
       editor.querySelectorAll('.worksheet-page').forEach((pageEl) => {
         clearInkLayer(pageEl);
         setDrawMode(pageEl, '');
+        setLayoutEditMode(pageEl, false);
       });
       refreshWorksheetTypography(editor);
       refreshWorksheetInk(editor);

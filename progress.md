@@ -1,4 +1,9 @@
 # Progress
+- 2026-03-19: Removed archive/dev-facing hero copy from the English and Korean AI Education 2.0 entry pages at render time, so the live site now opens with user-facing titles only instead of reconstruction explanations.
+- 2026-03-19: Normalized guide/workbook titles around the requested “미래 교육의 새로운 패러다임 / 생성형 AI, 교실 속 협력 파트너(...)” structure and mirrored the same cleanup in English title treatment.
+- 2026-03-19: Rebuilt the shared info pages as one English info page plus one Korean info page, each with a stable top menu and three publication-info sections for AI교육 2.0, 협력 가이드(초등), 협력 가이드(중등).
+- 2026-03-19: Simplified guide/workbook hero actions so guide pages no longer show “본문 바로 보기” style buttons and instead link cleanly between section browsing and the paired guide/workbook page.
+- 2026-03-19: Added a guarded note-box arrangement mode for workbook pages, so user-created memo boxes can now be moved or deleted only after explicitly entering layout-edit mode.
 - 2026-03-19: Fixed the top-menu routing bug by rebuilding the three-item header menu from each page's existing `reportSwitches`, so root pages and report pages now reuse the correct relative paths instead of a single hard-coded path set.
 - 2026-03-19: Reordered the top navigation to `AI교육 2.0`, `협력 가이드(초등)`, `협력 가이드(중등)` and made guide/workbook hero actions cross-link the matching elementary or secondary companion page.
 - 2026-03-19: Removed the worksheet mail-send UI and related copy from the interactive workbook editor, leaving reset/download only so the workbook flow stays focused on in-browser editing and PDF export.
@@ -25,3 +30,4 @@
 - 2026-03-10: Added visible focus rings for links, buttons, summaries, and non-canvas inputs so keyboard navigation stays trackable outside the worksheet overlays.
 - 2026-03-10: Reduced runtime fragility by adding requestAnimationFrame and IntersectionObserver fallbacks and by replacing Object.fromEntries and URLSearchParams usage in the viewer path.
 - 2026-03-10: Verification is limited to static checks because this environment currently has no working python, py, Node, Playwright, or browser harness.
+- 2026-03-19: Replaced the old per-report info entry pages with redirects to the single shared Korean info page so stale deep links no longer open duplicate info screens.
